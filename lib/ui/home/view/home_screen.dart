@@ -1,14 +1,14 @@
 import 'package:badges/badges.dart';
-import 'package:eshop/ui/common/common.dart';
+import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/home/controller/home_controller.dart';
-import 'package:eshop/ui/shop/shop_screen.dart';
+import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends GetView<HomeController> {
   final List _widgetOptions = [
-    ShopScreen("Index 0 : Shop"),
-    ShopScreen("Index 1 : Categories"),
-    ShopScreen("Index 2 : Profile"),
+    ShopScreen("Shop Page"),
+    ShopScreen("Categories Page"),
+    ShopScreen("Profile Page"),
   ];
 
   @override

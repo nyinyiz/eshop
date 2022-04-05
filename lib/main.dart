@@ -1,5 +1,5 @@
 import 'package:eshop/route/app_pages.dart';
-import 'package:eshop/ui/common/common.dart';
+import 'package:eshop/common/common.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 

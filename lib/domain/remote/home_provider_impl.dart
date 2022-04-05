@@ -1,12 +1,11 @@
 import 'dart:convert';
 
+import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/product.dart';
 import 'package:eshop/domain/remote/home_provider.dart';
-import 'package:eshop/ui/common/common.dart';
 import 'package:get/get.dart';
 
 class HomeProviderImpl extends GetConnect implements HomeProvider {
-
   @override
   void onInit() {
     /** implement onInit
@@ -42,5 +41,4 @@ class HomeProviderImpl extends GetConnect implements HomeProvider {
     // TODO: implement getRandomProductList
     throw UnimplementedError();
   }
-  
 }

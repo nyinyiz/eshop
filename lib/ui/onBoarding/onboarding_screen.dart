@@ -1,4 +1,4 @@
-import 'package:eshop/ui/common/common.dart';
+import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/home/view/home_screen.dart';
 import 'package:flutter_onboarding_screen/OnbordingData.dart';
 import 'package:flutter_onboarding_screen/flutteronboardingscreens.dart';

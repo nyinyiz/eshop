@@ -32,4 +32,13 @@ extension CustomTextStyle on BuildContext {
   TextStyle toPop10RegularFont(Color color) => TextStyle(
       fontSize: fontSize(3.0), fontFamily: _Poppins_Regular, color: color);
 
+  TextStyle toPop10SemiBoldFont(Color color) => TextStyle(
+      fontSize: fontSize(3.0), fontFamily: _Poppins_Bold, color: color);
+
+  TextStyle toPopBoldFont(Color color) => TextStyle(
+      fontSize: fontSize(5.0), fontFamily: _Poppins_Bold, color: color,
+      fontWeight: FontWeight.bold);
+
+  TextStyle toPop18SemiBoldFont(Color color) => TextStyle(
+      fontSize: fontSize(4.5), fontFamily: _Poppins_Bold, color: color);
 }
