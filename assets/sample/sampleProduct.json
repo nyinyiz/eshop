@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1001,
+    "title": "Item One",
+    "description": "This is item description.",
+    "images": [
+      "https://picsum.photos/200/300?random=1",
+      "https://picsum.photos/200/300?random=1",
+      "https://picsum.photos/200/300?random=1",
+      "https://picsum.photos/200/300?random=1"
+    ],
+    "brand": {
+      "name": "Oneplus",
+      "shippingFrom": "Bangkok",
+      "address": "Bangkok"
+    },
+    "category": 1,
+    "price": "3500",
+    "discountPercent": 20,
+    "favourite": false,
+    "available": 30
+  },
+  {
+    "id": 1002,
+    "title": "Item Two",
+    "description": "This is item description.",
+    "images": [
+      "https://picsum.photos/200/300?random=1",
+      "https://picsum.photos/200/300?random=1",
+      "https://picsum.photos/200/300?random=1",
+      "https://picsum.photos/200/300?random=1"
+    ],
+    "brand": {
+      "name": "Oneplus",
+      "shippingFrom": "Bangkok",
+      "address": "Bangkok"
+    },
+    "category": 1,
+    "price": "3500",
+    "discountPercent": 20,
+    "favourite": false,
+    "available": 30
+  }
+]

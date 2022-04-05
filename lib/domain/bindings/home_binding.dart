@@ -1,0 +1,17 @@
+import 'package:eshop/domain/remote/home_provider.dart';
+import 'package:eshop/domain/remote/home_provider_impl.dart';
+import 'package:eshop/domain/repository/home_repository.dart';
+import 'package:eshop/domain/repository/home_repository_impl.dart';
+import 'package:eshop/ui/home/controller/home_controller.dart';
+import 'package:get/get.dart';
+
+class HomeBinding extends Bindings {
+
+  @override
+  void dependencies() {
+    Get.lazyPut<HomeProvider>(() => HomeProviderImpl());
+    Get.lazyPut<HomeRepository>(() => HomeRepositoryImpl(provider: Get.find()));
+    Get.lazyPut(() => HomeController(homeRepository: Get.find()));
+  }
+
+}
