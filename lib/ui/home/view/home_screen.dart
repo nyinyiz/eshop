@@ -1,13 +1,15 @@
 import 'package:badges/badges.dart';
 import 'package:eshop/common/common.dart';
+import 'package:eshop/ui/categories/view/categories_screen.dart';
 import 'package:eshop/ui/home/controller/home_controller.dart';
 import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends GetView<HomeController> {
+
   final List _widgetOptions = [
     ShopScreen("Shop Page"),
-    ShopScreen("Categories Page"),
+    CategoriesScreen(),
     ShopScreen("Profile Page"),
   ];
 
@@ -16,11 +18,10 @@ class HomeScreen extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
         title: controller.obx((state) {
           return Text(
             "E-Shop ( ${controller.state.length} )",
-            style: TextStyle(color: Colors.black),
+            style: context.toPopBoldFont(Palette.colorBlack),
           );
         }),
         actions: [
@@ -46,7 +47,8 @@ class HomeScreen extends GetView<HomeController> {
                   color: Colors.black,
                 ),
                 onPressed: () {}),
-          )
+          ),
+          SizedBox(width: 8,)
         ],
       ),
       body: Obx(

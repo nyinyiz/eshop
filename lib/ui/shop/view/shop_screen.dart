@@ -1,9 +1,17 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/shop/controller/ShopController.dart';
+import 'package:flutter_shine/flutter_shine.dart';
 import 'package:get/get.dart';
+import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
-final List<String> imgList = [
+List<String> imgList = [
+  'https://loremflickr.com/320/240/paris,fashion/all',
+  'https://loremflickr.com/320/240/paris,dress/all',
+  'https://loremflickr.com/320/240/jacket/all',
+  'https://loremflickr.com/320/240/swimwear/all',
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
   'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
   'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
@@ -13,6 +21,7 @@ final List<String> imgList = [
 ];
 
 List<String> categories = [
+  "All",
   "Phone",
   "Laptop",
   "Computer",
@@ -29,52 +38,210 @@ class ShopScreen extends GetView<ShopController> {
 
   ShopScreen(this.title);
 
+  Duration _duration = Duration(seconds: 100000);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Obx(
-      () => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _carouselView(ctx: context),
-        _pageIndicator(ctx: context),
-        SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-          child: Text(
-            "Categories",
-            style: context.toPop18SemiBoldFont(Palette.colorBlack),
-          ),
-        ),
-        SizedBox(height: 8),
-        _categoriesView(),
-      ]),
-    ));
+    return Scaffold(
+      body: Container(
+          child: Obx(
+            () => ListView(
+              padding: EdgeInsets.symmetric(vertical: 16),
+                children: [
+
+              /** Carousel Image slider view*/
+              _carouselView(ctx: context),
+
+              /** Carousel Image pager navigator view*/
+              _pageIndicator(ctx: context),
+
+              /** Categories List view with title */
+              SizedBox(height: 16),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                child: Text(
+                  "Categories",
+                  style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                ),
+              ),
+              SizedBox(height: 8),
+              _buildCategories(),
+
+              /** Popular product List view with title */
+              SizedBox(height: 16),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Popular Product",
+                      style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                    ),
+                    TextButton(
+                      child: Text(
+                        "See all",
+                        style: context.toPop14RegularFont(Palette.colorBlue),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 8),
+              _popularProductList(),
+
+              /** Flash sale UI view with list and card */
+              SizedBox(height: 16),
+              _flashSaleCard(ctx: context),
+              SizedBox(height: 16),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Flash sale",
+                      style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                    ),
+                    TextButton(
+                      child: Text(
+                        "See all",
+                        style: context.toPop14RegularFont(Palette.colorBlue),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              _popularProductList(ctx: context),
+
+              /** Event sale card view*/
+              SizedBox(height: 16),
+              saleEventView(ctx: context, imgURL: "https://loremflickr.com/320/240/nike"),
+              saleEventView(ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
+              saleEventView(ctx: context, imgURL: "https://loremflickr.com/320/240/paris"),
+
+              /** Best seller product List view with title */
+              SizedBox(height: 16),
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Best sellers",
+                      style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                    ),
+                    TextButton(
+                      child: Text(
+                        "See all",
+                        style: context.toPop14RegularFont(Palette.colorBlue),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 8),
+              _popularProductList(),
+              SizedBox(height: 100),
+            ]),
+          )),
+    );
   }
 
-  Widget _categoriesView({BuildContext ctx}) => SizedBox(
+  Widget _flashSaleCard({BuildContext ctx}) => Card(
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        semanticContainer: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        elevation: 16,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.network(
+              "https://loremflickr.com/320/240?random=${Random().nextInt(10)}",
+              fit: BoxFit.cover,
+              height: 200,
+              width: MediaQuery.of(ctx).size.width,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: FlutterShine(
+                light: Light(intensity: 1),
+                builder: (BuildContext context, ShineShadow shineShadow) {
+                  return Column(
+                    children: [
+                      Text(
+                        "Super Flash Sale 50% OFF",
+                        style: ctx
+                            .toPop32RegularFont(Palette.colorWhite),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: SlideCountdownClock(
+                          duration: _duration,
+                          slideDirection: SlideDirection.Up,
+                          separator: "-",
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          separatorTextStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Palette.colorBlue, shape: BoxShape.circle),
+                          onDone: () {
+                            Get.snackbar("Hi", "Clock 1 finish");
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+
+ /* Widget _saleEventViewList({BuildContext ctx}) => SizedBox(
+    height: 300,
+    child: ListView.builder(
+        itemCount: imgList.length,
+        scrollDirection: Axis.vertical,
+        itemBuilder: saleEventView),
+  );*/
+
+  Widget _popularProductList({BuildContext ctx}) => SizedBox(
+        height: 170,
+        child: ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            scrollDirection: Axis.horizontal,
+            itemCount: imgList.length,
+            itemBuilder: popularProductView),
+      );
+
+  Widget _buildCategories({BuildContext ctx}) => SizedBox(
         height: 35,
         child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
-            itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Palette.colorLightGrey,
-                        ),
-                        color: (index == 1
-                            ? Palette.colorDeepOrangeAccent
-                            : Palette.colorWhite),
-                        borderRadius: BorderRadius.all(Radius.circular(14))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                          child: Text(
-                        categories[index],
-                      )),
-                    ),
-                  ),
-                )),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          scrollDirection: Axis.horizontal,
+          itemCount: categories.length,
+          itemBuilder: categoriesView,
+        ),
       );
 
   Widget _carouselView({BuildContext ctx}) => CarouselSlider(
@@ -116,7 +283,11 @@ class ShopScreen extends GetView<ShopController> {
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 child: Stack(
                   children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                    Image.network(
+                      item,
+                      fit: BoxFit.cover,
+                      width: 1000.0,
+                    ),
                     Positioned(
                       bottom: 0.0,
                       left: 0.0,

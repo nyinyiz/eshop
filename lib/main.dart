@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
         textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
-        appBarTheme: Theme.of(context).appBarTheme.copyWith(color: Colors.black),
+        appBarTheme: Theme.of(context).appBarTheme.copyWith(color: Colors.white),
         primarySwatch: Colors.blue,
       ),
       initialRoute: AppPages.INITIAL,
