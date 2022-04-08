@@ -254,7 +254,7 @@ class ShopScreen extends GetView<ShopController> {
         options: CarouselOptions(
             autoPlay: true,
             enlargeCenterPage: true,
-            aspectRatio: 3.0,
+            aspectRatio: 2.0,
             onPageChanged: (index, reason) {
               controller.changeTabIndex(index);
             }),
