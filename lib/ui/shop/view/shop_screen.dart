@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eshop/common/common.dart';
-import 'package:eshop/ui/shop/controller/ShopController.dart';
+import 'package:eshop/ui/shop/controller/shop_controller.dart';
 import 'package:flutter_shine/flutter_shine.dart';
 import 'package:get/get.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
@@ -45,113 +45,118 @@ class ShopScreen extends GetView<ShopController> {
     return Scaffold(
       body: Container(
           child: Obx(
-            () => ListView(
-              padding: EdgeInsets.symmetric(vertical: 16),
+        () => SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Column(children: [
+            /** Carousel Image slider view*/
+            _carouselView(ctx: context),
+
+            /** Carousel Image pager navigator view*/
+            _pageIndicator(ctx: context),
+
+            /** Categories List view with title */
+            SizedBox(height: 16),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+              child: Text(
+                "Categories",
+                style: context.toPop18SemiBoldFont(Palette.colorBlack),
+              ),
+            ),
+            SizedBox(height: 8),
+            _buildCategories(),
+
+            /** Popular product List view with title */
+            SizedBox(height: 16),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-              /** Carousel Image slider view*/
-              _carouselView(ctx: context),
-
-              /** Carousel Image pager navigator view*/
-              _pageIndicator(ctx: context),
-
-              /** Categories List view with title */
-              SizedBox(height: 16),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-                child: Text(
-                  "Categories",
-                  style: context.toPop18SemiBoldFont(Palette.colorBlack),
-                ),
+                  Text(
+                    "Popular Product",
+                    style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                  ),
+                  TextButton(
+                    child: Text(
+                      "See all",
+                      style: context.toPop14RegularFont(Palette.colorBlue),
+                    ),
+                    onPressed: () {
+                      controller.goToProductList(index: 0, type: 0);
+                    },
+                  ),
+                ],
               ),
-              SizedBox(height: 8),
-              _buildCategories(),
+            ),
+            SizedBox(height: 8),
+            _popularProductList(),
 
-              /** Popular product List view with title */
-              SizedBox(height: 16),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Popular Product",
-                      style: context.toPop18SemiBoldFont(Palette.colorBlack),
+            /** Flash sale UI view with list and card */
+            SizedBox(height: 16),
+            _flashSaleCard(ctx: context),
+            SizedBox(height: 16),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Flash sale",
+                    style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                  ),
+                  TextButton(
+                    child: Text(
+                      "See all",
+                      style: context.toPop14RegularFont(Palette.colorBlue),
                     ),
-                    TextButton(
-                      child: Text(
-                        "See all",
-                        style: context.toPop14RegularFont(Palette.colorBlue),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+                    onPressed: () {},
+                  ),
+                ],
               ),
-              SizedBox(height: 8),
-              _popularProductList(),
+            ),
+            _popularProductList(ctx: context),
 
-              /** Flash sale UI view with list and card */
-              SizedBox(height: 16),
-              _flashSaleCard(ctx: context),
-              SizedBox(height: 16),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Flash sale",
-                      style: context.toPop18SemiBoldFont(Palette.colorBlack),
+            /** Event sale card view*/
+            SizedBox(height: 16),
+            saleEventView(
+                ctx: context, imgURL: "https://loremflickr.com/320/240/nike"),
+            saleEventView(
+                ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
+            saleEventView(
+                ctx: context, imgURL: "https://loremflickr.com/320/240/paris"),
+
+            /** Best seller product List view with title */
+            SizedBox(height: 16),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Best sellers",
+                    style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                  ),
+                  TextButton(
+                    child: Text(
+                      "See all",
+                      style: context.toPop14RegularFont(Palette.colorBlue),
                     ),
-                    TextButton(
-                      child: Text(
-                        "See all",
-                        style: context.toPop14RegularFont(Palette.colorBlue),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+                    onPressed: () {},
+                  ),
+                ],
               ),
-              _popularProductList(ctx: context),
-
-              /** Event sale card view*/
-              SizedBox(height: 16),
-              saleEventView(ctx: context, imgURL: "https://loremflickr.com/320/240/nike"),
-              saleEventView(ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
-              saleEventView(ctx: context, imgURL: "https://loremflickr.com/320/240/paris"),
-
-              /** Best seller product List view with title */
-              SizedBox(height: 16),
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Best sellers",
-                      style: context.toPop18SemiBoldFont(Palette.colorBlack),
-                    ),
-                    TextButton(
-                      child: Text(
-                        "See all",
-                        style: context.toPop14RegularFont(Palette.colorBlue),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 8),
-              _popularProductList(),
-              SizedBox(height: 100),
-            ]),
-          )),
+            ),
+            SizedBox(height: 8),
+            _popularProductList(),
+            SizedBox(height: 100),
+          ]),
+        ),
+      )),
     );
   }
 
@@ -181,8 +186,7 @@ class ShopScreen extends GetView<ShopController> {
                     children: [
                       Text(
                         "Super Flash Sale 50% OFF",
-                        style: ctx
-                            .toPop32RegularFont(Palette.colorWhite),
+                        style: ctx.toPop32RegularFont(Palette.colorWhite),
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -217,7 +221,7 @@ class ShopScreen extends GetView<ShopController> {
         ),
       );
 
- /* Widget _saleEventViewList({BuildContext ctx}) => SizedBox(
+  /* Widget _saleEventViewList({BuildContext ctx}) => SizedBox(
     height: 300,
     child: ListView.builder(
         itemCount: imgList.length,
@@ -250,7 +254,7 @@ class ShopScreen extends GetView<ShopController> {
         options: CarouselOptions(
             autoPlay: true,
             enlargeCenterPage: true,
-            aspectRatio: 2.0,
+            aspectRatio: 3.0,
             onPageChanged: (index, reason) {
               controller.changeTabIndex(index);
             }),

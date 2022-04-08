@@ -21,4 +21,9 @@ class ShopController extends StateController<List<Product>> {
     super.onInit();
     futurize(() => homeRepository.getAllProductList);
   }
+
+  void goToProductList({int index, int type}) {
+    Get.toNamed('/home/shop/productlist?title=$index');
+  }
+
 }

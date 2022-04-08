@@ -5,6 +5,7 @@ abstract class Routes {
   static const SHOP = "/shop";
   static const CATEGORY = "/category";
   static const PRODUCTLIST = "/productlist";
+  static const PRODUCTDETAIL = "/productdetail";
 
   static const NOTIFICATION = "/notification";
   static const PROFILE = "/profile";

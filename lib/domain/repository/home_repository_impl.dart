@@ -8,6 +8,16 @@ class HomeRepositoryImpl implements HomeRepository {
   final HomeProvider provider;
 
   @override
+  Future<Product> getProductDetail(int productId) async {
+    final productList = await provider.getAllProductList();
+    if (productList.isEmpty) {
+      return Future.error("Response : Empty product Detail");
+    } else {
+      return productId != null ? productList[productId] : productList.first;
+    }
+  }
+
+  @override
   Future<List<Product>> getAllProductList() async {
     final productList = await provider.getAllProductList();
     if (productList.isEmpty) {

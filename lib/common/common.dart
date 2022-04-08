@@ -50,6 +50,7 @@ Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
                 onPressed: () {},
                 child: Icon(Icons.navigate_next, color: Palette.colorBlack),
                 style: ElevatedButton.styleFrom(
+                  elevation: 0,
                   shape: CircleBorder(),
                   padding: EdgeInsets.all(8),
                   primary: Colors.white70,

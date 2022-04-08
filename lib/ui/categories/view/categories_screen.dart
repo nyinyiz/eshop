@@ -7,23 +7,38 @@ class CategoriesScreen extends GetView<CategoriesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Obx(() => Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller?.state?.length ?? 0,
-                itemBuilder: _categoryView,
+        child: Obx(() => Column(children: [
+              /*Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: TextField(
+                  decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      prefixIcon: Icon(Icons.search_outlined),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      hintText: 'Enter a search term',
+                      labelStyle: context.toPop12RegularFont(Palette.colorGrey),
+                      hintStyle: context.toPop12RegularFont(Palette.colorGrey)),
+                ),
+              ),*/
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: 32, top: 16),
+                  shrinkWrap: true,
+                  itemCount: controller?.state?.length ?? 0,
+                  itemBuilder: _categoryView,
+                ),
               ),
-            ),
-          ]
-        )),
+            ])),
       ),
     );
   }
 
   Widget _categoryView(BuildContext ctx, int index) => Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: GestureDetector(
+          onTap: () => {controller.goToProductList(index: index, type: 0)},
           child: Card(
             color: Palette.colorPurple,
             semanticContainer: true,
@@ -59,10 +74,11 @@ class CategoriesScreen extends GetView<CategoriesController> {
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.toNamed('/home/category/productlist?title=$index');
+                      controller.goToProductList(index: index, type: 0);
                     },
                     child: Icon(Icons.navigate_next, color: Palette.colorBlack),
                     style: ElevatedButton.styleFrom(
+                      elevation: 0,
                       shape: CircleBorder(),
                       padding: EdgeInsets.all(8),
                       primary: Colors.white70,
@@ -73,5 +89,6 @@ class CategoriesScreen extends GetView<CategoriesController> {
               ],
             ),
           ),
-        );
+        ),
+      );
 }

@@ -2,9 +2,8 @@ import 'package:eshop/domain/models/product.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 
-class CategoriesController extends StateController<List<Product>> {
-
-  CategoriesController({this.homeRepository});
+class ProductDetailController extends StateController<List<Product>> {
+  ProductDetailController({this.homeRepository});
 
   final HomeRepository homeRepository;
 
@@ -14,7 +13,9 @@ class CategoriesController extends StateController<List<Product>> {
     futurize(() => homeRepository.getAllProductList);
   }
 
-  void goToProductList({int index, int type}) {
-    Get.toNamed('/home/category/productlist?title=$index');
+  Product getProductDetail(String id) {
+    final index = int.tryParse(id);
+    return index != null ? state[index] : state.first;
   }
+
 }

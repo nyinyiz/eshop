@@ -3,7 +3,9 @@ import 'package:eshop/domain/remote/home_provider_impl.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:eshop/domain/repository/home_repository_impl.dart';
 import 'package:eshop/ui/home/controller/home_controller.dart';
-import 'package:eshop/ui/shop/controller/ShopController.dart';
+import 'package:eshop/ui/productDetail/controller/product_detail_controller.dart';
+import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
+import 'package:eshop/ui/shop/controller/shop_controller.dart';
 import 'package:get/get.dart';
 
 import '../../ui/categories/controller/categories_controller.dart';
@@ -17,6 +19,8 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => HomeController(homeRepository: Get.find()));
     Get.lazyPut(() => ShopController(homeRepository: Get.find()));
     Get.lazyPut(() => CategoriesController(homeRepository: Get.find()));
+    Get.lazyPut(() => ProductListController(homeRepository: Get.find()));
+    Get.lazyPut(() => ProductDetailController(homeRepository: Get.find()));
   }
 
 }

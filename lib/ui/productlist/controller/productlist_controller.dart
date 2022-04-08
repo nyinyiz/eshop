@@ -8,8 +8,12 @@ class ProductListController extends StateController<List<Product>> {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     futurize(() => homeRepository.getAllProductList);
   }
+
+  void goToProductDetail({int index}) {
+    Get.toNamed('/home/category/productlist/productdetail?id=$index');
+  }
+
 }
