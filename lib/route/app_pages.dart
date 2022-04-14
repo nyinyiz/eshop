@@ -21,17 +21,16 @@ class AppPages {
           binding: HomeBinding(),
           children: [
             GetPage(
-              name: Routes.PRODUCTLIST,
-              page: () => ProductListScreen(),
-              binding: HomeBinding(),
+                name: Routes.PRODUCTLIST,
+                page: () => ProductListScreen(),
+                binding: HomeBinding(),
                 children: [
                   GetPage(
                     name: Routes.PRODUCTDETAIL,
                     page: () => ProductDetailScreen(),
                     binding: HomeBinding(),
                   )
-                ]
-            )
+                ])
           ]),
       GetPage(
           name: Routes.CATEGORY,

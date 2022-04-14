@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 import '../../ui/categories/controller/categories_controller.dart';
 
 class HomeBinding extends Bindings {
-
   @override
   void dependencies() {
     Get.lazyPut<HomeProvider>(() => HomeProviderImpl());
@@ -22,5 +21,4 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => ProductListController(homeRepository: Get.find()));
     Get.lazyPut(() => ProductDetailController(homeRepository: Get.find()));
   }
-
 }

@@ -47,7 +47,8 @@ class ShopScreen extends GetView<ShopController> {
           child: Obx(
         () => SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 16),
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             /** Carousel Image slider view*/
             _carouselView(ctx: context),
 

@@ -22,7 +22,4 @@ class HomeController extends StateController<List<Product>> {
     super.onInit();
     futurize(() => homeRepository.getAllProductList);
   }
-
-
-
 }

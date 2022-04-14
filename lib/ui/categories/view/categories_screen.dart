@@ -1,6 +1,7 @@
 import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/categories/controller/categories_controller.dart';
 import 'package:get/get.dart';
+import 'package:eshop/route/app_pages.dart';
 
 class CategoriesScreen extends GetView<CategoriesController> {
   @override

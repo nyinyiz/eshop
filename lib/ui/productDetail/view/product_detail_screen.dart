@@ -264,9 +264,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
             scrollDirection: Axis.horizontal,
             itemCount: imgList.length,
             itemBuilder: (BuildContext context, int index) => GestureDetector(
-              onTap: () => {
-                controller.goToProductDetail(index: index)
-              },
+                  onTap: () => {controller.goToProductDetail(index: index)},
                   child: popularProductView(context, index),
                 )),
       );

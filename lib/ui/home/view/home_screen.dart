@@ -6,7 +6,6 @@ import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends GetView<HomeController> {
-
   final List _widgetOptions = [
     ShopScreen("Shop Page"),
     CategoriesScreen(),
@@ -20,7 +19,7 @@ class HomeScreen extends GetView<HomeController> {
         elevation: 0,
         title: controller.obx((state) {
           return Text(
-            "E-Shop ( ${controller.state.length} )",
+            "E-Shop",
             style: context.toPopBoldFont(Palette.colorBlack),
           );
         }),
@@ -48,7 +47,9 @@ class HomeScreen extends GetView<HomeController> {
                 ),
                 onPressed: () {}),
           ),
-          SizedBox(width: 8,)
+          SizedBox(
+            width: 8,
+          )
         ],
       ),
       body: Obx(

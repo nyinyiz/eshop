@@ -1,9 +1,10 @@
 import 'package:eshop/domain/models/product.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
+import 'package:eshop/route/app_pages.dart';
+import 'package:eshop/ui/productlist/view/productlist_screen.dart';
 import 'package:get/get.dart';
 
 class CategoriesController extends StateController<List<Product>> {
-
   CategoriesController({this.homeRepository});
 
   final HomeRepository homeRepository;
@@ -15,6 +16,6 @@ class CategoriesController extends StateController<List<Product>> {
   }
 
   void goToProductList({int index, int type}) {
-    Get.toNamed('/home/category/productlist?title=$index');
+    Get.toNamed('/home/category/productlist?type=$type&categoryId=$index');
   }
 }

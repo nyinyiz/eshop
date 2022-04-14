@@ -22,8 +22,9 @@ class ShopController extends StateController<List<Product>> {
     futurize(() => homeRepository.getAllProductList);
   }
 
+  //GetX prevent accidental push to screen twice. Use "preventDuplicates:false" to avoid this behaviour
   void goToProductList({int index, int type}) {
-    Get.toNamed('/home/shop/productlist?title=$index');
+    Get.toNamed('/home/shop/productlist?type=$type&categoryId=$index');
   }
 
 }

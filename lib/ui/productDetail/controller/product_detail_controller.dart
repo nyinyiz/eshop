@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:eshop/domain/models/product.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
@@ -18,7 +16,6 @@ class ProductDetailController extends StateController<List<Product>> {
 
   int getImageIndex() => currentIndex.value;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -36,21 +33,19 @@ class ProductDetailController extends StateController<List<Product>> {
 
     if (product.discountPercent.isBlank || product.discountPercent.isEqual(0)) {
       return product.price;
-    }else {
-
-      final totalPrice = int.parse(product.price) - _getDiscountAmount(int.parse(product.price), product.discountPercent);
+    } else {
+      final totalPrice = int.parse(product.price) -
+          _getDiscountAmount(int.parse(product.price), product.discountPercent);
 
       return totalPrice.toString();
-
     }
-
   }
 
   _getDiscountAmount(int price, int percent) => price * percent / 100;
 
-
   void goToProductDetail({int index}) {
-    Get.toNamed('/home/category/productlist/productdetail?id=$index');
+    Get.toNamed(
+      '/home/category/productlist/productdetail?id=$index',
+    );
   }
-
 }

@@ -2,6 +2,7 @@ import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
 import 'package:get/get.dart';
 
+import 'package:eshop/route/app_pages.dart';
 import '../../shop/view/shop_screen.dart';
 
 class ProductListScreen extends GetView<ProductListController> {
@@ -10,29 +11,31 @@ class ProductListScreen extends GetView<ProductListController> {
   @override
   Widget build(BuildContext context) {
     final parameter = context.params;
-    final title = parameter['title'] ?? '';
+    final type = parameter['type'] ?? '';
+    final categoryId = parameter['categoryId'] ?? '';
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+        appBar: AppBar(
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          title: Text(
+            "Product List",
+            style: context.toPopBoldFont(Palette.colorBlack),
+          ),
+          centerTitle: true,
         ),
-        title: Text(
-          "Product List",
-          style: context.toPopBoldFont(Palette.colorBlack),
-        ),
-        centerTitle: true,
-      ),
-      body: Obx(
-          ()=> Column(children: [
+        body: Obx(
+          () => Column(children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Men Fashion (50)",
+                    "Men Fashion (50) ${type} and ${categoryId}",
                     style: context.toPop18SemiBoldFont(Palette.colorBlack),
                   ),
                   IconButton(
@@ -43,18 +46,20 @@ class ProductListScreen extends GetView<ProductListController> {
               ),
             ),
             Expanded(
+              flex: 1,
               child: Container(
                   child: GridView.builder(
-                    padding: EdgeInsets.only(bottom: 40,left: 16, right: 16),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, crossAxisSpacing: 8, childAspectRatio: 0.85),
-                    itemCount: controller.state.length,
-                    itemBuilder: _popularProductView,
-                  )),
+                padding: EdgeInsets.only(bottom: 40, left: 16, right: 16),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    childAspectRatio: 0.85),
+                itemCount: controller?.state?.length ?? 0,
+                itemBuilder: _popularProductView,
+              )),
             ),
           ]),
-      )
-    );
+        ));
   }
 
   Widget _popularProductView(BuildContext ctx, int index) => GestureDetector(

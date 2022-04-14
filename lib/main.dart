@@ -12,13 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
       title: 'E-Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Poppins',
         textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
-        appBarTheme: Theme.of(context).appBarTheme.copyWith(color: Colors.white),
+        appBarTheme:
+            Theme.of(context).appBarTheme.copyWith(color: Colors.white),
         primarySwatch: Colors.blue,
       ),
       initialRoute: AppPages.INITIAL,
