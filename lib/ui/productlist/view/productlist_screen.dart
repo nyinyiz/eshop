@@ -2,7 +2,6 @@ import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
 import 'package:get/get.dart';
 
-import 'package:eshop/route/app_pages.dart';
 import '../../shop/view/shop_screen.dart';
 
 class ProductListScreen extends GetView<ProductListController> {
@@ -10,7 +9,7 @@ class ProductListScreen extends GetView<ProductListController> {
 
   @override
   Widget build(BuildContext context) {
-    final parameter = context.params;
+    final parameter = Get.parameters;
     final type = parameter['type'] ?? '';
     final categoryId = parameter['categoryId'] ?? '';
 
@@ -26,8 +25,8 @@ class ProductListScreen extends GetView<ProductListController> {
           ),
           centerTitle: true,
         ),
-        body: Obx(
-          () => Column(children: [
+        body: controller.obx(
+          (state) => Column(children: [
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
@@ -54,7 +53,7 @@ class ProductListScreen extends GetView<ProductListController> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 8,
                     childAspectRatio: 0.85),
-                itemCount: controller?.state?.length ?? 0,
+                itemCount: state?.length ?? 0,
                 itemBuilder: _popularProductView,
               )),
             ),

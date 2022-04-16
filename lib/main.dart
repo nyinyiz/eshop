@@ -1,8 +1,8 @@
-import 'package:eshop/route/app_pages.dart';
 import 'package:eshop/common/common.dart';
-import 'package:flutter/gestures.dart';
-import 'package:get/get.dart';
+import 'package:eshop/domain/bindings/home_binding.dart';
+import 'package:eshop/route/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());

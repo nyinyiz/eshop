@@ -9,11 +9,11 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    final parameter = context.params; //Get.parameters;
+    final parameter = Get.parameters;
     final productId = parameter['id'] ?? '';
 
-    return Obx(
-      () => Scaffold(
+    return controller.obx(
+      (state) => Scaffold(
         backgroundColor: Palette.colorWhite,
         appBar: AppBar(
           elevation: 0,
@@ -264,7 +264,12 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
             scrollDirection: Axis.horizontal,
             itemCount: imgList.length,
             itemBuilder: (BuildContext context, int index) => GestureDetector(
-                  onTap: () => {controller.goToProductDetail(index: index)},
+                  onTap: () => {
+                    Get.offAndToNamed(
+                      '/home/category/productlist/productdetail?id=$index',
+                    )
+                    // controller.goToProductDetail(index: index)
+                  },
                   child: popularProductView(context, index),
                 )),
       );

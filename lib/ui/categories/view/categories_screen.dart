@@ -1,14 +1,14 @@
 import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/categories/controller/categories_controller.dart';
+import 'package:eshop/ui/productlist/view/productlist_screen.dart';
 import 'package:get/get.dart';
-import 'package:eshop/route/app_pages.dart';
 
 class CategoriesScreen extends GetView<CategoriesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Obx(() => Column(children: [
+        child: controller.obx((state) => Column(children: [
               /*Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: TextField(
@@ -27,7 +27,7 @@ class CategoriesScreen extends GetView<CategoriesController> {
                 child: ListView.builder(
                   padding: EdgeInsets.only(bottom: 32, top: 16),
                   shrinkWrap: true,
-                  itemCount: controller?.state?.length ?? 0,
+                  itemCount: state?.length ?? 0,
                   itemBuilder: _categoryView,
                 ),
               ),
@@ -39,7 +39,17 @@ class CategoriesScreen extends GetView<CategoriesController> {
   Widget _categoryView(BuildContext ctx, int index) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: GestureDetector(
-          onTap: () => {controller.goToProductList(index: index, type: 0)},
+          onTap: () => {
+/*
+
+            Navigator.push(ctx,
+                MaterialPageRoute(builder: (context) => ProductListScreen()))
+*/
+
+            // Get.to(ProductListScreen())
+            controller.goToProductList(index: index, type: 0)
+
+          },
           child: Card(
             color: Palette.colorPurple,
             semanticContainer: true,
@@ -75,6 +85,7 @@ class CategoriesScreen extends GetView<CategoriesController> {
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
                     onPressed: () {
+
                       controller.goToProductList(index: index, type: 0);
                     },
                     child: Icon(Icons.navigate_next, color: Palette.colorBlack),
