@@ -1,9 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:eshop/domain/models/product.dart';
+import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 
-class HomeController extends SuperController<List<Product>> {
+class HomeController extends SuperController<HomeData> {
   HomeController({this.homeRepository});
 
   final HomeRepository homeRepository;
@@ -20,9 +19,16 @@ class HomeController extends SuperController<List<Product>> {
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getAllProductList);
+    append(() => homeRepository.getHomeData);
   }
 
+  void goToNotificationList() {
+    Get.toNamed('/home/notification');
+  }
+
+  void goToCartList() {
+    Get.toNamed('/home/cart');
+  }
 
   @override
   void onReady() {
@@ -80,5 +86,4 @@ class HomeController extends SuperController<List<Product>> {
   void onResumed() {
     print('onResumed called');
   }
-
 }

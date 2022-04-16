@@ -1,4 +1,5 @@
-import 'package:eshop/domain/models/product.dart';
+import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/remote/home_provider.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 
@@ -8,7 +9,7 @@ class HomeRepositoryImpl implements HomeRepository {
   final HomeProvider provider;
 
   @override
-  Future<Product> getProductDetail(int productId) async {
+  Future<DataProduct> getProductDetail(int productId) async {
     final productList = await provider.getAllProductList();
     if (productList.isEmpty) {
       return Future.error("Response : Empty product Detail");
@@ -18,7 +19,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<List<Product>> getAllProductList() async {
+  Future<List<DataProduct>> getAllProductList() async {
     final productList = await provider.getAllProductList();
     if (productList.isEmpty) {
       return Future.error("Response : Empty product list");
@@ -28,20 +29,30 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<List<Product>> getDiscountProductList() {
+  Future<List<DataProduct>> getDiscountProductList() {
     // TODO: implement getDiscountProductList
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Product>> getProductListByCategory(int category) {
+  Future<List<DataProduct>> getProductListByCategory(int category) {
     // TODO: implement getProductListByCategory
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Product>> getRandomProductList() {
+  Future<List<DataProduct>> getRandomProductList() {
     // TODO: implement getRandomProductList
     throw UnimplementedError();
+  }
+
+  @override
+  Future<HomeData> getHomeData() async {
+    final homeData = await provider.getHomeData();
+    if (homeData.data == null) {
+      return Future.error("Response : Empty Home Data");
+    } else {
+      return homeData.data;
+    }
   }
 }

@@ -1,6 +1,6 @@
-import 'dart:convert';
+import 'package:eshop/domain/models/brand_model.dart';
 
-class Product {
+class DataProduct {
   int id;
   String title;
   String description;
@@ -11,8 +11,9 @@ class Product {
   int discountPercent;
   bool favourite;
   int available;
+  int type;
 
-  Product(
+  DataProduct(
       {this.id,
       this.title,
       this.description,
@@ -22,19 +23,21 @@ class Product {
       this.price,
       this.discountPercent,
       this.favourite,
-      this.available});
+      this.available,
+      this.type});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  DataProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];
     images = json['images'].cast<String>();
-    brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
+    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     category = json['category'];
     price = json['price'];
     discountPercent = json['discountPercent'];
     favourite = json['favourite'];
     available = json['available'];
+    type = json['type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,28 +54,7 @@ class Product {
     data['discountPercent'] = this.discountPercent;
     data['favourite'] = this.favourite;
     data['available'] = this.available;
-    return data;
-  }
-}
-
-class Brand {
-  String name;
-  String shippingFrom;
-  String address;
-
-  Brand({this.name, this.shippingFrom, this.address});
-
-  Brand.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    shippingFrom = json['shippingFrom'];
-    address = json['address'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['shippingFrom'] = this.shippingFrom;
-    data['address'] = this.address;
+    data['type'] = this.type;
     return data;
   }
 }

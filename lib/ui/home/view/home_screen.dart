@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/categories/view/categories_screen.dart';
 import 'package:eshop/ui/home/controller/home_controller.dart';
+import 'package:eshop/ui/profile/view/profile_screen.dart';
 import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,7 @@ class HomeScreen extends GetView<HomeController> {
   final List _widgetOptions = [
     ShopScreen("Shop Page"),
     CategoriesScreen(),
-    ShopScreen("Profile Page"),
+    ProfileScreen(),
   ];
 
   @override
@@ -25,7 +26,9 @@ class HomeScreen extends GetView<HomeController> {
         }),
         actions: [
           IconButton(
-            onPressed: () => {},
+            onPressed: () {
+              controller.goToNotificationList();
+            },
             icon: Icon(
               Icons.notifications_none_outlined,
               color: Colors.black,
@@ -45,7 +48,9 @@ class HomeScreen extends GetView<HomeController> {
                   Icons.shopping_cart_outlined,
                   color: Colors.black,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  controller.goToCartList();
+                }),
           ),
           SizedBox(
             width: 8,

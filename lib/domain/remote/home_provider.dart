@@ -1,8 +1,14 @@
-import 'package:eshop/domain/models/product.dart';
+import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/product_model.dart';
 
 abstract class HomeProvider {
-  Future<List<Product>> getAllProductList();
-  Future<List<Product>> getProductListByCategory(int category);
-  Future<List<Product>> getRandomProductList();
-  Future<List<Product>> getDiscountProductList();
+  Future<HomePageData> getHomeData();
+
+  Future<List<DataProduct>> getAllProductList();
+
+  Future<List<DataProduct>> getProductListByCategory(int category);
+
+  Future<List<DataProduct>> getRandomProductList();
+
+  Future<List<DataProduct>> getDiscountProductList();
 }

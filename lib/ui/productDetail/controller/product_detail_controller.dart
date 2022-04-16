@@ -1,8 +1,8 @@
-import 'package:eshop/domain/models/product.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 
-class ProductDetailController extends SuperController<List<Product>> {
+class ProductDetailController extends SuperController<List<DataProduct>> {
   ProductDetailController({this.homeRepository});
 
   final HomeRepository homeRepository;
@@ -22,14 +22,14 @@ class ProductDetailController extends SuperController<List<Product>> {
     append(() => homeRepository.getAllProductList);
   }
 
-  Product getProductDetail(String id) {
+  DataProduct getProductDetail(String id) {
     final index = int.tryParse(id);
     return index != null ? state[index] : state.first;
   }
 
   String getDiscountPrice(String id) {
     final index = int.tryParse(id);
-    Product product = (index != null) ? state[index] : state.first;
+    DataProduct product = (index != null) ? state[index] : state.first;
 
     if (product.discountPercent.isBlank || product.discountPercent.isEqual(0)) {
       return product.price;
@@ -48,7 +48,6 @@ class ProductDetailController extends SuperController<List<Product>> {
       '/home/category/productlist/productdetail?id=$index',
     );
   }
-
 
   @override
   void onReady() {
@@ -106,5 +105,4 @@ class ProductDetailController extends SuperController<List<Product>> {
   void onResumed() {
     print('onResumed called');
   }
-
 }

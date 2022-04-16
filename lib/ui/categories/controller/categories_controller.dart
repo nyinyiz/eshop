@@ -1,10 +1,8 @@
-import 'package:eshop/domain/models/product.dart';
+import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
-import 'package:eshop/route/app_pages.dart';
-import 'package:eshop/ui/productlist/view/productlist_screen.dart';
 import 'package:get/get.dart';
 
-class CategoriesController extends SuperController<List<Product>> {
+class CategoriesController extends SuperController<HomeData> {
   CategoriesController({this.homeRepository});
 
   final HomeRepository homeRepository;
@@ -12,15 +10,12 @@ class CategoriesController extends SuperController<List<Product>> {
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getAllProductList);
+    append(() => homeRepository.getHomeData);
   }
 
   void goToProductList({int index, int type}) {
-
     Get.toNamed('/home/category/productlist?type=$type&categoryId=$index');
-
   }
-
 
   @override
   void onReady() {
@@ -78,5 +73,4 @@ class CategoriesController extends SuperController<List<Product>> {
   void onResumed() {
     print('onResumed called');
   }
-
 }

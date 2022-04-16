@@ -2,9 +2,12 @@ import 'package:eshop/domain/remote/home_provider.dart';
 import 'package:eshop/domain/remote/home_provider_impl.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:eshop/domain/repository/home_repository_impl.dart';
+import 'package:eshop/ui/cart/controller/add_to_cart_controller.dart';
 import 'package:eshop/ui/home/controller/home_controller.dart';
+import 'package:eshop/ui/notification/controller/notification_controller.dart';
 import 'package:eshop/ui/productDetail/controller/product_detail_controller.dart';
 import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
+import 'package:eshop/ui/profile/controller/profile_controller.dart';
 import 'package:eshop/ui/shop/controller/shop_controller.dart';
 import 'package:get/get.dart';
 
@@ -20,5 +23,8 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => CategoriesController(homeRepository: Get.find()));
     Get.lazyPut(() => ProductListController(homeRepository: Get.find()));
     Get.lazyPut(() => ProductDetailController(homeRepository: Get.find()));
+    Get.lazyPut(() => NotificationController(homeRepository: Get.find()));
+    Get.lazyPut(() => ProfileController(homeRepository: Get.find()));
+    Get.lazyPut(() => AddToCartController(homeRepository: Get.find()));
   }
 }

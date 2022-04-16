@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:eshop/common/common.dart';
-import 'package:eshop/domain/models/product.dart';
+import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/remote/home_provider.dart';
 import 'package:get/get.dart';
 
@@ -15,30 +16,38 @@ class HomeProviderImpl extends GetConnect implements HomeProvider {
   }
 
   @override
-  Future<List<Product>> getAllProductList() async {
+  Future<List<DataProduct>> getAllProductList() async {
     final String response =
         await rootBundle.loadString('assets/sample/sampleProduct.json');
     final data = json.decode(response) as List<dynamic>;
-    return data.map((e) => Product.fromJson(e)).toList();
+    return data.map((e) => DataProduct.fromJson(e)).toList();
   }
 
   @override
-  Future<List<Product>> getDiscountProductList() async {
+  Future<List<DataProduct>> getDiscountProductList() async {
     final String response =
         await rootBundle.loadString('assets/sample/sampleProduct.json');
     final data = json.decode(response) as List<dynamic>;
-    return data.map((e) => Product.fromJson(e)).toList();
+    return data.map((e) => DataProduct.fromJson(e)).toList();
   }
 
   @override
-  Future<List<Product>> getProductListByCategory(int category) {
+  Future<List<DataProduct>> getProductListByCategory(int category) {
     // TODO: implement getProductListByCategory
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Product>> getRandomProductList() {
+  Future<List<DataProduct>> getRandomProductList() {
     // TODO: implement getRandomProductList
     throw UnimplementedError();
+  }
+
+  @override
+  Future<HomePageData> getHomeData() async {
+    final String response =
+        await rootBundle.loadString('assets/sample/home_data.json');
+    final data = json.decode(response);
+    return HomePageData.fromJson(data);
   }
 }

@@ -270,7 +270,9 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                     )
                     // controller.goToProductDetail(index: index)
                   },
-                  child: popularProductView(context, index),
+                  child: popularProductView(
+                      ctx: context,
+                      product: controller.getProductDetail(index.toString())),
                 )),
       );
 

@@ -1,6 +1,5 @@
 import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/categories/controller/categories_controller.dart';
-import 'package:eshop/ui/productlist/view/productlist_screen.dart';
 import 'package:get/get.dart';
 
 class CategoriesScreen extends GetView<CategoriesController> {
@@ -27,7 +26,7 @@ class CategoriesScreen extends GetView<CategoriesController> {
                 child: ListView.builder(
                   padding: EdgeInsets.only(bottom: 32, top: 16),
                   shrinkWrap: true,
-                  itemCount: state?.length ?? 0,
+                  itemCount: state?.categories?.length ?? 0,
                   itemBuilder: _categoryView,
                 ),
               ),
@@ -41,14 +40,12 @@ class CategoriesScreen extends GetView<CategoriesController> {
         child: GestureDetector(
           onTap: () => {
 /*
-
             Navigator.push(ctx,
                 MaterialPageRoute(builder: (context) => ProductListScreen()))
 */
 
             // Get.to(ProductListScreen())
             controller.goToProductList(index: index, type: 0)
-
           },
           child: Card(
             color: Palette.colorPurple,
@@ -62,7 +59,8 @@ class CategoriesScreen extends GetView<CategoriesController> {
               alignment: Alignment.center,
               children: [
                 Image.network(
-                  controller.state[index].images[0],
+                  controller.state.categories[index].icon +
+                      controller.state.categories[index].id.toString(),
                   fit: BoxFit.cover,
                   height: 150,
                   width: MediaQuery.of(ctx).size.width,
@@ -74,7 +72,8 @@ class CategoriesScreen extends GetView<CategoriesController> {
                     child: Column(
                       children: [
                         Text(
-                          "NEW ARRIVAL SPECIAL OFFER FOR APRIL",
+                          controller.state.categories[index].name ??
+                              "NEW ARRIVAL SPECIAL OFFER FOR APRIL",
                           style: ctx.toBeba64RegularFont(Palette.colorWhite),
                         ),
                       ],
@@ -85,7 +84,6 @@ class CategoriesScreen extends GetView<CategoriesController> {
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
                     onPressed: () {
-
                       controller.goToProductList(index: index, type: 0);
                     },
                     child: Icon(Icons.navigate_next, color: Palette.colorBlack),

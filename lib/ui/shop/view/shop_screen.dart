@@ -20,7 +20,7 @@ List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-List<String> categories = [
+/*List<String> categories = [
   "All",
   "Phone",
   "Laptop",
@@ -29,7 +29,7 @@ List<String> categories = [
   "Monitor",
   "Mouse",
   "Keyboard"
-];
+];*/
 
 class ShopScreen extends GetView<ShopController> {
   final CarouselController _controller = CarouselController();
@@ -44,8 +44,8 @@ class ShopScreen extends GetView<ShopController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: Obx(
-        () => SingleChildScrollView(
+          child: controller.obx(
+        (state) => SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -235,8 +235,11 @@ class ShopScreen extends GetView<ShopController> {
         child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
-            itemCount: imgList.length,
-            itemBuilder: popularProductView),
+            itemCount: controller.state.popularProduct.length,
+            itemBuilder: (BuildContext context, int index) =>
+                popularProductView(
+                    ctx: context,
+                    product: controller.state.popularProduct[index])),
       );
 
   Widget _buildCategories({BuildContext ctx}) => SizedBox(
@@ -244,13 +247,77 @@ class ShopScreen extends GetView<ShopController> {
         child: ListView.builder(
           padding: EdgeInsets.symmetric(horizontal: 16),
           scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: categoriesView,
+          itemCount: controller.state.categories.length ?? 0,
+          itemBuilder: _categoriesView,
+        ),
+      );
+
+  Widget _categoriesView(BuildContext ctx, int index) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: OutlinedButton.icon(
+          style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0),
+              ),
+              backgroundColor: (index == 0
+                  ? Palette.colorDeepOrangeAccent
+                  : Palette.colorWhite)),
+          onPressed: () {},
+          icon: Icon(
+            Icons.computer,
+            size: 24.0,
+            color: Palette.colorBlack,
+          ),
+          label: Text(
+            controller.state.categories[index].name ?? "Title",
+            style: ctx.toPop10RegularFont(Palette.colorBlack),
+          ),
         ),
       );
 
   Widget _carouselView({BuildContext ctx}) => CarouselSlider(
-        items: _imageSliders,
+        items: controller.state.carouselImages
+            .map((item) => Container(
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      child: Stack(
+                        children: <Widget>[
+                          Image.network(
+                            item.imageUrl + item.id.toString(),
+                            fit: BoxFit.cover,
+                            width: 1000.0,
+                          ),
+                          Positioned(
+                            bottom: 0.0,
+                            left: 0.0,
+                            right: 0.0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(200, 0, 0, 0),
+                                    Color.fromARGB(0, 0, 0, 0)
+                                  ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20.0),
+                              child: Text(
+                                item.title ?? "",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ))
+            .toList(),
         carouselController: _controller,
         options: CarouselOptions(
             autoPlay: true,
@@ -263,7 +330,8 @@ class ShopScreen extends GetView<ShopController> {
 
   Widget _pageIndicator({BuildContext ctx}) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: imgList.asMap().entries.map((entry) {
+        children:
+            controller?.state?.carouselImages?.asMap()?.entries?.map((entry) {
           return GestureDetector(
             onTap: () => _controller.animateToPage(entry.key),
             child: Container(
@@ -279,49 +347,6 @@ class ShopScreen extends GetView<ShopController> {
                           controller.getTabIndex() == entry.key ? 0.9 : 0.4)),
             ),
           );
-        }).toList(),
+        })?.toList(),
       );
-
-  List<Widget> _imageSliders = imgList
-      .map((item) => Container(
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(
-                      item,
-                      fit: BoxFit.cover,
-                      width: 1000.0,
-                    ),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-          ))
-      .toList();
 }

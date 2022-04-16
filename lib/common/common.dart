@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart' as dartz;
+import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shine/flutter_shine.dart';
+import 'package:get/get.dart';
 
 export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
@@ -11,6 +14,8 @@ part 'fonts.dart';
 part 'palette.dart';
 
 part 'screen_size_reducer.dart';
+
+String getBaht() => "฿";
 
 Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -63,30 +68,7 @@ Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
       ),
     );
 
-Widget categoriesView(BuildContext ctx, int index) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: OutlinedButton.icon(
-        style: OutlinedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-            backgroundColor: (index == 0
-                ? Palette.colorDeepOrangeAccent
-                : Palette.colorWhite)),
-        onPressed: () {},
-        icon: Icon(
-          Icons.computer,
-          size: 24.0,
-          color: Palette.colorBlack,
-        ),
-        label: Text(
-          categories[index],
-          style: ctx.toPop10RegularFont(Palette.colorBlack),
-        ),
-      ),
-    );
-
-Widget popularProductView(BuildContext ctx, int index) => SizedBox(
+Widget popularProductView({BuildContext ctx, DataProduct product}) => SizedBox(
       width: 120,
       child: Card(
           semanticContainer: true,
@@ -96,14 +78,10 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
           elevation: 1,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-/*          decoration: BoxDecoration(
-              border: Border.all(
-                color: Palette.colorLightGrey,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(12))),*/
           child: Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Wrap(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Stack(children: [
                   Padding(
@@ -111,7 +89,7 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),
                       child: Image.network(
-                        imgList[index],
+                        product.images[0],
                         cacheHeight: 90,
                         cacheWidth: 120,
                         fit: BoxFit.fill,
@@ -119,7 +97,7 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
                     ),
                   ),
                   Visibility(
-                    visible: (index == 1 || index == 3),
+                    visible: (product.discountPercent != 0),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: Container(
@@ -129,7 +107,7 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "30%",
+                            product.discountPercent.toString() + "%" ?? "30%",
                             style: ctx.toPop8RegularFont(Palette.colorWhite),
                           ),
                         ),
@@ -138,12 +116,12 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
                   )
                 ]),
                 Text(
-                  "Company Name",
+                  product.brand.name ?? "Company Name",
                   style: ctx.toPop8SemiBoldFont(Palette.colorGrey),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  "Summer Sale Special Discount Offer",
+                  product.title ?? "Summer Sale Special Discount Offer",
                   style: ctx.toPop10RegularFont(Palette.colorBlack),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -155,11 +133,11 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text: " ฿1000",
+                          text: " ฿${getDiscountPrice(product)}",
                           style: ctx.toPop10SemiBoldFont(Palette.colorBlack)),
-                      ((index == 1 || index == 3)
+                      ((product.discountPercent != 0)
                           ? TextSpan(
-                              text: " ฿1500",
+                              text: " ฿${product.price}",
                               style: ctx
                                   .toPop8RegularFont(
                                       Palette.colorDeepOrangeAccent)
@@ -173,3 +151,16 @@ Widget popularProductView(BuildContext ctx, int index) => SizedBox(
             ),
           )),
     );
+
+String getDiscountPrice(DataProduct product) {
+  if (product.discountPercent.isBlank || product.discountPercent.isEqual(0)) {
+    return product.price;
+  } else {
+    final totalPrice = int.parse(product.price) -
+        _getDiscountAmount(int.parse(product.price), product.discountPercent);
+
+    return totalPrice.toString();
+  }
+}
+
+_getDiscountAmount(int price, int percent) => price * percent / 100;

@@ -1,30 +1,26 @@
-import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 
-class ShopController extends SuperController<HomeData> {
-  ShopController({this.homeRepository});
+class AddToCartController extends SuperController<List<DataProduct>> {
+  AddToCartController({this.homeRepository});
 
   final HomeRepository homeRepository;
 
-  final selectedIndex = 0.obs;
+  final currentCount = 1.obs;
 
-  void changeTabIndex(int index) {
-    selectedIndex.value = index;
+  void changeCount(int count) {
+    currentCount.value = count;
     update();
   }
 
-  int getTabIndex() => selectedIndex.value;
+  int getCount() => currentCount.value;
+
 
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getHomeData);
-  }
-
-  //GetX prevent accidental push to screen twice. Use "preventDuplicates:false" to avoid this behaviour
-  void goToProductList({int index, int type}) {
-    Get.toNamed('/home/shop/productlist?type=$type&categoryId=$index');
+    append(() => homeRepository.getAllProductList);
   }
 
   @override
