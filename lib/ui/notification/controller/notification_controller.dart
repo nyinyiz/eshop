@@ -1,8 +1,8 @@
-import 'package:eshop/domain/models/product_model.dart';
+import 'package:eshop/domain/models/notification_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 
-class NotificationController extends SuperController<List<DataProduct>> {
+class NotificationController extends SuperController<List<NotificationModel>> {
   NotificationController({this.homeRepository});
 
   final HomeRepository homeRepository;
@@ -10,7 +10,7 @@ class NotificationController extends SuperController<List<DataProduct>> {
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getAllProductList);
+    append(() => homeRepository.getNotificationList);
   }
 
   @override

@@ -2,29 +2,15 @@ import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 
-class AddToCartController extends SuperController<List<DataProduct>> {
-  AddToCartController({this.homeRepository});
+class AddressController extends SuperController<List<DataProduct>> {
+  AddressController({this.homeRepository});
 
   final HomeRepository homeRepository;
-
-  final currentCount = 1.obs;
-
-  void changeCount(int count) {
-    currentCount.value = count;
-    update();
-  }
-
-  int getCount() => currentCount.value;
-
 
   @override
   void onInit() {
     super.onInit();
     append(() => homeRepository.getAllProductList);
-  }
-
-  void goToAddressesScreen() {
-    Get.toNamed('/home/cart/addresses');
   }
 
   @override

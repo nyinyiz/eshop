@@ -1,0 +1,27 @@
+[
+    {
+        "id":1,
+        "title":"E-Shop",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "status":"read"
+    },
+    {
+        "id":2,
+        "title": "System notification",
+        "description":"Thank you for downloading new update",
+        "status":"read"
+    },
+    {
+        "id":3,
+        "title":"Thank You",
+        "description":"Thank you for purchasing out product from E-Shop.",
+        "status":"read"
+    },
+    {
+        "id":4,
+        "title":"Update",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "status":"read"
+    }
+    
+]

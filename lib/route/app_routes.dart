@@ -10,4 +10,6 @@ abstract class Routes {
   static const NOTIFICATION = "/notification";
   static const PROFILE = "/profile";
   static const CART = "/cart";
+  static const ADDRESSES = "/addresses";
+
 }

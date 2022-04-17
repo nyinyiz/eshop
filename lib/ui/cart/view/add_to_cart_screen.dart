@@ -62,7 +62,8 @@ class AddToCartScreen extends GetView<AddToCartController> {
                           suffixIcon: TextButton.icon(
                             style: TextButton.styleFrom(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8), // <-- Radius
+                                  borderRadius:
+                                      BorderRadius.circular(8), // <-- Radius
                                 ),
                                 elevation: 0,
                                 backgroundColor: Colors.cyan.shade600),
@@ -193,13 +194,14 @@ class AddToCartScreen extends GetView<AddToCartController> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       child: ElevatedButton(
-
                         style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
                           primary: Palette.colorDeepOrangeAccent,
                           onPrimary: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.goToAddressesScreen();
+                        },
                         child: Text(
                           'Continue',
                           style:

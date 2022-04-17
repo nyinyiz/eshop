@@ -59,7 +59,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   get_test: 4.0.1
+  network_image_mock: ^2.0.1
 
 
 flutter_icons:
@@ -82,6 +84,7 @@ flutter:
   assets:
     - assets/sample/sampleProduct.json
     - assets/sample/home_data.json
+    - assets/sample/notification_data.json
     - assets/images/
     - assets/icon/
 

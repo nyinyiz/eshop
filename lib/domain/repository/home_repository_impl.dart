@@ -1,4 +1,5 @@
 import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/notification_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/remote/home_provider.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
@@ -7,6 +8,17 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl({this.provider});
 
   final HomeProvider provider;
+
+
+  @override
+  Future<List<NotificationModel>> getNotificationList() async {
+    final notificationList = await provider.getNotificationList();
+    if(notificationList.isEmpty) {
+      return Future.error("Response: Empty notification list");
+    }else {
+      return notificationList;
+    }
+  }
 
   @override
   Future<DataProduct> getProductDetail(int productId) async {
@@ -55,4 +67,5 @@ class HomeRepositoryImpl implements HomeRepository {
       return homeData.data;
     }
   }
+
 }

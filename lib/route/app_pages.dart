@@ -1,4 +1,5 @@
 import 'package:eshop/domain/bindings/home_binding.dart';
+import 'package:eshop/ui/address/view/address_screen.dart';
 import 'package:eshop/ui/cart/view/add_to_cart_screen.dart';
 import 'package:eshop/ui/categories/view/categories_screen.dart';
 import 'package:eshop/ui/home/view/home_screen.dart';
@@ -60,14 +61,25 @@ class AppPages {
           binding: HomeBinding(),
         ),
         GetPage(
-          name: Routes.PROFILE,
-          page: () => ProfileScreen(),
-          binding: HomeBinding(),
-        ),
+            name: Routes.PROFILE,
+            page: () => ProfileScreen(),
+            binding: HomeBinding(),
+            children: [
+              GetPage(
+                  name: Routes.ADDRESSES,
+                  page: () => AddressScreen(),
+                  binding: HomeBinding())
+            ]),
         GetPage(
           name: Routes.CART,
           page: () => AddToCartScreen(),
           binding: HomeBinding(),
+          children: [
+            GetPage(
+                name: Routes.ADDRESSES,
+                page: () => AddressScreen(),
+                binding: HomeBinding())
+          ]
         )
       ],
     ),
