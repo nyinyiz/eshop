@@ -20,5 +20,6 @@ abstract class HomeRepository {
 
   Future<List<AddressModel>> getAddressList();
 
+  Future<List<DataProduct>> getProductByType(int type);
 
 }

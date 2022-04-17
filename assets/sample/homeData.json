@@ -102,13 +102,13 @@
     "popular_product": [
       {
         "id": 1001,
-        "title": "Item One",
+        "title": "Item One Popular Product",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         "images": [
-          "https://picsum.photos/200/300?random=1",
-          "https://picsum.photos/200/300?random=1",
-          "https://picsum.photos/200/300?random=1",
-          "https://picsum.photos/200/300?random=1"
+          "https://picsum.photos/200/300?random=",
+          "https://picsum.photos/200/300?random=",
+          "https://picsum.photos/200/300?random=",
+          "https://picsum.photos/200/300?random="
         ],
         "brand": {
           "name": "Oneplus",
@@ -124,6 +124,50 @@
       },
       {
         "id": 1002,
+        "title": "Item Two Popular ",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "images": [
+          "https://picsum.photos/200/300?random=2",
+          "https://picsum.photos/200/300?random=2",
+          "https://picsum.photos/200/300?random=2",
+          "https://picsum.photos/200/300?random=2"
+        ],
+        "brand": {
+          "name": "Oneplus",
+          "shippingFrom": "Bangkok",
+          "address": "Bangkok"
+        },
+        "category": 1,
+        "price": "5000",
+        "discountPercent": 0,
+        "favourite": false,
+        "available": 30,
+        "type": 1
+      },
+      {
+        "id": 1003,
+        "title": "Item Two",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "images": [
+          "https://picsum.photos/200/300?random=2",
+          "https://picsum.photos/200/300?random=2",
+          "https://picsum.photos/200/300?random=2",
+          "https://picsum.photos/200/300?random=2"
+        ],
+        "brand": {
+          "name": "Oneplus",
+          "shippingFrom": "Bangkok",
+          "address": "Bangkok"
+        },
+        "category": 1,
+        "price": "15000",
+        "discountPercent": 30,
+        "favourite": false,
+        "available": 30,
+        "type": 1
+      },
+      {
+        "id": 1004,
         "title": "Item Two",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         "images": [
@@ -145,7 +189,7 @@
         "type": 1
       },
       {
-        "id": 1002,
+        "id": 1005,
         "title": "Item Two",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         "images": [
@@ -188,7 +232,7 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 2
+        "type": 6
       },
       {
         "id": 1002,
@@ -210,7 +254,7 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 2
+        "type": 6
       }
     ],
     "flash_sale": {
@@ -221,13 +265,13 @@
       "product_list": [
         {
           "id": 1001,
-          "title": "Item One",
+          "title": "Item One Flash Sale",
           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           "images": [
-            "https://picsum.photos/200/300?random=1",
-            "https://picsum.photos/200/300?random=1",
-            "https://picsum.photos/200/300?random=1",
-            "https://picsum.photos/200/300?random=1"
+            "https://picsum.photos/200/300?random=",
+            "https://picsum.photos/200/300?random=",
+            "https://picsum.photos/200/300?random=",
+            "https://picsum.photos/200/300?random="
           ],
           "brand": {
             "name": "Oneplus",
@@ -236,7 +280,7 @@
           },
           "category": 1,
           "price": "3500",
-          "discountPercent": 0,
+          "discountPercent": 20,
           "favourite": false,
           "available": 30,
           "type": 3
@@ -257,8 +301,30 @@
             "address": "Bangkok"
           },
           "category": 1,
-          "price": "3500",
+          "price": "5000",
           "discountPercent": 0,
+          "favourite": false,
+          "available": 30,
+          "type": 3
+        },
+        {
+          "id": 1003,
+          "title": "Item Two",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "images": [
+            "https://picsum.photos/200/300?random=2",
+            "https://picsum.photos/200/300?random=2",
+            "https://picsum.photos/200/300?random=2",
+            "https://picsum.photos/200/300?random=2"
+          ],
+          "brand": {
+            "name": "Oneplus",
+            "shippingFrom": "Bangkok",
+            "address": "Bangkok"
+          },
+          "category": 1,
+          "price": "15000",
+          "discountPercent": 30,
           "favourite": false,
           "available": 30,
           "type": 3
@@ -272,9 +338,9 @@
       "event_sale_list": [
         {
           "id": 1,
-          "title": "Item One",
+          "title": "NEW PRODUCT",
           "image": "https://picsum.photos/200/300?random=9",
-          "type": 1
+          "type": 2
         },
         {
           "id": 2,

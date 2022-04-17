@@ -22,6 +22,7 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
     append(() => homeRepository.getAllProductList);
   }
 
+
   DataProduct getProductDetail(String id) {
     final index = int.tryParse(id);
     return index != null ? state[index] : state.first;

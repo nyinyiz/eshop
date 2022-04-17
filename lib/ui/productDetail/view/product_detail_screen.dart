@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/ui/productDetail/controller/product_detail_controller.dart';
-import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
 
@@ -37,18 +39,23 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _flashSaleCard(ctx: context),
+              _productImageCard(
+                  ctx: context,
+                  imageList: controller.getProductDetail(productId).images),
               SizedBox(
                 height: 16,
               ),
-              _productImageList(context: context),
+              _productImageList(
+                  context: context,
+                  imageList: controller.getProductDetail(productId).images),
               SizedBox(
                 height: 16,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "Company Name",
+                  controller.getProductDetail(productId).brand.name ??
+                      "Company Name",
                   style: context.toPop18SemiBoldFont(Palette.colorGrey),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -59,10 +66,8 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "Summer Sale Special Discount Offer ${controller.getProductDetail(productId).title}",
+                  "${controller.getProductDetail(productId).title}",
                   style: context.toPop28RegularFont(Palette.colorBlack),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
                 ),
               ),
               SizedBox(
@@ -84,8 +89,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  controller.getProductDetail(productId).description ??
-                      "This is description text trust me. But now it was error. You dun't know about null right xD.",
+                  controller.getProductDetail(productId).description ?? "",
                   style: context.toPop14RegularFont(Palette.colorGrey),
                 ),
               ),
@@ -198,7 +202,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                 ),
               ),
               SizedBox(height: 8),
-              _popularProductList(),
+              _popularProductList(ctx: context, productList: controller.state),
               SizedBox(
                 height: 100,
               ),
@@ -257,35 +261,39 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
     );
   }
 
-  Widget _popularProductList({BuildContext ctx}) => SizedBox(
+  Widget _popularProductList(
+          {BuildContext ctx, List<DataProduct> productList}) =>
+      SizedBox(
         height: 170,
         child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
-            itemCount: imgList.length,
+            itemCount: productList?.length ?? 0,
             itemBuilder: (BuildContext context, int index) => GestureDetector(
-                  onTap: () => {
-                    Get.offAndToNamed(
+                  onTap: () {
+                    Get.toNamed(
                       '/home/category/productlist/productdetail?id=$index',
-                    )
+                    );
                     // controller.goToProductDetail(index: index)
                   },
                   child: popularProductView(
-                      ctx: context,
-                      product: controller.getProductDetail(index.toString())),
+                      ctx: context, product: productList[index]),
                 )),
       );
 
-  Widget _productImageList({BuildContext context}) => SizedBox(
+  Widget _productImageList({BuildContext context, List<String> imageList}) =>
+      SizedBox(
         height: 50,
         child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
-            itemCount: imgList.length,
-            itemBuilder: _productImageView),
+            itemCount: imageList.length,
+            itemBuilder: (context, index) =>
+                _productImageView(imageList, index)),
       );
 
-  Widget _productImageView(BuildContext context, int index) => GestureDetector(
+  Widget _productImageView(List<String> imageList, int index) =>
+      GestureDetector(
         onTap: () => {controller.changeImageIndex(index)},
         child: Card(
           margin: EdgeInsets.symmetric(horizontal: 4),
@@ -299,7 +307,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
           elevation: 0,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.network(
-            imgList[index],
+            imageList[index]+index.toString(),
             fit: BoxFit.cover,
             height: 50,
             width: 50,
@@ -307,7 +315,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
         ),
       );
 
-  Widget _flashSaleCard({BuildContext ctx}) => Card(
+  Widget _productImageCard({BuildContext ctx, List<String> imageList}) => Card(
         margin: EdgeInsets.symmetric(horizontal: 16),
         semanticContainer: true,
         shape: RoundedRectangleBorder(
@@ -316,7 +324,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
         elevation: 0,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Image.network(
-          imgList[controller.getImageIndex()],
+          imageList[controller.getImageIndex()] + controller.getImageIndex().toString(),
           fit: BoxFit.cover,
           height: MediaQuery.of(ctx).size.height * 0.35,
           width: MediaQuery.of(ctx).size.width,

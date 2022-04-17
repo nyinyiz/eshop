@@ -144,7 +144,7 @@ Widget popularProductView({BuildContext ctx, DataProduct product}) => SizedBox(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            product.discountPercent.toString() + "%" ?? "30%",
+                            product.discountPercent.toString() + "%" ?? "0%",
                             style: ctx.toPop8RegularFont(Palette.colorWhite),
                           ),
                         ),
@@ -152,6 +152,10 @@ Widget popularProductView({BuildContext ctx, DataProduct product}) => SizedBox(
                     ),
                   )
                 ]),
+
+                SizedBox(
+                  height: 4,
+                ),
                 Text(
                   product.brand.name ?? "Company Name",
                   style: ctx.toPop8SemiBoldFont(Palette.colorGrey),
@@ -161,7 +165,7 @@ Widget popularProductView({BuildContext ctx, DataProduct product}) => SizedBox(
                   product.title ?? "Summer Sale Special Discount Offer",
                   style: ctx.toPop10RegularFont(Palette.colorBlack),
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                  maxLines: 1,
                 ),
                 SizedBox(
                   height: 8,

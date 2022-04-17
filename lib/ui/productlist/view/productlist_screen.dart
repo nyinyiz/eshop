@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,8 @@ class ProductListScreen extends GetView<ProductListController> {
     final parameter = Get.parameters;
     final type = parameter['type'] ?? '';
     final categoryId = parameter['categoryId'] ?? '';
+
+    controller.getProductListByType(int.parse(type));
 
     return Scaffold(
         appBar: AppBar(
@@ -74,7 +78,8 @@ class ProductListScreen extends GetView<ProductListController> {
             child: Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Wrap(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Stack(children: [
                       Padding(
@@ -82,15 +87,17 @@ class ProductListScreen extends GetView<ProductListController> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
                           child: Image.network(
-                            imgList[index],
+                            controller.state[index].images[0]+Random().nextInt(9).toString() ?? "",
                             width: MediaQuery.of(ctx).size.width,
+                            height: 120,
                             cacheHeight: 120,
+                            cacheWidth: 120,
                             fit: BoxFit.fill,
                           ),
                         ),
                       ),
                       Visibility(
-                        visible: (index == 1 || index == 3),
+                        visible: controller.state[index].discountPercent != 0,
                         child: Align(
                           alignment: Alignment.topRight,
                           child: Padding(
@@ -102,7 +109,7 @@ class ProductListScreen extends GetView<ProductListController> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "30%",
+                                  controller.state[index].discountPercent.toString() + "%" ?? "0%",
                                   style:
                                       ctx.toPop8RegularFont(Palette.colorWhite),
                                 ),
@@ -113,15 +120,15 @@ class ProductListScreen extends GetView<ProductListController> {
                       )
                     ]),
                     Text(
-                      "Company Name",
+                      controller.state[index].brand.name ?? "Company Name",
                       style: ctx.toPop8SemiBoldFont(Palette.colorGrey),
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "Summer Sale Special Discount Offer",
+                      controller.state[index].title ?? "Title",
                       style: ctx.toPop10RegularFont(Palette.colorBlack),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                      maxLines: 1,
                     ),
                     SizedBox(
                       height: 8,
@@ -130,12 +137,12 @@ class ProductListScreen extends GetView<ProductListController> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text: " ฿1000",
+                              text: "฿${getDiscountPrice(controller.state[index])}",
                               style:
                                   ctx.toPop14RegularFont(Palette.colorBlack)),
                           ((index == 1 || index == 3)
                               ? TextSpan(
-                                  text: " ฿1500",
+                                  text: " ฿${controller.state[index].price}",
                                   style: ctx
                                       .toPop10RegularFont(
                                           Palette.colorDeepOrangeAccent)

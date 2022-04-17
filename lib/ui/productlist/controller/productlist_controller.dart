@@ -13,6 +13,15 @@ class ProductListController extends SuperController<List<DataProduct>> {
     append(() => homeRepository.getAllProductList);
   }
 
+  void getProductListByType(int type) {
+    if (type > 0) {
+      homeRepository.getProductByType(type).then((value) {
+        state.clear();
+        state.addAll(value);
+      });
+    }
+  }
+
   void goToProductDetail({int index}) {
     Get.toNamed('/home/category/productlist/productdetail?id=$index');
   }
