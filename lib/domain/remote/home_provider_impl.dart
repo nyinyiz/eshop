@@ -1,13 +1,17 @@
 import 'dart:convert';
 
 import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/address_model.dart';
 import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/models/notification_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/remote/home_provider.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeProviderImpl extends GetConnect implements HomeProvider {
+
+
   @override
   void onInit() {
     /** implement onInit
@@ -58,6 +62,12 @@ class HomeProviderImpl extends GetConnect implements HomeProvider {
         await rootBundle.loadString('assets/sample/home_data.json');
     final data = json.decode(response);
     return HomePageData.fromJson(data);
+  }
+
+  @override
+  Future<List<AddressModel>> getAddressList() {
+    final box = GetStorage();
+    return box.read(ADDRESS_KEY);
   }
 
 }

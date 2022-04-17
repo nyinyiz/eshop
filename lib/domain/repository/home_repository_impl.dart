@@ -1,3 +1,4 @@
+import 'package:eshop/domain/models/address_model.dart';
 import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/models/notification_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
@@ -9,13 +10,23 @@ class HomeRepositoryImpl implements HomeRepository {
 
   final HomeProvider provider;
 
+  @override
+  Future<List<AddressModel>> getAddressList() async {
+    final addressList = await provider.getAddressList();
+
+    if (addressList == null || addressList.isEmpty) {
+      return List.empty();
+    } else {
+      return addressList;
+    }
+  }
 
   @override
   Future<List<NotificationModel>> getNotificationList() async {
     final notificationList = await provider.getNotificationList();
-    if(notificationList.isEmpty) {
+    if (notificationList.isEmpty) {
       return Future.error("Response: Empty notification list");
-    }else {
+    } else {
       return notificationList;
     }
   }
@@ -67,5 +78,4 @@ class HomeRepositoryImpl implements HomeRepository {
       return homeData.data;
     }
   }
-
 }

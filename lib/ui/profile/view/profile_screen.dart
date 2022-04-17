@@ -82,9 +82,30 @@ class ProfileScreen extends GetView<ProfileController> {
                 ),
               ),
             ),
+
             ListTile(
               enabled: true,
               onTap: () => {},
+              leading: Container(
+                child: Icon(
+                  Icons.bookmarks_outlined,
+                  color: Palette.colorBlack,
+                  size: 26.0,
+                ),
+              ),
+              title: Text("Wishlist",
+                  style: context.toPop14RegularFont(Palette.colorBlack)),
+              trailing: Container(
+                child: Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: Palette.colorGrey,
+                  size: 16.0,
+                ),
+              ),
+            ),
+            ListTile(
+              enabled: true,
+              onTap: () => {controller.goToAddressesScreen()},
               leading: Container(
                 child: Icon(
                   Icons.location_on_outlined,
@@ -252,7 +273,9 @@ class ProfileScreen extends GetView<ProfileController> {
                 ),
               ),
             ),
-            SizedBox(height: 32,)
+            SizedBox(
+              height: 32,
+            )
           ],
         ),
       ),

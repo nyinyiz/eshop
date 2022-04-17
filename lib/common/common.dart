@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart' as dartz;
-import 'package:eshop/domain/models/home_data.dart';
+import 'package:eshop/domain/models/event_sale_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
-import 'package:eshop/ui/shop/view/shop_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shine/flutter_shine.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
@@ -15,9 +16,43 @@ part 'palette.dart';
 
 part 'screen_size_reducer.dart';
 
+const String ADDRESS_KEY = "ADDRESSKEY";
+
 String getBaht() => "฿";
 
-Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
+/// write a storage key's value
+saveListWithGetStorage(String storageKey, List<dynamic> storageValue) async =>
+    await GetStorage().write(storageKey, jsonEncode(storageValue));
+
+/// read from storage
+readWithGetStorage(String storageKey) => GetStorage().read(storageKey);
+
+
+saveList(String storeKey, List<dynamic> listNeedToSave) {
+  /// getting all saved data
+  String oldSavedData = readWithGetStorage(storeKey);
+
+  /// in case there is saved data
+  if (oldSavedData != null) {
+    /// create a holder list for the old data
+    List<dynamic> oldSavedList = jsonDecode(oldSavedData);
+
+    /// append the new list to saved one
+    oldSavedList.addAll(listNeedToSave);
+
+    /// save the new collection
+    return saveListWithGetStorage(storeKey, oldSavedList);
+  } else {
+    /// in case of there is no saved data -- add the new list to storage
+    return saveListWithGetStorage(storeKey, listNeedToSave);
+  }
+}
+
+/// read from the storage
+readList(String storeKey) => readWithGetStorage(storeKey);
+
+
+Widget saleEventView({BuildContext ctx, EventSaleList eventSaleList}) => Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Card(
         semanticContainer: true,
@@ -30,7 +65,7 @@ Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
           alignment: Alignment.center,
           children: [
             Image.network(
-              imgURL,
+              eventSaleList.image ?? "https://picsum.photos/200/300?random=9",
               fit: BoxFit.cover,
               height: 150,
               width: MediaQuery.of(ctx).size.width,
@@ -42,7 +77,7 @@ Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
                 child: Column(
                   children: [
                     Text(
-                      "NEW ARRIVAL SPECIAL OFFER FOR APRIL",
+                      eventSaleList.title ?? "Event Sale",
                       style: ctx.toBeba64RegularFont(Palette.colorWhite),
                     ),
                   ],
@@ -52,7 +87,9 @@ Widget saleEventView({BuildContext ctx, String imgURL}) => Padding(
             Align(
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 child: Icon(Icons.navigate_next, color: Palette.colorBlack),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,

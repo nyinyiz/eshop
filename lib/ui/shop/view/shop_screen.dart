@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/flash_sale_model.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/ui/shop/controller/shop_controller.dart';
 import 'package:flutter_shine/flutter_shine.dart';
 import 'package:get/get.dart';
@@ -20,25 +22,12 @@ List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-/*List<String> categories = [
-  "All",
-  "Phone",
-  "Laptop",
-  "Computer",
-  "Book",
-  "Monitor",
-  "Mouse",
-  "Keyboard"
-];*/
-
 class ShopScreen extends GetView<ShopController> {
   final CarouselController _controller = CarouselController();
 
   final String title;
 
   ShopScreen(this.title);
-
-  Duration _duration = Duration(seconds: 100000);
 
   @override
   Widget build(BuildContext context) {
@@ -93,11 +82,12 @@ class ShopScreen extends GetView<ShopController> {
               ),
             ),
             SizedBox(height: 8),
-            _popularProductList(),
+            _popularProductList(ctx: context, listData: state.popularProduct),
+            //Popular product list
 
             /** Flash sale UI view with list and card */
             SizedBox(height: 16),
-            _flashSaleCard(ctx: context),
+            _flashSaleCard(ctx: context, flashSale: state.flashSale),
             SizedBox(height: 16),
             Padding(
               padding:
@@ -119,17 +109,26 @@ class ShopScreen extends GetView<ShopController> {
                 ],
               ),
             ),
-            _popularProductList(ctx: context),
+            _popularProductList(
+                ctx: context, listData: state?.flashSale?.productList),
+            //Flash sale product list
 
             /** Event sale card view*/
             SizedBox(height: 16),
-            saleEventView(
-                ctx: context, imgURL: "https://loremflickr.com/320/240/nike"),
+
+            ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: state?.eventSale?.eventSaleList?.length ?? 0,
+                itemBuilder: (context, index) => saleEventView(
+                    ctx: context,
+                    eventSaleList: state?.eventSale?.eventSaleList[index],)),
+            /*
             saleEventView(
                 ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
             saleEventView(
                 ctx: context, imgURL: "https://loremflickr.com/320/240/paris"),
-
+*/
             /** Best seller product List view with title */
             SizedBox(height: 16),
             Padding(
@@ -153,7 +152,8 @@ class ShopScreen extends GetView<ShopController> {
               ),
             ),
             SizedBox(height: 8),
-            _popularProductList(),
+            _popularProductList(listData: state.bestSeller, ctx: context),
+            //Best seller product list
             SizedBox(height: 100),
           ]),
         ),
@@ -161,66 +161,74 @@ class ShopScreen extends GetView<ShopController> {
     );
   }
 
-  Widget _flashSaleCard({BuildContext ctx}) => Card(
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        semanticContainer: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-        elevation: 16,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.network(
-              "https://loremflickr.com/320/240?random=${Random().nextInt(10)}",
-              fit: BoxFit.cover,
-              height: 200,
-              width: MediaQuery.of(ctx).size.width,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: FlutterShine(
-                light: Light(intensity: 1),
-                builder: (BuildContext context, ShineShadow shineShadow) {
-                  return Column(
-                    children: [
-                      Text(
-                        "Super Flash Sale 50% OFF",
-                        style: ctx.toPop32RegularFont(Palette.colorWhite),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: SlideCountdownClock(
-                          duration: _duration,
-                          slideDirection: SlideDirection.Up,
-                          separator: "-",
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          separatorTextStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Palette.colorBlue, shape: BoxShape.circle),
-                          onDone: () {
-                            Get.snackbar("Hi", "Clock 1 finish");
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
+  _getDuration(int durationSecond) => Duration(seconds: durationSecond);
+
+  Widget _flashSaleCard({BuildContext ctx, FlashSale flashSale}) =>
+      flashSale == null
+          ? Container()
+          : Card(
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              semanticContainer: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0),
               ),
-            ),
-          ],
-        ),
-      );
+              elevation: 16,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.network(
+                    flashSale.image ??
+                        "https://loremflickr.com/320/240?random=${Random().nextInt(10)}",
+                    fit: BoxFit.cover,
+                    height: 200,
+                    width: MediaQuery.of(ctx).size.width,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: FlutterShine(
+                      light: Light(intensity: 1),
+                      builder: (BuildContext context, ShineShadow shineShadow) {
+                        return Column(
+                          children: [
+                            Text(
+                              flashSale.eventTitle ?? "Flash sale",
+                              style: ctx.toPop32RegularFont(Palette.colorWhite),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: SlideCountdownClock(
+                                duration: _getDuration(
+                                    int.parse(flashSale.eventDuration)),
+                                slideDirection: SlideDirection.Up,
+                                separator: "-",
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                                separatorTextStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                ),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Palette.colorBlue,
+                                    shape: BoxShape.circle),
+                                onDone: () {
+                                  Get.snackbar("Hi", "Clock 1 finish");
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
 
   /* Widget _saleEventViewList({BuildContext ctx}) => SizedBox(
     height: 300,
@@ -230,16 +238,15 @@ class ShopScreen extends GetView<ShopController> {
         itemBuilder: saleEventView),
   );*/
 
-  Widget _popularProductList({BuildContext ctx}) => SizedBox(
+  Widget _popularProductList({BuildContext ctx, List<DataProduct> listData}) =>
+      SizedBox(
         height: 170,
         child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
-            itemCount: controller.state.popularProduct.length,
+            itemCount: listData.length,
             itemBuilder: (BuildContext context, int index) =>
-                popularProductView(
-                    ctx: context,
-                    product: controller.state.popularProduct[index])),
+                popularProductView(ctx: context, product: listData[index])),
       );
 
   Widget _buildCategories({BuildContext ctx}) => SizedBox(

@@ -13,6 +13,11 @@ class ProfileController extends SuperController<List<DataProduct>> {
     append(() => homeRepository.getAllProductList);
   }
 
+  void goToAddressesScreen() {
+    Get.toNamed('/home/profile/addresses');
+  }
+
+
   @override
   void onReady() {
     print('The build method is done. '
