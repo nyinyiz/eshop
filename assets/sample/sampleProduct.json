@@ -18,12 +18,14 @@
     "price": "3500",
     "discountPercent": 20,
     "favourite": false,
-    "available": 30,
-    "type": 1
+    "available": 0,
+    "type": 1,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1002,
-    "title": "Item Two Popular ",
+    "title": "เก็บเงินปลายทาง! ! สมาร์ทโฟน i13 Pro Max รุ่นปี 2022 พร้อมมือถือล็อคหน้าจอแบบเต็มหน้าจอขนาด 6.8 นิ้ว พร้อมซิมการ์ดคู่ ROM 8GB+ 256GB",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "images": [
       "https://picsum.photos/200/300?random=",
@@ -39,7 +41,9 @@
     "discountPercent": 0,
     "favourite": false,
     "available": 30,
-    "type": 1
+    "type": 1,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1003,
@@ -61,7 +65,9 @@
     "discountPercent": 30,
     "favourite": false,
     "available": 30,
-    "type": 1
+    "type": 1,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1004,
@@ -83,7 +89,9 @@
     "discountPercent": 0,
     "favourite": false,
     "available": 30,
-    "type": 1
+    "type": 1,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1005,
@@ -105,7 +113,9 @@
     "discountPercent": 30,
     "favourite": false,
     "available": 30,
-    "type": 1
+    "type": 1,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1006,
@@ -127,7 +137,9 @@
     "discountPercent": 0,
     "favourite": false,
     "available": 30,
-    "type": 2
+    "type": 2,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1007,
@@ -149,7 +161,9 @@
     "discountPercent": 0,
     "favourite": false,
     "available": 30,
-    "type": 2
+    "type": 2,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1008,
@@ -171,9 +185,10 @@
     "discountPercent": 30,
     "favourite": false,
     "available": 30,
-    "type": 2
+    "type": 2,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
-
   {
     "id": 1009,
     "title": "Item One Flash Sale",
@@ -194,7 +209,9 @@
     "discountPercent": 20,
     "favourite": false,
     "available": 30,
-    "type": 3
+    "type": 3,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1010,
@@ -216,7 +233,9 @@
     "discountPercent": 0,
     "favourite": false,
     "available": 30,
-    "type": 3
+    "type": 3,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   },
   {
     "id": 1011,
@@ -238,6 +257,8 @@
     "discountPercent": 30,
     "favourite": false,
     "available": 30,
-    "type": 3
+    "type": 3,
+    "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+    "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
   }
 ]

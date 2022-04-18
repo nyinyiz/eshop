@@ -17,8 +17,17 @@ part 'palette.dart';
 part 'screen_size_reducer.dart';
 
 const String ADDRESS_KEY = "ADDRESSKEY";
+const String CART_KEY = "CARTKEY";
 
 String getBaht() => "฿";
+
+int getVAT() => 80;
+
+List<String> getAvailableCoupon() => ["PROMO10", "PROMO20"];
+
+extension E on String {
+  String lastChars(int n) => substring(length - n);
+}
 
 /// write a storage key's value
 saveListWithGetStorage(String storageKey, List<dynamic> storageValue) async =>
@@ -26,7 +35,6 @@ saveListWithGetStorage(String storageKey, List<dynamic> storageValue) async =>
 
 /// read from storage
 readWithGetStorage(String storageKey) => GetStorage().read(storageKey);
-
 
 saveList(String storeKey, List<dynamic> listNeedToSave) {
   /// getting all saved data
@@ -51,8 +59,8 @@ saveList(String storeKey, List<dynamic> listNeedToSave) {
 /// read from the storage
 readList(String storeKey) => readWithGetStorage(storeKey);
 
-
-Widget saleEventView({BuildContext ctx, EventSaleList eventSaleList}) => Padding(
+Widget saleEventView({BuildContext ctx, EventSaleList eventSaleList}) =>
+    Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Card(
         semanticContainer: true,
@@ -87,9 +95,7 @@ Widget saleEventView({BuildContext ctx, EventSaleList eventSaleList}) => Padding
             Align(
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 child: Icon(Icons.navigate_next, color: Palette.colorBlack),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
@@ -152,7 +158,6 @@ Widget popularProductView({BuildContext ctx, DataProduct product}) => SizedBox(
                     ),
                   )
                 ]),
-
                 SizedBox(
                   height: 4,
                 ),
@@ -198,10 +203,10 @@ String getDiscountPrice(DataProduct product) {
     return product.price;
   } else {
     final totalPrice = int.parse(product.price) -
-        _getDiscountAmount(int.parse(product.price), product.discountPercent);
+        getDiscountAmount(int.parse(product.price), product.discountPercent);
 
     return totalPrice.toString();
   }
 }
 
-_getDiscountAmount(int price, int percent) => price * percent / 100;
+getDiscountAmount(int price, int percent) => price * percent / 100;

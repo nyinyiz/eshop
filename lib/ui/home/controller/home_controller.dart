@@ -1,8 +1,12 @@
-import 'package:eshop/domain/models/home_data.dart';
+import 'dart:convert';
+
+import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class HomeController extends SuperController<HomeData> {
+class HomeController extends SuperController<List<CartModel>> {
   HomeController({this.homeRepository});
 
   final HomeRepository homeRepository;
@@ -19,7 +23,23 @@ class HomeController extends SuperController<HomeData> {
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getHomeData);
+    append(() => homeRepository.getCartList);
+
+    GetStorage().listenKey(CART_KEY, (value) {
+
+      append(() => homeRepository.getCartList);
+
+    });
+
+  }
+
+  List<CartModel> getCartList() {
+    if (readList(CART_KEY) != null) {
+      final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
+      return data.map((e) => CartModel.fromJson(e)).toList();
+    } else {
+      return List.empty();
+    }
   }
 
   void goToNotificationList() {
@@ -46,6 +66,7 @@ class HomeController extends SuperController<HomeData> {
   @override
   void didChangeMetrics() {
     print('the window size did change');
+
     super.didChangeMetrics();
   }
 

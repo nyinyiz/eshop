@@ -76,7 +76,9 @@ class ShopScreen extends GetView<ShopController> {
                     ),
                     onPressed: () {
                       controller.goToProductList(
-                          index: 0, type: 1); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
+                          index: 0,
+                          type:
+                              1); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
                     },
                   ),
                 ],
@@ -107,7 +109,9 @@ class ShopScreen extends GetView<ShopController> {
                     ),
                     onPressed: () {
                       controller.goToProductList(
-                          index: 0, type: 3); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
+                          index: 0,
+                          type:
+                              3); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
                     },
                   ),
                 ],
@@ -125,8 +129,9 @@ class ShopScreen extends GetView<ShopController> {
                 shrinkWrap: true,
                 itemCount: state?.eventSale?.eventSaleList?.length ?? 0,
                 itemBuilder: (context, index) => saleEventView(
-                    ctx: context,
-                    eventSaleList: state?.eventSale?.eventSaleList[index],)),
+                      ctx: context,
+                      eventSaleList: state?.eventSale?.eventSaleList[index],
+                    )),
             /*
             saleEventView(
                 ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
@@ -152,7 +157,9 @@ class ShopScreen extends GetView<ShopController> {
                     ),
                     onPressed: () {
                       controller.goToProductList(
-                          index: 0, type: 6); //6 for BEST SELLER PRODUCT/ Actually direct value shouldn't assigned in widget.
+                          index: 0,
+                          type:
+                              6); //6 for BEST SELLER PRODUCT/ Actually direct value shouldn't assigned in widget.
                     },
                   ),
                 ],

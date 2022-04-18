@@ -19,204 +19,295 @@ class AddToCartScreen extends GetView<AddToCartController> {
           style: context.toPopBoldFont(Palette.colorBlack),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _deleteConfirmDialog(context);
+            },
+            icon: Icon(
+              Icons.delete_forever_outlined,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
       body: controller.obx((state) => Container(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: EdgeInsets.only(
-                            bottom: 32, top: 16, left: 16, right: 16),
-                        shrinkWrap: true,
-                        itemCount: state?.length ?? 0,
-                        itemBuilder: _cartProductView),
-                  ),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8),
-                    child: Text("Your Voucher Code",
-                        style: context
-                            .toPop14RegularFont(Palette.colorBlack)
-                            .copyWith(fontWeight: FontWeight.bold)),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          alignLabelWithHint: true,
-                          hintText: "Enter Voucher Code",
-                          hintStyle:
-                              context.toPop12RegularFont(Palette.colorGrey),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          fillColor: Colors.white10,
-                          suffixIcon: TextButton.icon(
-                            style: TextButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(8), // <-- Radius
-                                ),
-                                elevation: 0,
-                                backgroundColor: Colors.cyan.shade600),
-                            icon: Icon(
-                              Icons.qr_code_scanner_rounded,
-                              color: Palette.colorWhite,
-                            ),
-                            label: Text(
-                              "Apply",
-                              style: context
-                                  .toPop12RegularFont(Palette.colorWhite),
-                            ),
-                          )),
-                    ),
-                  ),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text("Order Summary",
-                        style: context
-                            .toPop14RegularFont(Palette.colorBlack)
-                            .copyWith(fontWeight: FontWeight.bold)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        ListTile(
-                          dense: true,
-                          visualDensity: VisualDensity(vertical: -3),
-                          title: Text(
-                            "Subtotal",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          trailing: Text(
-                            "${getBaht()}15000",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                        ListTile(
-                          dense: true,
-                          visualDensity: VisualDensity(vertical: -3),
-                          title: Text(
-                            "ShippingFee",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          trailing: Text(
-                            "Free",
+            child: controller.getCartList().length == 0
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                              width: 200,
+                              height: 200,
+                              child:
+                                  Image.asset('assets/images/cartempty.png')),
+                          Text(
+                            "You haven't placed any orders yet.",
                             style: context
-                                .toPop14RegularFont(Colors.green.shade600),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                                .toPop28RegularFont(Palette.colorBlack)
+                                .copyWith(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
                           ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            "When you do, the status will appear here.",
+                            style:
+                                context.toPop14RegularFont(Palette.colorGrey),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 32,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              shape: StadiumBorder(),
+                              primary: Palette.colorRed,
+                              onPrimary: Colors.white,
+                            ),
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              'Explore our products',
+                              style: context
+                                  .toPop18SemiBoldFont(Palette.colorWhite),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.only(
+                                  bottom: 32, top: 16, left: 16, right: 16),
+                              shrinkWrap: true,
+                              itemCount: controller.getCartList().length ?? 0,
+                              itemBuilder: _cartProductView),
                         ),
-                        ListTile(
-                          dense: true,
-                          visualDensity: VisualDensity(vertical: -3),
-                          title: Text(
-                            "Discount",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          trailing: Text(
-                            "-${getBaht()}140",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8),
+                          child: Text("Your Voucher Code",
+                              style: context
+                                  .toPop14RegularFont(Palette.colorBlack)
+                                  .copyWith(fontWeight: FontWeight.bold)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24.0, vertical: 8),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                alignLabelWithHint: true,
+                                hintText: "Enter Voucher Code",
+                                hintStyle: context
+                                    .toPop12RegularFont(Palette.colorGrey),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                fillColor: Colors.white10,
+                                suffixIcon: TextButton.icon(
+                                  style: TextButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            8), // <-- Radius
+                                      ),
+                                      elevation: 0,
+                                      backgroundColor: Colors.cyan.shade600),
+                                  icon: Icon(
+                                    Icons.qr_code_scanner_rounded,
+                                    color: Palette.colorWhite,
+                                  ),
+                                  label: Text(
+                                    "Apply",
+                                    style: context
+                                        .toPop12RegularFont(Palette.colorWhite),
+                                  ),
+                                )),
                           ),
                         ),
                         Divider(),
-                        ListTile(
-                          dense: true,
-                          visualDensity: VisualDensity(vertical: -3),
-                          title: Text(
-                            "Total(Include of VAT)",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          trailing: Text(
-                            "-${getBaht()}14900",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("Order Summary",
+                              style: context
+                                  .toPop14RegularFont(Palette.colorBlack)
+                                  .copyWith(fontWeight: FontWeight.bold)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: [
+                              ListTile(
+                                dense: true,
+                                visualDensity: VisualDensity(vertical: -3),
+                                title: Text(
+                                  "Subtotal",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                trailing: Text(
+                                  "${getBaht()}${controller.getOrderSubTotal()}",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              ListTile(
+                                dense: true,
+                                visualDensity: VisualDensity(vertical: -3),
+                                title: Text(
+                                  "ShippingFee",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                trailing: Text(
+                                  "Free",
+                                  style: context.toPop14RegularFont(
+                                      Colors.green.shade600),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              ListTile(
+                                dense: true,
+                                visualDensity: VisualDensity(vertical: -3),
+                                title: Text(
+                                  "Discount",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                trailing: Text(
+                                  "-${getBaht()}${controller.getOrderDiscount()}",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              Divider(),
+                              ListTile(
+                                dense: true,
+                                visualDensity: VisualDensity(vertical: -3),
+                                title: Text(
+                                  "Total(Include of VAT)",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                trailing: Text(
+                                  "${getBaht()}${controller.getTotalIncludeVAT()}",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              ListTile(
+                                dense: true,
+                                visualDensity: VisualDensity(vertical: -3),
+                                title: Text(
+                                  "Estimated VAT",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                trailing: Text(
+                                  "${getBaht()}${getVAT()}",
+                                  style: context
+                                      .toPop14RegularFont(Palette.colorBlack),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        ListTile(
-                          dense: true,
-                          visualDensity: VisualDensity(vertical: -3),
-                          title: Text(
-                            "Estimated VAT",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          trailing: Text(
-                            "${getBaht()}70",
-                            style:
-                                context.toPop14RegularFont(Palette.colorBlack),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder(),
+                                primary: Palette.colorDeepOrangeAccent,
+                                onPrimary: Colors.white,
+                              ),
+                              onPressed: () {
+                                controller.goToAddressesScreen();
+                              },
+                              child: Text(
+                                'Continue',
+                                style: context
+                                    .toPop18SemiBoldFont(Palette.colorWhite),
+                              ),
+                            ),
                           ),
                         ),
+                        SizedBox(
+                          height: 50,
+                        )
                       ],
                     ),
                   ),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          primary: Palette.colorDeepOrangeAccent,
-                          onPrimary: Colors.white,
-                        ),
-                        onPressed: () {
-                          controller.goToAddressesScreen();
-                        },
-                        child: Text(
-                          'Continue',
-                          style:
-                              context.toPop18SemiBoldFont(Palette.colorWhite),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  )
-                ],
-              ),
-            ),
           )),
+    );
+  }
+
+  void _deleteConfirmDialog(BuildContext ctx) {
+    Get.dialog(
+      AlertDialog(
+        title: Text(
+          'Delete',
+          style: ctx.toPop18SemiBoldFont(Palette.colorBlack),
+        ),
+        content: Text(
+          'Are you sure you want to delete all list?',
+          style: ctx.toPop18RegularFont(Palette.colorBlack),
+        ),
+        actions: [
+          TextButton(
+            child: const Text("Cancel"),
+            onPressed: () => Get.back(),
+          ),
+          TextButton(
+            child: const Text("Ok"),
+            onPressed: () {
+              controller.clearAllCart();
+              Get.back();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -232,36 +323,71 @@ class AddToCartScreen extends GetView<AddToCartController> {
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
-                controller.state[index].images[0],
+                controller
+                        .getProductDetail(controller
+                            .getCartList()[index]
+                            .productId
+                            .toString())
+                        .images[0] +
+                    index.toString(),
                 cacheHeight: 150,
                 cacheWidth: 180,
                 fit: BoxFit.fill,
               ),
             ),
-            title: Text(controller.state[index].title,
+            title: Text(
+                controller
+                    .getProductDetail(
+                        controller.getCartList()[index].productId.toString())
+                    .title,
                 style: context.toPop14RegularFont(Palette.colorBlack)),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  controller.state[index].brand.name,
+                  controller
+                      .getProductDetail(
+                          controller.getCartList()[index].productId.toString())
+                      .brand
+                      .name,
                   style: context.toPop10RegularFont(Palette.colorGrey),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                 ),
-                Text(getBaht() + controller.state[index].price,
-                    style: context.toPop14RegularFont(Palette.colorBlack))
+                Text(
+                    getBaht() +
+                        controller
+                            .getProductDetail(controller
+                                .getCartList()[index]
+                                .productId
+                                .toString())
+                            .price,
+                    style: context.toPop14RegularFont(Palette.colorBlack)),
+                Divider(),
+                Text(
+                    "available discount: " + controller
+                                .getProductDetail(controller
+                                    .getCartList()[index]
+                                    .productId
+                                    .toString())
+                                .discountPercent
+                                .toString() +
+                            "%" ??
+                        "",
+                    style: context.toPop12RegularFont(Palette.colorBlue)),
+                SizedBox(height: 8,)
               ],
             ),
             trailing: Container(
               child: CartStepperInt(
-                count: controller.getCount(),
+                count: controller.getCartList()[index]?.count ?? 0,
                 size: 26,
                 elevation: 0,
                 activeBackgroundColor: Colors.black87,
                 activeForegroundColor: Palette.colorWhite,
                 didChangeCount: (count) {
-                  controller.changeCount(count);
+                  controller.changeCount(
+                      controller.getCartList()[index].productId, count);
                 },
               ),
             ),

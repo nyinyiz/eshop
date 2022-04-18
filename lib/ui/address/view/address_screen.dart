@@ -293,4 +293,5 @@ class AddressScreen extends GetView<AddressController> {
       ),
     );
   }
+
 }

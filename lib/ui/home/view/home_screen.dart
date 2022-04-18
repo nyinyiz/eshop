@@ -39,9 +39,11 @@ class HomeScreen extends GetView<HomeController> {
             position: BadgePosition.topEnd(top: 0, end: 3),
             animationDuration: Duration(milliseconds: 300),
             animationType: BadgeAnimationType.slide,
-            badgeContent: Text(
-              "0",
-              style: TextStyle(color: Colors.white),
+            badgeContent: controller.obx(
+              (state) => Text(
+                state.length?.toString() ?? "0",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             child: IconButton(
                 icon: Icon(

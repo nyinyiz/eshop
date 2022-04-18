@@ -1,21 +1,29 @@
+import 'dart:convert';
+
+import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AddToCartController extends SuperController<List<DataProduct>> {
   AddToCartController({this.homeRepository});
 
   final HomeRepository homeRepository;
+  final box = GetStorage();
 
-  final currentCount = 1.obs;
+  final currentCount = 0.obs;
 
-  void changeCount(int count) {
-    currentCount.value = count;
-    update();
+  void changeCount(int productId, int count) {
+    final data = getCartList();
+
+    data[data.indexWhere((element) => element.productId == productId)] =
+        CartModel(productId: productId, count: count);
+
+    clearAllCart();
+    saveList(CART_KEY, data);
   }
-
-  int getCount() => currentCount.value;
-
 
   @override
   void onInit() {
@@ -23,8 +31,85 @@ class AddToCartController extends SuperController<List<DataProduct>> {
     append(() => homeRepository.getAllProductList);
   }
 
+  DataProduct getProductDetail(String id) {
+    final index = int.tryParse(id);
+    return index != null ? state[index] : state.first;
+  }
+
   void goToAddressesScreen() {
     Get.toNamed('/home/cart/addresses');
+  }
+
+  double getOrderSubTotal() {
+    final data = getCartList();
+    var sum = 0.0;
+
+    for (var i = 0; i < data.length; i++) {
+      var product = getProductDetail(data[i].productId.toString());
+      var orderedPrice = int.parse(product.price) * data[i].count;
+      sum += orderedPrice;
+    }
+
+    return sum;
+  }
+
+  double getOrderDiscount() {
+    final data = getCartList();
+    double totalDiscount = 0.0;
+
+    for (var i = 0; i < data.length; i++) {
+      var product = getProductDetail(data[i].productId.toString());
+      if (product.discountPercent.isBlank ||
+          product.discountPercent.isEqual(0)) {
+      } else {
+        var discount = getDiscountAmount(
+            int.parse(product.price), product.discountPercent);
+        var orderedDiscountPrice = discount * data[i].count;
+
+        totalDiscount += orderedDiscountPrice;
+      }
+    }
+    return totalDiscount;
+  }
+
+  double getTotalIncludeVAT() {
+    double total = getOrderSubTotal() - getOrderDiscount();
+    total += getVAT();
+
+    return total;
+  }
+
+  String checkActiveCoupon(String couponCode) {
+    var message = getAvailableCoupon().contains(couponCode)
+        ? "Applied $couponCode coupon."
+        : "$couponCode is not activate.";
+  }
+
+  List<CartModel> getCartList() {
+    if (readList(CART_KEY) != null) {
+      final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
+      return data.map((e) => CartModel.fromJson(e)).toList();
+    } else {
+      return List.empty();
+    }
+  }
+
+  void clearAllCart() {
+    box.remove(CART_KEY);
+  }
+
+  CartModel getCartData({int productId, int count}) {
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    final model = CartModel(productId: productId, count: count);
+
+    return model;
+  }
+
+  void addCartContent(CartModel model) {
+    List<CartModel> list = [];
+    list.add(model);
+
+    saveList(CART_KEY, list);
   }
 
   @override

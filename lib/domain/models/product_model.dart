@@ -12,6 +12,8 @@ class DataProduct {
   bool favourite;
   int available;
   int type;
+  String shippingInfo;
+  String returnPolicy;
 
   DataProduct(
       {this.id,
@@ -24,7 +26,9 @@ class DataProduct {
       this.discountPercent,
       this.favourite,
       this.available,
-      this.type});
+      this.type,
+      this.shippingInfo,
+      this.returnPolicy});
 
   DataProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,6 +42,8 @@ class DataProduct {
     favourite = json['favourite'];
     available = json['available'];
     type = json['type'];
+    shippingInfo = json['shipping_info'];
+    returnPolicy = json['return_policy'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +61,8 @@ class DataProduct {
     data['favourite'] = this.favourite;
     data['available'] = this.available;
     data['type'] = this.type;
+    data['shipping_info'] = this.shippingInfo;
+    data['return_policy'] = this.returnPolicy;
     return data;
   }
 }

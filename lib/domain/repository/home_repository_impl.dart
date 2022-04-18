@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/address_model.dart';
+import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/models/notification_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
@@ -86,6 +90,16 @@ class HomeRepositoryImpl implements HomeRepository {
       return Future.error("Response : Empty Home Data");
     } else {
       return homeData.data;
+    }
+  }
+
+  @override
+  Future<List<CartModel>> getCartList() {
+    if (readList(CART_KEY) != null) {
+      final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
+      return Future.value(data.map((e) => CartModel.fromJson(e)).toList());
+    } else {
+      return Future.value(List.empty());
     }
   }
 }

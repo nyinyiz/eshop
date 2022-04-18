@@ -23,8 +23,10 @@
         "price": "3500",
         "discountPercent": 20,
         "favourite": false,
-        "available": 30,
-        "type": 1
+        "available": 1,
+        "type": 1,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1002,
@@ -46,7 +48,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 1
+        "type": 1,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1003,
@@ -68,7 +72,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 1
+        "type": 1,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1004,
@@ -90,7 +96,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 1
+        "type": 1,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1005,
@@ -112,7 +120,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 1
+        "type": 1,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -141,7 +151,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 2
+        "type": 2,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1007,
@@ -163,7 +175,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 2
+        "type": 2,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1008,
@@ -185,7 +199,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 2
+        "type": 2,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -214,7 +230,9 @@
         "discountPercent": 20,
         "favourite": false,
         "available": 30,
-        "type": 3
+        "type": 3,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1010,
@@ -236,7 +254,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 3
+        "type": 3,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1011,
@@ -258,7 +278,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 3
+        "type": 3,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -287,7 +309,9 @@
         "discountPercent": 20,
         "favourite": false,
         "available": 30,
-        "type": 4
+        "type": 4,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1002,
@@ -309,7 +333,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 4
+        "type": 4,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1003,
@@ -331,7 +357,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 4
+        "type": 4,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1004,
@@ -353,7 +381,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 4
+        "type": 4,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1005,
@@ -375,7 +405,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 4
+        "type": 4,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -404,7 +436,9 @@
         "discountPercent": 20,
         "favourite": false,
         "available": 30,
-        "type": 5
+        "type": 5,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1002,
@@ -426,7 +460,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 5
+        "type": 5,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1003,
@@ -448,7 +484,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 5
+        "type": 5,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1004,
@@ -470,7 +508,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 5
+        "type": 5,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1005,
@@ -492,7 +532,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 5
+        "type": 5,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -521,7 +563,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 6
+        "type": 6,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1002,
@@ -543,7 +587,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 6
+        "type": 6,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -572,7 +618,9 @@
         "discountPercent": 20,
         "favourite": false,
         "available": 30,
-        "type": 7
+        "type": 7,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1002,
@@ -594,7 +642,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 7
+        "type": 7,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1003,
@@ -616,7 +666,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 7
+        "type": 7,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1004,
@@ -638,7 +690,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 7
+        "type": 7,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1005,
@@ -660,7 +714,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 7
+        "type": 7,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   },
@@ -689,7 +745,9 @@
         "discountPercent": 20,
         "favourite": false,
         "available": 30,
-        "type": 8
+        "type": 8,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1002,
@@ -711,7 +769,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 8
+        "type": 8,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1003,
@@ -733,7 +793,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 8
+        "type": 8,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1004,
@@ -755,7 +817,9 @@
         "discountPercent": 0,
         "favourite": false,
         "available": 30,
-        "type": 8
+        "type": 8,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       },
       {
         "id": 1005,
@@ -777,7 +841,9 @@
         "discountPercent": 30,
         "favourite": false,
         "available": 30,
-        "type": 8
+        "type": 8,
+        "shipping_info": "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+        "return_policy": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/"
       }
     ]
   }

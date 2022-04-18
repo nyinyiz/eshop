@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:cart_stepper/cart_stepper.dart';
 import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/ui/productDetail/controller/product_detail_controller.dart';
@@ -7,8 +6,6 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
 
 class ProductDetailScreen extends GetView<ProductDetailController> {
-  const ProductDetailScreen({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final parameter = Get.parameters;
@@ -51,13 +48,69 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
               SizedBox(
                 height: 16,
               ),
+              Divider(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  "Quantity",
+                  style: context
+                      .toPop14RegularFont(Palette.colorBlack)
+                      .copyWith(fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CartStepperInt(
+                      count:
+                          controller.getProductDetail(productId).available == 0
+                              ? 0
+                              : controller.getCount(),
+                      size: 32,
+                      activeBackgroundColor: Colors.white,
+                      activeForegroundColor: Palette.colorBlack,
+                      didChangeCount: (count) {
+                        if (count <=
+                            controller.getProductDetail(productId).available) {
+                          controller.changeCount(count);
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        controller.getProductDetail(productId).available == 0
+                            ? "Out of stock"
+                            : controller
+                                    .getProductDetail(productId)
+                                    .available
+                                    .toString() +
+                                " pieces available",
+                        style: context.toPop12RegularFont(
+                            controller.getProductDetail(productId).available ==
+                                    0
+                                ? Palette.colorRed
+                                : Palette.colorGrey),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+              SizedBox(
+                height: 8,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   controller.getProductDetail(productId).brand.name ??
                       "Company Name",
                   style: context.toPop18SemiBoldFont(Palette.colorGrey),
-                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               SizedBox(
@@ -128,7 +181,8 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "STANDARD SHIPPING 22THB. FREE on orders about 100THB. Estimated to be delivered on 18/05/2022-21/05/2022",
+                  controller.getProductDetail(productId).shippingInfo ??
+                      "Shipping address",
                   style: context.toPop14RegularFont(Palette.colorGrey),
                 ),
               ),
@@ -168,8 +222,8 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: SelectableLinkify(
                   onOpen: (link) => print("Clicked ${link.url}!"),
-                  text:
-                      "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/",
+                  text: controller.getProductDetail(productId).returnPolicy ??
+                      "return policy link",
                   style: context.toPop14RegularFont(Palette.colorBlue),
                 ),
               ),
@@ -247,7 +301,9 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                         primary: Colors.red, // background
                         onPrimary: Colors.white, // foreground
                       ), // foreground
-                      onPressed: () {},
+                      onPressed: () {
+                        _validateAvailableProduct(int.parse(productId));
+                      },
                       child: Text(
                         'Buy Now',
                         style: context.toPop18SemiBoldFont(Palette.colorWhite),
@@ -259,6 +315,22 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
         ),
       ),
     );
+  }
+
+  const ProductDetailScreen({Key key}) : super(key: key);
+
+  void _validateAvailableProduct(int productID) {
+    if (controller.getProductDetail(productID.toString()).available <= 0) {
+      Get.snackbar(
+          "Warning", "This product is out of stock. Please come back later.");
+    } else if (controller.getCount() == 0) {
+      Get.snackbar("Warning", "Please choose specific quantity.");
+    } else {
+      final model = controller.getCartData(
+          productId: productID, count: controller.getCount());
+      controller.addCartContent(model);
+      Get.snackbar("Successful", "Successfully added to cart.");
+    }
   }
 
   Widget _popularProductList(
@@ -307,7 +379,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
           elevation: 0,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.network(
-            imageList[index]+index.toString(),
+            imageList[index] + index.toString(),
             fit: BoxFit.cover,
             height: 50,
             width: 50,
@@ -324,7 +396,8 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
         elevation: 0,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Image.network(
-          imageList[controller.getImageIndex()] + controller.getImageIndex().toString(),
+          imageList[controller.getImageIndex()] +
+              controller.getImageIndex().toString(),
           fit: BoxFit.cover,
           height: MediaQuery.of(ctx).size.height * 0.35,
           width: MediaQuery.of(ctx).size.width,

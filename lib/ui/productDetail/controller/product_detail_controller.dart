@@ -1,3 +1,5 @@
+import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,15 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
   ProductDetailController({this.homeRepository});
 
   final HomeRepository homeRepository;
+
+  final currentCount = 1.obs;
+
+  void changeCount(int count) {
+    currentCount.value = count;
+    update();
+  }
+
+  int getCount() => currentCount.value;
 
   final currentIndex = 0.obs;
 
@@ -22,7 +33,6 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
     append(() => homeRepository.getAllProductList);
   }
 
-
   DataProduct getProductDetail(String id) {
     final index = int.tryParse(id);
     return index != null ? state[index] : state.first;
@@ -36,18 +46,29 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
       return product.price;
     } else {
       final totalPrice = int.parse(product.price) -
-          _getDiscountAmount(int.parse(product.price), product.discountPercent);
+          getDiscountAmount(int.parse(product.price), product.discountPercent);
 
       return totalPrice.toString();
     }
   }
 
-  _getDiscountAmount(int price, int percent) => price * percent / 100;
-
   void goToProductDetail({int index}) {
     Get.toNamed(
       '/home/category/productlist/productdetail?id=$index',
     );
+  }
+
+  CartModel getCartData({int productId, int count}) {
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    final model = CartModel(productId: productId, count: count);
+    return model;
+  }
+
+  void addCartContent(CartModel model) {
+    List<CartModel> list = [];
+    list.add(model);
+
+    saveList(CART_KEY, list);
   }
 
   @override
@@ -66,6 +87,7 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
   @override
   void didChangeMetrics() {
     print('the window size did change');
+    currentIndex.value = 0;
     super.didChangeMetrics();
   }
 

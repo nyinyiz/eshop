@@ -12,8 +12,8 @@ class ProductListScreen extends GetView<ProductListController> {
   @override
   Widget build(BuildContext context) {
     final parameter = Get.parameters;
-    final type = parameter['type'] ?? '';
-    final categoryId = parameter['categoryId'] ?? '';
+    final type = parameter['type'] ?? '0';
+    final categoryId = parameter['categoryId'] ?? '0';
 
     controller.getProductListByType(int.parse(type));
 
@@ -89,7 +89,7 @@ class ProductListScreen extends GetView<ProductListController> {
                           child: Image.network(
                             controller.state[index].images[0]+Random().nextInt(9).toString() ?? "",
                             width: MediaQuery.of(ctx).size.width,
-                            height: 120,
+                            height: 100,
                             cacheHeight: 120,
                             cacheWidth: 120,
                             fit: BoxFit.fill,
