@@ -11,5 +11,6 @@ abstract class Routes {
   static const PROFILE = "/profile";
   static const CART = "/cart";
   static const ADDRESSES = "/addresses";
-
+  static const ORDERRETURN = "/orderreturn";
+  static const PLACEDORDERS = "/placedorders";
 }

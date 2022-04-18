@@ -2,6 +2,7 @@ import 'package:eshop/domain/models/address_model.dart';
 import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/models/notification_model.dart';
+import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 
 abstract class HomeRepository {
@@ -24,5 +25,8 @@ abstract class HomeRepository {
   Future<List<DataProduct>> getProductByType(int type);
 
   Future<List<CartModel>> getCartList();
+
+  Future<List<OrderedItem>> getOrderedList();
+
 
 }

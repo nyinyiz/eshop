@@ -5,6 +5,7 @@ import 'package:eshop/domain/models/address_model.dart';
 import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/models/home_data.dart';
 import 'package:eshop/domain/models/notification_model.dart';
+import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/remote/home_provider.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
@@ -97,7 +98,19 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<List<CartModel>> getCartList() {
     if (readList(CART_KEY) != null) {
       final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
-      return Future.value(data.map((e) => CartModel.fromJson(e)).toList());
+      final cartList = data.map((e) => CartModel.fromJson(e)).toList();
+      return Future.value(
+          cartList.where((element) => element.status == 0).toList());
+    } else {
+      return Future.value(List.empty());
+    }
+  }
+
+  @override
+  Future<List<OrderedItem>> getOrderedList() {
+    if (readList(ORDERED_KEY) != null) {
+      final data = jsonDecode(readList(ORDERED_KEY)) as List<dynamic>;
+      return Future.value(data.map((e) => OrderedItem.fromJson(e)).toList());
     } else {
       return Future.value(List.empty());
     }

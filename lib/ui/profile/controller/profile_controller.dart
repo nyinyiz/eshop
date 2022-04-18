@@ -17,6 +17,13 @@ class ProfileController extends SuperController<List<DataProduct>> {
     Get.toNamed('/home/profile/addresses');
   }
 
+  void goToOrderReturnScreen() {
+    Get.toNamed('/home/profile/orderreturn');
+  }
+
+  void goToOrdersList() {
+    Get.toNamed('/home/profile/placedorders');
+  }
 
   @override
   void onReady() {

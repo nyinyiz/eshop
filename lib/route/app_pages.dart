@@ -4,6 +4,8 @@ import 'package:eshop/ui/cart/view/add_to_cart_screen.dart';
 import 'package:eshop/ui/categories/view/categories_screen.dart';
 import 'package:eshop/ui/home/view/home_screen.dart';
 import 'package:eshop/ui/notification/view/notification_screen.dart';
+import 'package:eshop/ui/orderReturn/view/order_return_screen.dart';
+import 'package:eshop/ui/orders/view/placed_orders_screen.dart';
 import 'package:eshop/ui/productDetail/view/product_detail_screen.dart';
 import 'package:eshop/ui/productlist/view/productlist_screen.dart';
 import 'package:eshop/ui/profile/view/profile_screen.dart';
@@ -68,19 +70,26 @@ class AppPages {
               GetPage(
                   name: Routes.ADDRESSES,
                   page: () => AddressScreen(),
+                  binding: HomeBinding()),
+              GetPage(
+                  name: Routes.ORDERRETURN,
+                  page: () => OrderReturnScreen(),
+                  binding: HomeBinding()),
+              GetPage(
+                  name: Routes.PLACEDORDERS,
+                  page: () => PlacedOrdersScreen(),
                   binding: HomeBinding())
             ]),
         GetPage(
-          name: Routes.CART,
-          page: () => AddToCartScreen(),
-          binding: HomeBinding(),
-          children: [
-            GetPage(
-                name: Routes.ADDRESSES,
-                page: () => AddressScreen(),
-                binding: HomeBinding())
-          ]
-        )
+            name: Routes.CART,
+            page: () => AddToCartScreen(),
+            binding: HomeBinding(),
+            children: [
+              GetPage(
+                  name: Routes.ADDRESSES,
+                  page: () => AddressScreen(),
+                  binding: HomeBinding())
+            ])
       ],
     ),
   ];

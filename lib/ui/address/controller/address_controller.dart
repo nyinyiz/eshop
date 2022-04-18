@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/address_model.dart';
+import 'package:eshop/domain/models/cart_model.dart';
+import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
@@ -34,6 +36,8 @@ class AddressController extends SuperController<List<DataProduct>> {
 
   AddressModel getAddressData(
       {String name,
+      String phone,
+      String email,
       String address,
       String city,
       String country,
@@ -42,6 +46,8 @@ class AddressController extends SuperController<List<DataProduct>> {
     final model = AddressModel(
         id: timestamp,
         name: name,
+        phoneNumber: phone,
+        email: email ?? "",
         address: address,
         city: city,
         country: country,
@@ -55,6 +61,89 @@ class AddressController extends SuperController<List<DataProduct>> {
     list.add(model);
 
     saveList(ADDRESS_KEY, list);
+  }
+
+  OrderedItem getOrderedData(
+      {List<CartModel> cartModel,
+      int totalPrice,
+      String placedTime,
+      String address,
+      String contactNumber,
+      String estimateDeliveryDate,
+      String subTotal,
+      String discount,
+      String estimateVat}) {
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+
+  }
+
+  void addOrderedContent(OrderedItem model) {
+    List<OrderedItem> list = [];
+    list.add(model);
+
+    saveList(ORDERED_KEY, list);
+  }
+
+  DataProduct getProductDetail(String id) {
+    final index = int.tryParse(id);
+    return index != null ? state[index] : state.first;
+  }
+
+  double getOrderSubTotal() {
+    final data = getCartList();
+    var sum = 0.0;
+
+    for (var i = 0; i < data.length; i++) {
+      var product = getProductDetail(data[i].productId.toString());
+      var orderedPrice = int.parse(product.price) * data[i].count;
+      sum += orderedPrice;
+    }
+
+    return sum;
+  }
+
+  double getOrderDiscount() {
+    final data = getCartList();
+    double totalDiscount = 0.0;
+
+    for (var i = 0; i < data.length; i++) {
+      var product = getProductDetail(data[i].productId.toString());
+      if (product.discountPercent.isBlank ||
+          product.discountPercent.isEqual(0)) {
+      } else {
+        var discount = getDiscountAmount(
+            int.parse(product.price), product.discountPercent);
+        var orderedDiscountPrice = discount * data[i].count;
+
+        totalDiscount += orderedDiscountPrice;
+      }
+    }
+    return totalDiscount;
+  }
+
+  double getTotalIncludeVAT() {
+    double total = getOrderSubTotal() - getOrderDiscount();
+    total += getVAT();
+
+    return total;
+  }
+
+  String checkActiveCoupon(String couponCode) {
+    return getAvailableCoupon().contains(couponCode)
+        ? "Applied $couponCode coupon."
+        : "$couponCode is not activate.";
+  }
+
+  List<CartModel> getCartList() {
+    if (readList(CART_KEY) != null) {
+      final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
+      final cartList = data.map((e) => CartModel.fromJson(e)).toList();
+      return cartList
+          .where((element) => element.status == 0 && element.count > 0)
+          .toList();
+    } else {
+      return List.empty();
+    }
   }
 
   @override

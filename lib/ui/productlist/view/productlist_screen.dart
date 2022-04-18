@@ -140,7 +140,7 @@ class ProductListScreen extends GetView<ProductListController> {
                               text: "฿${getDiscountPrice(controller.state[index])}",
                               style:
                                   ctx.toPop14RegularFont(Palette.colorBlack)),
-                          ((index == 1 || index == 3)
+                          ((controller.state[index].discountPercent != 0)
                               ? TextSpan(
                                   text: " ฿${controller.state[index].price}",
                                   style: ctx

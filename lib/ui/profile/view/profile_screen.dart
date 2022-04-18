@@ -44,7 +44,9 @@ class ProfileScreen extends GetView<ProfileController> {
             ),
             ListTile(
               enabled: true,
-              onTap: () => {},
+              onTap: () => {
+                controller.goToOrdersList()
+              },
               leading: Container(
                 child: Icon(
                   Icons.list_alt_outlined,
@@ -64,7 +66,7 @@ class ProfileScreen extends GetView<ProfileController> {
             ),
             ListTile(
               enabled: true,
-              onTap: () => {},
+              onTap: () => {controller.goToOrderReturnScreen()},
               leading: Container(
                 child: Icon(
                   Icons.remove_shopping_cart_outlined,

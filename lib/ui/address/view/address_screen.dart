@@ -1,6 +1,9 @@
 import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/address_model.dart';
+import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/ui/address/controller/address_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AddressScreen extends GetView<AddressController> {
   const AddressScreen({Key key}) : super(key: key);
@@ -9,6 +12,8 @@ class AddressScreen extends GetView<AddressController> {
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController addressController = TextEditingController();
+    TextEditingController phoneNumberController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
     TextEditingController cityController = TextEditingController();
     TextEditingController countryController = TextEditingController();
     TextEditingController postalCodeController = TextEditingController();
@@ -30,21 +35,26 @@ class AddressScreen extends GetView<AddressController> {
               _deleteConfirmDialog(context);
             },
             icon: Icon(
-              Icons.delete_forever_outlined,
+              Icons.delete_sweep_outlined,
               color: Colors.black,
             ),
           ),
         ],
       ),
-      body: controller.obx((state) => Container(
+      body: controller.obx((state) =>
+          Container(
             margin: EdgeInsets.all(16),
             child: Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   height: 50,
                   child: OutlinedButton(
-                    onPressed: () => {
+                    onPressed: () =>
+                    {
                       Get.bottomSheet(
                         SingleChildScrollView(
                           child: Padding(
@@ -65,6 +75,35 @@ class AddressScreen extends GetView<AddressController> {
                                       filled: true,
                                       fillColor: Colors.blue.shade100,
                                       labelText: 'Full name',
+                                      labelStyle: context.toPop14RegularFont(
+                                          Palette.colorBlack)),
+                                  onChanged: (text) {},
+                                ),
+                                SizedBox(height: 16),
+                                TextField(
+                                  controller: phoneNumberController,
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.phone,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.blue.shade100,
+                                      labelText: 'Phone number',
+                                      labelStyle: context.toPop14RegularFont(
+                                          Palette.colorBlack)),
+                                  onChanged: (text) {},
+                                ),
+                                SizedBox(height: 16),
+                                TextField(
+                                  controller: emailController,
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.blue.shade100,
+                                      labelText: 'Email (Optional)',
                                       labelStyle: context.toPop14RegularFont(
                                           Palette.colorBlack)),
                                   onChanged: (text) {},
@@ -119,7 +158,10 @@ class AddressScreen extends GetView<AddressController> {
                                 ),
                                 SizedBox(height: 22),
                                 Container(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width,
                                   height: 50,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -128,19 +170,23 @@ class AddressScreen extends GetView<AddressController> {
                                     ),
                                     onPressed: () {
                                       _validateForm(
-                                              nameController,
-                                              addressController,
-                                              cityController,
-                                              countryController,
-                                              postalCodeController)
+                                          nameController,
+                                          phoneNumberController,
+                                          emailController,
+                                          addressController,
+                                          cityController,
+                                          countryController,
+                                          postalCodeController)
                                           ? submitAddress(
-                                              nameController,
-                                              addressController,
-                                              cityController,
-                                              countryController,
-                                              postalCodeController)
+                                          nameController,
+                                          phoneNumberController,
+                                          emailController,
+                                          addressController,
+                                          cityController,
+                                          countryController,
+                                          postalCodeController)
                                           : Get.snackbar("Error",
-                                              "Please fill full data.");
+                                          "Please fill full data.");
                                     },
                                     child: Text(
                                       'Save',
@@ -167,23 +213,36 @@ class AddressScreen extends GetView<AddressController> {
                 ),
                 Expanded(
                     child: Container(
-                  child: ListView.separated(
-                      separatorBuilder: (context, index) => Divider(
-                            color: Palette.colorLightGrey,
-                          ),
-                      shrinkWrap: false,
-                      itemCount: controller?.getAddressList()?.length ?? 0,
-                      itemBuilder: _notificationView),
-                ))
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              Divider(
+                                color: Palette.colorLightGrey,
+                              ),
+                          shrinkWrap: false,
+                          itemCount: controller
+                              ?.getAddressList()
+                              ?.length ?? 0,
+                          itemBuilder: _notificationView),
+                    ))
               ],
             ),
           )),
     );
   }
 
-  Widget _notificationView(BuildContext context, int index) => Card(
+  Widget _notificationView(BuildContext context, int index) =>
+      Card(
+        semanticContainer: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        elevation: 1,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         child: InkWell(
-          onTap: () => {},
+          onTap: () =>
+          {
+            _confirmOrderDetail(context, controller?.getAddressList()[index])
+          },
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -216,12 +275,16 @@ class AddressScreen extends GetView<AddressController> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     controller?.getAddressList()[index].address +
-                            "\n" +
-                            controller?.getAddressList()[index].city +
-                            "\n" +
-                            controller?.getAddressList()[index].country +
-                            "\n" +
-                            controller?.getAddressList()[index].postalCode ??
+                        "\n" +
+                        controller?.getAddressList()[index].city +
+                        "\n" +
+                        controller?.getAddressList()[index].country +
+                        "\n" +
+                        controller?.getAddressList()[index].postalCode +
+                        "\n" +
+                        controller?.getAddressList()[index].phoneNumber +
+                        "\n" +
+                        controller?.getAddressList()[index].email ??
                         "",
                     style: context.toPop14RegularFont(Palette.colorGrey),
                   ),
@@ -232,13 +295,15 @@ class AddressScreen extends GetView<AddressController> {
         ),
       );
 
-  bool _validateForm(
-      TextEditingController nameController,
+  bool _validateForm(TextEditingController nameController,
+      TextEditingController phoneNumberController,
+      TextEditingController emailController,
       TextEditingController addressController,
       TextEditingController cityController,
       TextEditingController countryController,
       TextEditingController postalCodeController) {
     if (nameController.text.isEmpty ||
+        phoneNumberController.text.isEmpty ||
         addressController.text.isEmpty ||
         cityController.text.isEmpty ||
         countryController.text.isEmpty ||
@@ -249,14 +314,17 @@ class AddressScreen extends GetView<AddressController> {
     }
   }
 
-  void submitAddress(
-      TextEditingController nameController,
+  void submitAddress(TextEditingController nameController,
+      TextEditingController phoneNumberController,
+      TextEditingController emailController,
       TextEditingController addressController,
       TextEditingController cityController,
       TextEditingController countryController,
       TextEditingController postalCodeController) {
     final model = controller.getAddressData(
         name: nameController.text,
+        phone: phoneNumberController.text,
+        email: emailController?.text ?? "",
         address: addressController.text,
         city: cityController.text,
         country: countryController.text,
@@ -264,6 +332,13 @@ class AddressScreen extends GetView<AddressController> {
 
     controller.addAddressContent(model);
     Get.back();
+  }
+
+  void submitOrder(AddressModel addressModel) {
+    var todayDate = DateFormat("dd MMM yyyy").format(DateTime.now());
+    print(todayDate);
+
+
   }
 
   void _deleteConfirmDialog(BuildContext ctx) {
@@ -294,4 +369,335 @@ class AddressScreen extends GetView<AddressController> {
     );
   }
 
+  void _confirmOrderDetail(BuildContext ctx, AddressModel addressModel) {
+    Get.bottomSheet(
+      SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 32,
+              ),
+              Container(
+                width: MediaQuery
+                    .of(ctx)
+                    .size
+                    .width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(null,
+                        color: Colors.black,),
+                    ),
+                    Text(
+                      "Order detail",
+                      style: ctx.toPop18RegularFont(Palette.colorBlack),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close_outlined,
+                        color: Colors.black,),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                width: MediaQuery
+                    .of(ctx)
+                    .size
+                    .width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Delivery address",
+                      style: ctx.toPop14RegularFont(Palette.colorBlack),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      addressModel.address +
+                          ", " +
+                          addressModel.city +
+                          ", " +
+                          addressModel.country +
+                          ", " +
+                          addressModel.postalCode,
+                      style: ctx.toPop12RegularFont(Palette.colorGrey),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      "Contact number",
+                      style: ctx.toPop14RegularFont(Palette.colorBlack),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      addressModel.phoneNumber + ", " + addressModel.email,
+                      style: ctx.toPop12RegularFont(Palette.colorGrey),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      "Estimated delivery date",
+                      style: ctx.toPop14RegularFont(Palette.colorBlack),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "5 May 2022 - 8 May 2022",
+                      style: ctx.toPop12RegularFont(Palette.colorGrey),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Divider(),
+                    Text(
+                      "Review your order",
+                      style: ctx.toPop14RegularFont(Palette.colorBlack),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      child: ListView.builder(
+
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: controller
+                              .getCartList()
+                              .length ?? 0,
+                          itemBuilder: _cartProductView),
+                    ),
+                    Divider(),
+                    Text("Order Summary",
+                        style: ctx
+                            .toPop14RegularFont(Palette.colorBlack)),
+
+                    ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [
+                        ListTile(
+                          dense: true,
+                          visualDensity: VisualDensity(vertical: -3),
+                          title: Text(
+                            "Subtotal",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          trailing: Text(
+                            "${getBaht()}${controller.getOrderSubTotal()}",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          visualDensity: VisualDensity(vertical: -3),
+                          title: Text(
+                            "ShippingFee",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          trailing: Text(
+                            "Free",
+                            style: ctx.toPop14RegularFont(
+                                Colors.green.shade600),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          visualDensity: VisualDensity(vertical: -3),
+                          title: Text(
+                            "Discount",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          trailing: Text(
+                            "-${getBaht()}${controller.getOrderDiscount()}",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Divider(),
+                        ListTile(
+                          dense: true,
+                          visualDensity: VisualDensity(vertical: -3),
+                          title: Text(
+                            "Total(Include of VAT)",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          trailing: Text(
+                            "${getBaht()}${controller.getTotalIncludeVAT()}",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          visualDensity: VisualDensity(vertical: -3),
+                          title: Text(
+                            "Estimated VAT",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          trailing: Text(
+                            "${getBaht()}${getVAT()}",
+                            style: ctx
+                                .toPop14RegularFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(),
+                    SizedBox(height: 8,),
+                    Container(
+                      width: MediaQuery
+                          .of(ctx)
+                          .size
+                          .width,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          primary: Palette.colorDeepOrangeAccent,
+                          onPrimary: Colors.white,
+                        ),
+                        onPressed: () {
+                          submitOrder(addressModel);
+                        },
+                        child: Text(
+                          'Confirm order',
+                          style: ctx
+                              .toPop18SemiBoldFont(Palette.colorWhite),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 80,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+
+  Widget _cartProductView(BuildContext context, int index) =>
+      SizedBox(
+        child: Container(
+          child: ListTile(
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(
+                controller
+                    .getProductDetail(controller
+                    .getCartList()[index]
+                    .productId
+                    .toString())
+                    .images[0] +
+                    index.toString(),
+                cacheHeight: 150,
+                cacheWidth: 180,
+                fit: BoxFit.fill,
+              ),
+            ),
+            title: Text(
+                controller
+                    .getProductDetail(
+                    controller.getCartList()[index].productId.toString())
+                    .title,
+                style: context.toPop14RegularFont(Palette.colorBlack)),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  controller
+                      .getProductDetail(
+                      controller.getCartList()[index].productId.toString())
+                      .brand
+                      .name,
+                  style: context.toPop10RegularFont(Palette.colorGrey),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
+                Text(
+                    getBaht() +
+                        controller
+                            .getProductDetail(controller
+                            .getCartList()[index]
+                            .productId
+                            .toString())
+                            .price,
+                    style: context.toPop14RegularFont(Palette.colorBlack)),
+                Divider(),
+                Text(
+                    "available discount: " +
+                        controller
+                            .getProductDetail(controller
+                            .getCartList()[index]
+                            .productId
+                            .toString())
+                            .discountPercent
+                            .toString() +
+                        "%" ??
+                        "",
+                    style: context.toPop12RegularFont(Palette.colorBlue)),
+                SizedBox(
+                  height: 8,
+                )
+              ],
+            ),
+            trailing: Text(
+                controller.getCartList()[index]?.count.toString() ?? "0",
+                style: context.toPop12RegularFont(Palette.colorBlack)),
+          ),
+        ),
+      );
 }

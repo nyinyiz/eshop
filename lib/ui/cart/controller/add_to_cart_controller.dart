@@ -80,7 +80,7 @@ class AddToCartController extends SuperController<List<DataProduct>> {
   }
 
   String checkActiveCoupon(String couponCode) {
-    var message = getAvailableCoupon().contains(couponCode)
+    return getAvailableCoupon().contains(couponCode)
         ? "Applied $couponCode coupon."
         : "$couponCode is not activate.";
   }
@@ -88,7 +88,8 @@ class AddToCartController extends SuperController<List<DataProduct>> {
   List<CartModel> getCartList() {
     if (readList(CART_KEY) != null) {
       final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
-      return data.map((e) => CartModel.fromJson(e)).toList();
+      final cartList = data.map((e) => CartModel.fromJson(e)).toList();
+      return cartList.where((element) => element.status == 0).toList();
     } else {
       return List.empty();
     }
@@ -100,7 +101,7 @@ class AddToCartController extends SuperController<List<DataProduct>> {
 
   CartModel getCartData({int productId, int count}) {
     int timestamp = DateTime.now().millisecondsSinceEpoch;
-    final model = CartModel(productId: productId, count: count);
+    final model = CartModel(productId: productId, count: count, status: 0);
 
     return model;
   }

@@ -53,7 +53,7 @@ class CategoriesScreen extends GetView<CategoriesController> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
             ),
-            elevation: 4,
+            elevation: 0,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Stack(
               alignment: Alignment.center,
@@ -64,6 +64,8 @@ class CategoriesScreen extends GetView<CategoriesController> {
                   fit: BoxFit.cover,
                   height: 150,
                   width: MediaQuery.of(ctx).size.width,
+                  color: Colors.white.withOpacity(0.7),
+                  colorBlendMode: BlendMode.darken,
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -72,8 +74,7 @@ class CategoriesScreen extends GetView<CategoriesController> {
                     child: Column(
                       children: [
                         Text(
-                          controller.state.categories[index].name ??
-                              "NEW ARRIVAL SPECIAL OFFER FOR APRIL",
+                          controller.state.categories[index].name ?? "",
                           style: ctx.toBeba64RegularFont(Palette.colorWhite),
                         ),
                       ],

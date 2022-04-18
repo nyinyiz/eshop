@@ -15,7 +15,7 @@ class AddToCartScreen extends GetView<AddToCartController> {
           color: Colors.black, //change your color here
         ),
         title: Text(
-          "My Order",
+          "My cart",
           style: context.toPopBoldFont(Palette.colorBlack),
         ),
         centerTitle: true,
@@ -25,7 +25,7 @@ class AddToCartScreen extends GetView<AddToCartController> {
               _deleteConfirmDialog(context);
             },
             icon: Icon(
-              Icons.delete_forever_outlined,
+              Icons.delete_sweep_outlined,
               color: Colors.black,
             ),
           ),

@@ -1,50 +1,16 @@
-import 'dart:convert';
-
-import 'package:eshop/common/common.dart';
-import 'package:eshop/domain/models/cart_model.dart';
+import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class HomeController extends SuperController<List<CartModel>> {
-  HomeController({this.homeRepository});
+class PlacedOrderDetailController extends SuperController<List<OrderedItem>> {
+  PlacedOrderDetailController({this.homeRepository});
 
   final HomeRepository homeRepository;
-
-  final currentIndex = 0.obs;
-
-  void changeTabIndex(int index) {
-    currentIndex.value = index;
-    update();
-  }
-
-  int getTabIndex() => currentIndex.value;
 
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getCartList);
-
-    GetStorage().listenKey(CART_KEY, (value) {
-      append(() => homeRepository.getCartList);
-    });
-  }
-
-  List<CartModel> getCartList() {
-    if (readList(CART_KEY) != null) {
-      final data = jsonDecode(readList(CART_KEY)) as List<dynamic>;
-      return data.map((e) => CartModel.fromJson(e)).toList();
-    } else {
-      return List.empty();
-    }
-  }
-
-  void goToNotificationList() {
-    Get.toNamed('/home/notification');
-  }
-
-  void goToCartList() {
-    Get.toNamed('/home/cart');
+    append(() => homeRepository.getOrderedList);
   }
 
   @override
@@ -63,7 +29,6 @@ class HomeController extends SuperController<List<CartModel>> {
   @override
   void didChangeMetrics() {
     print('the window size did change');
-
     super.didChangeMetrics();
   }
 

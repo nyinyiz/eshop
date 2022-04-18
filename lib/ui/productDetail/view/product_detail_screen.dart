@@ -291,7 +291,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                     ),
                   ),
                   SizedBox(
-                    width: 32,
+                    width: 16,
                   ),
                   Expanded(
                       child: SizedBox(

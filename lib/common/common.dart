@@ -18,6 +18,8 @@ part 'screen_size_reducer.dart';
 
 const String ADDRESS_KEY = "ADDRESSKEY";
 const String CART_KEY = "CARTKEY";
+const String ORDERED_KEY = "ORDEREDKEY";
+
 
 String getBaht() => "฿";
 
