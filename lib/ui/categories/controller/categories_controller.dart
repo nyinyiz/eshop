@@ -13,8 +13,8 @@ class CategoriesController extends SuperController<HomeData> {
     append(() => homeRepository.getHomeData);
   }
 
-  void goToProductList({int index, int type}) {
-    Get.toNamed('/home/category/productlist?type=$type&categoryId=$index');
+  void goToProductList({int index, int type, String title}) {
+    Get.toNamed('/home/category/productlist?type=$type&categoryId=$index&title=${title}');
   }
 
   @override

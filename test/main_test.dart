@@ -154,6 +154,18 @@ class MockRepositorySuccess implements HomeRepository {
     // TODO: implement getRandomProductList
     throw UnimplementedError();
   }
+
+  @override
+  Future<String> getProductCategoryName(int categoryId) {
+    // TODO: implement getProductCategoryName
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getProductTypeName(int typeId) {
+    // TODO: implement getProductTypeName
+    throw UnimplementedError();
+  }
 }
 
 void main() {

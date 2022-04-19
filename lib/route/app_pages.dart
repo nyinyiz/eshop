@@ -38,7 +38,12 @@ class AppPages {
                       page: () => ProductDetailScreen(),
                       binding: HomeBinding(),
                     )
-                  ])
+                  ]),
+              GetPage(
+                name: Routes.PRODUCTDETAIL,
+                page: () => ProductDetailScreen(),
+                binding: HomeBinding(),
+              )
             ]),
         GetPage(
             name: Routes.CATEGORY,

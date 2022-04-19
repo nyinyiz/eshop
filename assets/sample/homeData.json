@@ -28,6 +28,11 @@
     ],
     "categories": [
       {
+        "id": 0,
+        "name": "All",
+        "icon": "https://loremflickr.com/320/240?random="
+      },
+      {
         "id": 1,
         "name": "Books",
         "icon": "https://loremflickr.com/320/240?random="

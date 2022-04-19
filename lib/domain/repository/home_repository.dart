@@ -28,5 +28,9 @@ abstract class HomeRepository {
 
   Future<List<OrderedItem>> getOrderedList();
 
+  Future<String> getProductTypeName(int typeId);
+
+  Future<String> getProductCategoryName(int categoryId);
+
 
 }

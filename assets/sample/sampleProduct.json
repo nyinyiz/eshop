@@ -14,7 +14,7 @@
       "shippingFrom": "Bangkok",
       "address": "Bangkok"
     },
-    "category": 1,
+    "category": 2,
     "price": "3500",
     "discountPercent": 20,
     "favourite": false,

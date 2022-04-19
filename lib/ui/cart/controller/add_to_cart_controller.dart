@@ -33,7 +33,7 @@ class AddToCartController extends SuperController<List<DataProduct>> {
 
   DataProduct getProductDetail(String id) {
     final index = int.tryParse(id);
-    return index != null ? state[index] : state.first;
+    return state.where((element) => element.id == index)?.first ?? state.first;
   }
 
   void goToAddressesScreen() {

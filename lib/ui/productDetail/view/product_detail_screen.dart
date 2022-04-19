@@ -245,7 +245,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                     ),
                     TextButton(
                       child: Text(
-                        "See all",
+                        "",
                         style: context.toPop14RegularFont(Palette.colorBlue),
                       ),
                       onPressed: () {
@@ -344,7 +344,7 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
             itemBuilder: (BuildContext context, int index) => GestureDetector(
                   onTap: () {
                     Get.toNamed(
-                      '/home/category/productlist/productdetail?id=$index',
+                      '/home/category/productlist/productdetail?id=${productList[index].id}',
                     );
                     // controller.goToProductDetail(index: index)
                   },

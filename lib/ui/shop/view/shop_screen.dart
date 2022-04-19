@@ -141,8 +141,9 @@ class ShopScreen extends GetView<ShopController> {
                               onPressed: () {
                                 controller.goToProductList(
                                     index: 0,
-                                    type:
-                                        1); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
+                                    type: 1,
+                                    title:
+                                        "Popular Product"); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
                               },
                             ),
                           ],
@@ -177,8 +178,9 @@ class ShopScreen extends GetView<ShopController> {
                               onPressed: () {
                                 controller.goToProductList(
                                     index: 0,
-                                    type:
-                                        3); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
+                                    type: 3,
+                                    title:
+                                        "Flash sale"); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
                               },
                             ),
                           ],
@@ -230,8 +232,9 @@ class ShopScreen extends GetView<ShopController> {
                               onPressed: () {
                                 controller.goToProductList(
                                     index: 0,
-                                    type:
-                                        6); //6 for BEST SELLER PRODUCT/ Actually direct value shouldn't assigned in widget.
+                                    type: 6,
+                                    title:
+                                        "Best sellers"); //6 for BEST SELLER PRODUCT/ Actually direct value shouldn't assigned in widget.
                               },
                             ),
                           ],
@@ -333,7 +336,11 @@ class ShopScreen extends GetView<ShopController> {
             scrollDirection: Axis.horizontal,
             itemCount: listData?.length ?? 0,
             itemBuilder: (BuildContext context, int index) =>
-                popularProductView(ctx: context, product: listData[index])),
+                InkWell(
+                  onTap: () {
+                    controller.goToProductDetail(index: listData[index].id);
+                  },
+                child: popularProductView(ctx: context, product: listData[index]))),
       );
 
   Widget _buildCategories({BuildContext ctx}) => SizedBox(
@@ -356,7 +363,12 @@ class ShopScreen extends GetView<ShopController> {
               backgroundColor: (index == 0
                   ? Palette.colorDeepOrangeAccent
                   : Palette.colorWhite)),
-          onPressed: () {},
+          onPressed: () {
+            controller.goToProductList(
+                index: controller.state.categories[index].id,
+                type: 0,
+                title: controller.state.categories[index].name);
+          },
           icon: Icon(
             Icons.computer,
             size: 24.0,

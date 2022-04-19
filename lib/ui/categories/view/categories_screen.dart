@@ -45,7 +45,10 @@ class CategoriesScreen extends GetView<CategoriesController> {
 */
 
             // Get.to(ProductListScreen())
-            controller.goToProductList(index: index, type: 0)
+            controller.goToProductList(
+                index: controller.state.categories[index].id,
+                type: 0,
+                title: controller.state.categories[index].name)
           },
           child: Card(
             color: Palette.colorPurple,
@@ -85,7 +88,10 @@ class CategoriesScreen extends GetView<CategoriesController> {
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      controller.goToProductList(index: index, type: 0);
+                      controller.goToProductList(
+                          index: index,
+                          type: 0,
+                          title: controller.state.categories[index].name);
                     },
                     child: Icon(Icons.navigate_next, color: Palette.colorBlack),
                     style: ElevatedButton.styleFrom(

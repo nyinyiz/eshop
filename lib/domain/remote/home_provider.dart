@@ -20,4 +20,7 @@ abstract class HomeProvider {
 
   Future<List<DataProduct>> getProductByType(int type);
 
+  Future<String> getProductTypeName(int typeId);
+
+  Future<String> getProductCategoryName(int categoryId);
 }

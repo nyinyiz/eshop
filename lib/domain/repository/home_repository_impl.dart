@@ -73,9 +73,13 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<List<DataProduct>> getProductListByCategory(int category) {
-    // TODO: implement getProductListByCategory
-    throw UnimplementedError();
+  Future<List<DataProduct>> getProductListByCategory(int category) async {
+    final productList = await provider.getProductListByCategory(category);
+    if (productList.isEmpty) {
+      return Future.error("Response : Empty product list");
+    } else {
+      return productList;
+    }
   }
 
   @override
@@ -113,6 +117,26 @@ class HomeRepositoryImpl implements HomeRepository {
       return Future.value(data.map((e) => OrderedItem.fromJson(e)).toList());
     } else {
       return Future.value(List.empty());
+    }
+  }
+
+  @override
+  Future<String> getProductCategoryName(int categoryId) async {
+    final name = await provider.getProductCategoryName(categoryId);
+    if (name.isEmpty) {
+      return Future.error("Undefined category name");
+    } else {
+      return name;
+    }
+  }
+
+  @override
+  Future<String> getProductTypeName(int typeId) async {
+    final name = await provider.getProductTypeName(typeId);
+    if (name.isEmpty) {
+      return Future.error("Undefined event name");
+    } else {
+      return name;
     }
   }
 }

@@ -328,35 +328,44 @@ class AddressScreen extends GetView<AddressController> {
   }
 
   void submitOrder(AddressModel addressModel) {
-    var today = new DateTime.now();
 
-    var todayDate = DateFormat("dd MMM yyyy").format(today);
+    if(controller.getCartList() == null || controller.getCartList().isEmpty) {
 
-    final model = controller.getOrderedData(
-        cartModel: controller.getCartList(),
-        totalPrice: controller.getTotalIncludeVAT().toString(),
-        placedTime: todayDate,
-        address: addressModel.address +
-            ", " +
-            addressModel.city +
-            ", " +
-            addressModel.country +
-            ", " +
-            addressModel.postalCode,
-        contactNumber: addressModel.phoneNumber + ", " + addressModel.email,
-        estimateDeliveryDate: controller.getEstimateDeliveryDate(),
-        subTotal: controller.getOrderSubTotal().toString(),
-        discount: controller.getOrderDiscount().toString(),
-        estimateVat: getVAT().toString());
+      Get.snackbar("Sorry", "You dun't have any order yet.");
 
-    controller.addOrderedContent(model);
+    }else {
 
-    Get.back();
+      var today = new DateTime.now();
 
-    Get.snackbar("Successful", "Your order have been placed.");
+      var todayDate = DateFormat("dd MMM yyyy").format(today);
 
-    controller.clearAllCart();
-    controller.goToOrdersList();
+      final model = controller.getOrderedData(
+          cartModel: controller.getCartList(),
+          totalPrice: controller.getTotalIncludeVAT().toString(),
+          placedTime: todayDate,
+          address: addressModel.address +
+              ", " +
+              addressModel.city +
+              ", " +
+              addressModel.country +
+              ", " +
+              addressModel.postalCode,
+          contactNumber: addressModel.phoneNumber + ", " + addressModel.email,
+          estimateDeliveryDate: controller.getEstimateDeliveryDate(),
+          subTotal: controller.getOrderSubTotal().toString(),
+          discount: controller.getOrderDiscount().toString(),
+          estimateVat: getVAT().toString());
+
+      controller.addOrderedContent(model);
+
+      Get.back();
+
+      Get.snackbar("Successful", "Your order have been placed.");
+
+      controller.clearAllCart();
+      controller.goToOrdersList();
+    }
+
   }
 
   void _deleteConfirmDialog(BuildContext ctx) {
