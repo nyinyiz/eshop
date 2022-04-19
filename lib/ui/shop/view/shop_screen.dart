@@ -83,9 +83,7 @@ class ShopScreen extends GetView<ShopController> {
                           primary: Palette.colorRed,
                           onPrimary: Colors.white,
                         ),
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                         child: Text(
                           'Coffee time',
                           style:
@@ -119,7 +117,7 @@ class ShopScreen extends GetView<ShopController> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      _buildCategories(),
+                      _buildCategories(ctx: context),
 
                       /** Popular product List view with title */
                       SizedBox(height: 16),

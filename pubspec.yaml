@@ -61,7 +61,6 @@ dependencies:
   flutter_onboarding_screen:
 
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

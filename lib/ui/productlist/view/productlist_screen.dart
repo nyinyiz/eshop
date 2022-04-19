@@ -4,8 +4,6 @@ import 'package:eshop/common/common.dart';
 import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
 import 'package:get/get.dart';
 
-import '../../shop/view/shop_screen.dart';
-
 class ProductListScreen extends GetView<ProductListController> {
   const ProductListScreen({Key key}) : super(key: key);
 
@@ -38,7 +36,7 @@ class ProductListScreen extends GetView<ProductListController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Men Fashion (50) ${type} and ${categoryId}",
+                    "Men Fashion (50) $type and $categoryId",
                     style: context.toPop18SemiBoldFont(Palette.colorBlack),
                   ),
                   IconButton(

@@ -1,6 +1,5 @@
 import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/ordered_model.dart';
-import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

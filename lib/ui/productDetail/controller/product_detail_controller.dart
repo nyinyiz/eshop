@@ -59,7 +59,7 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
   }
 
   CartModel getCartData({int productId, int count}) {
-    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    // int timestamp = DateTime.now().millisecondsSinceEpoch;
     final model = CartModel(productId: productId, count: count, status: 0);
     return model;
   }

@@ -407,6 +407,9 @@ class AddressScreen extends GetView<AddressController> {
                         null,
                         color: Colors.black,
                       ),
+                      onPressed: () {
+
+                      },
                     ),
                     Text(
                       "Order detail",
