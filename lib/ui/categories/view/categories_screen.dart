@@ -64,7 +64,7 @@ class CategoriesScreen extends GetView<CategoriesController> {
                   fit: BoxFit.cover,
                   height: 150,
                   width: MediaQuery.of(ctx).size.width,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.black.withOpacity(0.5),
                   colorBlendMode: BlendMode.darken,
                 ),
                 Align(

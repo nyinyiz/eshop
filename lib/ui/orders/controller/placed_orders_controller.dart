@@ -1,11 +1,15 @@
+import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/ordered_model.dart';
+import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class PlacedOrdersController extends SuperController<List<OrderedItem>> {
   PlacedOrdersController({this.homeRepository});
 
   final HomeRepository homeRepository;
+  final box = GetStorage();
 
   @override
   void onInit() {
@@ -18,6 +22,12 @@ class PlacedOrdersController extends SuperController<List<OrderedItem>> {
     print('The build method is done. '
         'Your controller is ready to call dialogs and snackbars');
     super.onReady();
+  }
+
+  void clearAllOrders() {
+    box.remove(ORDERED_KEY);
+
+    append(() => homeRepository.getOrderedList);
   }
 
   @override

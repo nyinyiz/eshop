@@ -8,6 +8,7 @@ import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 class AddressController extends SuperController<List<DataProduct>> {
   AddressController({this.homeRepository});
@@ -61,11 +62,16 @@ class AddressController extends SuperController<List<DataProduct>> {
     list.add(model);
 
     saveList(ADDRESS_KEY, list);
+
+  }
+
+  void clearAllCart() {
+    box.remove(CART_KEY);
   }
 
   OrderedItem getOrderedData(
       {List<CartModel> cartModel,
-      int totalPrice,
+      String totalPrice,
       String placedTime,
       String address,
       String contactNumber,
@@ -75,6 +81,17 @@ class AddressController extends SuperController<List<DataProduct>> {
       String estimateVat}) {
     int timestamp = DateTime.now().millisecondsSinceEpoch;
 
+    return OrderedItem(
+        id: timestamp.toString(),
+        cartModel: cartModel,
+        totalPrice: totalPrice,
+        placedTime: placedTime,
+        address: address,
+        contactNumber: contactNumber,
+        estimateDeliveryDate: estimateDeliveryDate,
+        subTotal: subTotal,
+        discount: discount,
+        estimateVat: estimateVat);
   }
 
   void addOrderedContent(OrderedItem model) {
@@ -82,12 +99,33 @@ class AddressController extends SuperController<List<DataProduct>> {
     list.add(model);
 
     saveList(ORDERED_KEY, list);
+
+
+  }
+
+  void goToOrdersList() {
+    Get.toNamed('/home/profile/placedorders');
   }
 
   DataProduct getProductDetail(String id) {
     final index = int.tryParse(id);
     return index != null ? state[index] : state.first;
   }
+
+
+  String getEstimateDeliveryDate() {
+
+    var today = new DateTime.now();
+    var tenDaysFromNow = today.add(new Duration(days: 10));
+    var fiftyDaysFromNow = today.add(new Duration(days: 15));
+
+    var tenDays = DateFormat("dd MMM yyyy").format(tenDaysFromNow);
+    var fiftyDays = DateFormat("dd MMM yyyy").format(fiftyDaysFromNow);
+
+    return tenDays + " - " + fiftyDays;
+
+  }
+
 
   double getOrderSubTotal() {
     final data = getCartList();

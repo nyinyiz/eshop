@@ -3,7 +3,7 @@ import 'package:eshop/domain/models/cart_model.dart';
 class OrderedItem {
   String id;
   List<CartModel> cartModel;
-  int totalPrice;
+  String totalPrice;
   String placedTime;
   String address;
   String contactNumber;

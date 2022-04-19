@@ -37,7 +37,7 @@ class AddToCartController extends SuperController<List<DataProduct>> {
   }
 
   void goToAddressesScreen() {
-    Get.toNamed('/home/cart/addresses');
+    Get.toNamed('/home/cart/addresses?tag=CART');
   }
 
   double getOrderSubTotal() {
@@ -82,7 +82,7 @@ class AddToCartController extends SuperController<List<DataProduct>> {
   String checkActiveCoupon(String couponCode) {
     return getAvailableCoupon().contains(couponCode)
         ? "Applied $couponCode coupon."
-        : "$couponCode is not activate.";
+        : "Sorry $couponCode is not activate.";
   }
 
   List<CartModel> getCartList() {

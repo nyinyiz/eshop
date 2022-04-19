@@ -365,7 +365,8 @@ class AddToCartScreen extends GetView<AddToCartController> {
                     style: context.toPop14RegularFont(Palette.colorBlack)),
                 Divider(),
                 Text(
-                    "available discount: " + controller
+                    "available discount: " +
+                            controller
                                 .getProductDetail(controller
                                     .getCartList()[index]
                                     .productId
@@ -375,7 +376,9 @@ class AddToCartScreen extends GetView<AddToCartController> {
                             "%" ??
                         "",
                     style: context.toPop12RegularFont(Palette.colorBlue)),
-                SizedBox(height: 8,)
+                SizedBox(
+                  height: 8,
+                )
               ],
             ),
             trailing: Container(

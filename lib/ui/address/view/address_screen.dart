@@ -1,6 +1,5 @@
 import 'package:eshop/common/common.dart';
 import 'package:eshop/domain/models/address_model.dart';
-import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/ui/address/controller/address_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +16,9 @@ class AddressScreen extends GetView<AddressController> {
     TextEditingController cityController = TextEditingController();
     TextEditingController countryController = TextEditingController();
     TextEditingController postalCodeController = TextEditingController();
+
+    final parameter = Get.parameters;
+    final tag = parameter['tag'] ?? "";
 
     return Scaffold(
       appBar: AppBar(
@@ -41,20 +43,15 @@ class AddressScreen extends GetView<AddressController> {
           ),
         ],
       ),
-      body: controller.obx((state) =>
-          Container(
+      body: controller.obx((state) => Container(
             margin: EdgeInsets.all(16),
             child: Column(
               children: [
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   height: 50,
                   child: OutlinedButton(
-                    onPressed: () =>
-                    {
+                    onPressed: () => {
                       Get.bottomSheet(
                         SingleChildScrollView(
                           child: Padding(
@@ -158,10 +155,7 @@ class AddressScreen extends GetView<AddressController> {
                                 ),
                                 SizedBox(height: 22),
                                 Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
+                                  width: MediaQuery.of(context).size.width,
                                   height: 50,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -170,23 +164,23 @@ class AddressScreen extends GetView<AddressController> {
                                     ),
                                     onPressed: () {
                                       _validateForm(
-                                          nameController,
-                                          phoneNumberController,
-                                          emailController,
-                                          addressController,
-                                          cityController,
-                                          countryController,
-                                          postalCodeController)
+                                              nameController,
+                                              phoneNumberController,
+                                              emailController,
+                                              addressController,
+                                              cityController,
+                                              countryController,
+                                              postalCodeController)
                                           ? submitAddress(
-                                          nameController,
-                                          phoneNumberController,
-                                          emailController,
-                                          addressController,
-                                          cityController,
-                                          countryController,
-                                          postalCodeController)
+                                              nameController,
+                                              phoneNumberController,
+                                              emailController,
+                                              addressController,
+                                              cityController,
+                                              countryController,
+                                              postalCodeController)
                                           : Get.snackbar("Error",
-                                          "Please fill full data.");
+                                              "Please fill full data.");
                                     },
                                     child: Text(
                                       'Save',
@@ -213,25 +207,22 @@ class AddressScreen extends GetView<AddressController> {
                 ),
                 Expanded(
                     child: Container(
-                      child: ListView.separated(
-                          separatorBuilder: (context, index) =>
-                              Divider(
-                                color: Palette.colorLightGrey,
-                              ),
-                          shrinkWrap: false,
-                          itemCount: controller
-                              ?.getAddressList()
-                              ?.length ?? 0,
-                          itemBuilder: _notificationView),
-                    ))
+                  child: ListView.separated(
+                      separatorBuilder: (context, index) => Divider(
+                            color: Palette.colorLightGrey,
+                          ),
+                      shrinkWrap: false,
+                      itemCount: controller?.getAddressList()?.length ?? 0,
+                      itemBuilder: (context, index) =>
+                          _notificationView(context, index, tag)),
+                ))
               ],
             ),
           )),
     );
   }
 
-  Widget _notificationView(BuildContext context, int index) =>
-      Card(
+  Widget _notificationView(BuildContext context, int index, String tag) => Card(
         semanticContainer: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -239,10 +230,10 @@ class AddressScreen extends GetView<AddressController> {
         elevation: 1,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: InkWell(
-          onTap: () =>
-          {
-            _confirmOrderDetail(context, controller?.getAddressList()[index])
-          },
+          onTap: () => (tag.isBlank)
+              ? null
+              : _confirmOrderDetail(
+                  context, controller?.getAddressList()[index]),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -275,16 +266,16 @@ class AddressScreen extends GetView<AddressController> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     controller?.getAddressList()[index].address +
-                        "\n" +
-                        controller?.getAddressList()[index].city +
-                        "\n" +
-                        controller?.getAddressList()[index].country +
-                        "\n" +
-                        controller?.getAddressList()[index].postalCode +
-                        "\n" +
-                        controller?.getAddressList()[index].phoneNumber +
-                        "\n" +
-                        controller?.getAddressList()[index].email ??
+                            "\n" +
+                            controller?.getAddressList()[index].city +
+                            "\n" +
+                            controller?.getAddressList()[index].country +
+                            "\n" +
+                            controller?.getAddressList()[index].postalCode +
+                            "\n" +
+                            controller?.getAddressList()[index].phoneNumber +
+                            "\n" +
+                            controller?.getAddressList()[index].email ??
                         "",
                     style: context.toPop14RegularFont(Palette.colorGrey),
                   ),
@@ -295,7 +286,8 @@ class AddressScreen extends GetView<AddressController> {
         ),
       );
 
-  bool _validateForm(TextEditingController nameController,
+  bool _validateForm(
+      TextEditingController nameController,
       TextEditingController phoneNumberController,
       TextEditingController emailController,
       TextEditingController addressController,
@@ -314,7 +306,8 @@ class AddressScreen extends GetView<AddressController> {
     }
   }
 
-  void submitAddress(TextEditingController nameController,
+  void submitAddress(
+      TextEditingController nameController,
       TextEditingController phoneNumberController,
       TextEditingController emailController,
       TextEditingController addressController,
@@ -335,10 +328,35 @@ class AddressScreen extends GetView<AddressController> {
   }
 
   void submitOrder(AddressModel addressModel) {
-    var todayDate = DateFormat("dd MMM yyyy").format(DateTime.now());
-    print(todayDate);
+    var today = new DateTime.now();
 
+    var todayDate = DateFormat("dd MMM yyyy").format(today);
 
+    final model = controller.getOrderedData(
+        cartModel: controller.getCartList(),
+        totalPrice: controller.getTotalIncludeVAT().toString(),
+        placedTime: todayDate,
+        address: addressModel.address +
+            ", " +
+            addressModel.city +
+            ", " +
+            addressModel.country +
+            ", " +
+            addressModel.postalCode,
+        contactNumber: addressModel.phoneNumber + ", " + addressModel.email,
+        estimateDeliveryDate: controller.getEstimateDeliveryDate(),
+        subTotal: controller.getOrderSubTotal().toString(),
+        discount: controller.getOrderDiscount().toString(),
+        estimateVat: getVAT().toString());
+
+    controller.addOrderedContent(model);
+
+    Get.back();
+
+    Get.snackbar("Successful", "Your order have been placed.");
+
+    controller.clearAllCart();
+    controller.goToOrdersList();
   }
 
   void _deleteConfirmDialog(BuildContext ctx) {
@@ -380,24 +398,25 @@ class AddressScreen extends GetView<AddressController> {
                 height: 32,
               ),
               Container(
-                width: MediaQuery
-                    .of(ctx)
-                    .size
-                    .width,
+                width: MediaQuery.of(ctx).size.width,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: Icon(null,
-                        color: Colors.black,),
+                      icon: Icon(
+                        null,
+                        color: Colors.black,
+                      ),
                     ),
                     Text(
                       "Order detail",
                       style: ctx.toPop18RegularFont(Palette.colorBlack),
                     ),
                     IconButton(
-                      icon: Icon(Icons.close_outlined,
-                        color: Colors.black,),
+                      icon: Icon(
+                        Icons.close_outlined,
+                        color: Colors.black,
+                      ),
                       onPressed: () {
                         Get.back();
                       },
@@ -410,10 +429,7 @@ class AddressScreen extends GetView<AddressController> {
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                width: MediaQuery
-                    .of(ctx)
-                    .size
-                    .width,
+                width: MediaQuery.of(ctx).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -460,7 +476,7 @@ class AddressScreen extends GetView<AddressController> {
                       height: 8,
                     ),
                     Text(
-                      "5 May 2022 - 8 May 2022",
+                      controller.getEstimateDeliveryDate() ?? "",
                       style: ctx.toPop12RegularFont(Palette.colorGrey),
                     ),
                     SizedBox(
@@ -476,19 +492,14 @@ class AddressScreen extends GetView<AddressController> {
                     ),
                     Container(
                       child: ListView.builder(
-
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: controller
-                              .getCartList()
-                              .length ?? 0,
+                          itemCount: controller.getCartList().length ?? 0,
                           itemBuilder: _cartProductView),
                     ),
                     Divider(),
                     Text("Order Summary",
-                        style: ctx
-                            .toPop14RegularFont(Palette.colorBlack)),
-
+                        style: ctx.toPop14RegularFont(Palette.colorBlack)),
                     ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -498,15 +509,13 @@ class AddressScreen extends GetView<AddressController> {
                           visualDensity: VisualDensity(vertical: -3),
                           title: Text(
                             "Subtotal",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           trailing: Text(
                             "${getBaht()}${controller.getOrderSubTotal()}",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -516,15 +525,14 @@ class AddressScreen extends GetView<AddressController> {
                           visualDensity: VisualDensity(vertical: -3),
                           title: Text(
                             "ShippingFee",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           trailing: Text(
                             "Free",
-                            style: ctx.toPop14RegularFont(
-                                Colors.green.shade600),
+                            style:
+                                ctx.toPop14RegularFont(Colors.green.shade600),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -534,15 +542,13 @@ class AddressScreen extends GetView<AddressController> {
                           visualDensity: VisualDensity(vertical: -3),
                           title: Text(
                             "Discount",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           trailing: Text(
                             "-${getBaht()}${controller.getOrderDiscount()}",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -553,15 +559,13 @@ class AddressScreen extends GetView<AddressController> {
                           visualDensity: VisualDensity(vertical: -3),
                           title: Text(
                             "Total(Include of VAT)",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           trailing: Text(
                             "${getBaht()}${controller.getTotalIncludeVAT()}",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -571,15 +575,13 @@ class AddressScreen extends GetView<AddressController> {
                           visualDensity: VisualDensity(vertical: -3),
                           title: Text(
                             "Estimated VAT",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           trailing: Text(
                             "${getBaht()}${getVAT()}",
-                            style: ctx
-                                .toPop14RegularFont(Palette.colorBlack),
+                            style: ctx.toPop14RegularFont(Palette.colorBlack),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -587,12 +589,11 @@ class AddressScreen extends GetView<AddressController> {
                       ],
                     ),
                     Divider(),
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Container(
-                      width: MediaQuery
-                          .of(ctx)
-                          .size
-                          .width,
+                      width: MediaQuery.of(ctx).size.width,
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -605,8 +606,7 @@ class AddressScreen extends GetView<AddressController> {
                         },
                         child: Text(
                           'Confirm order',
-                          style: ctx
-                              .toPop18SemiBoldFont(Palette.colorWhite),
+                          style: ctx.toPop18SemiBoldFont(Palette.colorWhite),
                         ),
                       ),
                     ),
@@ -629,19 +629,18 @@ class AddressScreen extends GetView<AddressController> {
     );
   }
 
-  Widget _cartProductView(BuildContext context, int index) =>
-      SizedBox(
+  Widget _cartProductView(BuildContext context, int index) => SizedBox(
         child: Container(
           child: ListTile(
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
                 controller
-                    .getProductDetail(controller
-                    .getCartList()[index]
-                    .productId
-                    .toString())
-                    .images[0] +
+                        .getProductDetail(controller
+                            .getCartList()[index]
+                            .productId
+                            .toString())
+                        .images[0] +
                     index.toString(),
                 cacheHeight: 150,
                 cacheWidth: 180,
@@ -651,7 +650,7 @@ class AddressScreen extends GetView<AddressController> {
             title: Text(
                 controller
                     .getProductDetail(
-                    controller.getCartList()[index].productId.toString())
+                        controller.getCartList()[index].productId.toString())
                     .title,
                 style: context.toPop14RegularFont(Palette.colorBlack)),
             subtitle: Column(
@@ -660,7 +659,7 @@ class AddressScreen extends GetView<AddressController> {
                 Text(
                   controller
                       .getProductDetail(
-                      controller.getCartList()[index].productId.toString())
+                          controller.getCartList()[index].productId.toString())
                       .brand
                       .name,
                   style: context.toPop10RegularFont(Palette.colorGrey),
@@ -671,22 +670,22 @@ class AddressScreen extends GetView<AddressController> {
                     getBaht() +
                         controller
                             .getProductDetail(controller
-                            .getCartList()[index]
-                            .productId
-                            .toString())
+                                .getCartList()[index]
+                                .productId
+                                .toString())
                             .price,
                     style: context.toPop14RegularFont(Palette.colorBlack)),
                 Divider(),
                 Text(
                     "available discount: " +
-                        controller
-                            .getProductDetail(controller
-                            .getCartList()[index]
-                            .productId
-                            .toString())
-                            .discountPercent
-                            .toString() +
-                        "%" ??
+                            controller
+                                .getProductDetail(controller
+                                    .getCartList()[index]
+                                    .productId
+                                    .toString())
+                                .discountPercent
+                                .toString() +
+                            "%" ??
                         "",
                     style: context.toPop12RegularFont(Palette.colorBlue)),
                 SizedBox(
