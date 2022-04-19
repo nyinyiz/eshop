@@ -34,143 +34,218 @@ class ShopScreen extends GetView<ShopController> {
     return Scaffold(
       body: Container(
           child: controller.obx(
-        (state) => SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            /** Carousel Image slider view*/
-            _carouselView(ctx: context),
+        (state) => (state.carouselImages == null ||
+                state.carouselImages.isBlank)
+            ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: Image.asset('assets/images/servererror.png')),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        "Oops, Looks like we're having a problem.",
+                        style: context
+                            .toPop28RegularFont(Palette.colorBlack)
+                            .copyWith(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "Please try again later.",
+                        style: context.toPop14RegularFont(Palette.colorGrey),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "(*Developer message : just kidding app isn't connect with server. Please check local json files in the assets folder.)",
+                        style: context.toPop10RegularFont(Palette.colorRed),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 32,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          shape: StadiumBorder(),
+                          primary: Palette.colorRed,
+                          onPrimary: Colors.white,
+                        ),
+                        onPressed: () {
 
-            /** Carousel Image pager navigator view*/
-            _pageIndicator(ctx: context),
-
-            /** Categories List view with title */
-            SizedBox(height: 16),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-              child: Text(
-                "Categories",
-                style: context.toPop18SemiBoldFont(Palette.colorBlack),
-              ),
-            ),
-            SizedBox(height: 8),
-            _buildCategories(),
-
-            /** Popular product List view with title */
-            SizedBox(height: 16),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Popular Product",
-                    style: context.toPop18SemiBoldFont(Palette.colorBlack),
+                        },
+                        child: Text(
+                          'Coffee time',
+                          style:
+                              context.toPop18SemiBoldFont(Palette.colorWhite),
+                        ),
+                      ),
+                    ],
                   ),
-                  TextButton(
-                    child: Text(
-                      "See all",
-                      style: context.toPop14RegularFont(Palette.colorBlue),
-                    ),
-                    onPressed: () {
-                      controller.goToProductList(
-                          index: 0,
-                          type:
-                              1); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 8),
-            _popularProductList(ctx: context, listData: state.popularProduct),
-            //Popular product list
+                ),
+              )
+            : SingleChildScrollView(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /** Carousel Image slider view*/
+                      _carouselView(ctx: context),
 
-            /** Flash sale UI view with list and card */
-            SizedBox(height: 16),
-            _flashSaleCard(ctx: context, flashSale: state.flashSale),
-            SizedBox(height: 16),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Flash sale",
-                    style: context.toPop18SemiBoldFont(Palette.colorBlack),
-                  ),
-                  TextButton(
-                    child: Text(
-                      "See all",
-                      style: context.toPop14RegularFont(Palette.colorBlue),
-                    ),
-                    onPressed: () {
-                      controller.goToProductList(
-                          index: 0,
-                          type:
-                              3); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
-                    },
-                  ),
-                ],
-              ),
-            ),
-            _popularProductList(
-                ctx: context, listData: state?.flashSale?.productList),
-            //Flash sale product list
+                      /** Carousel Image pager navigator view*/
+                      _pageIndicator(ctx: context),
 
-            /** Event sale card view*/
-            SizedBox(height: 16),
+                      /** Categories List view with title */
+                      SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 16.0),
+                        child: Text(
+                          "Categories",
+                          style:
+                              context.toPop18SemiBoldFont(Palette.colorBlack),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      _buildCategories(),
 
-            ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: state?.eventSale?.eventSaleList?.length ?? 0,
-                itemBuilder: (context, index) => saleEventView(
-                      ctx: context,
-                      eventSaleList: state?.eventSale?.eventSaleList[index],
-                    )),
-            /*
+                      /** Popular product List view with title */
+                      SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Popular Product",
+                              style: context
+                                  .toPop18SemiBoldFont(Palette.colorBlack),
+                            ),
+                            TextButton(
+                              child: Text(
+                                "See all",
+                                style: context
+                                    .toPop14RegularFont(Palette.colorBlue),
+                              ),
+                              onPressed: () {
+                                controller.goToProductList(
+                                    index: 0,
+                                    type:
+                                        1); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      _popularProductList(
+                          ctx: context, listData: state?.popularProduct),
+                      //Popular product list
+
+                      /** Flash sale UI view with list and card */
+                      SizedBox(height: 16),
+                      _flashSaleCard(ctx: context, flashSale: state.flashSale),
+                      SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Flash sale",
+                              style: context
+                                  .toPop18SemiBoldFont(Palette.colorBlack),
+                            ),
+                            TextButton(
+                              child: Text(
+                                "See all",
+                                style: context
+                                    .toPop14RegularFont(Palette.colorBlue),
+                              ),
+                              onPressed: () {
+                                controller.goToProductList(
+                                    index: 0,
+                                    type:
+                                        3); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      _popularProductList(
+                          ctx: context,
+                          listData: state?.flashSale?.productList),
+                      //Flash sale product list
+
+                      /** Event sale card view*/
+                      SizedBox(height: 16),
+
+                      ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount:
+                              state?.eventSale?.eventSaleList?.length ?? 0,
+                          itemBuilder: (context, index) => saleEventView(
+                                ctx: context,
+                                eventSaleList:
+                                    state?.eventSale?.eventSaleList[index],
+                              )),
+                      /*
             saleEventView(
                 ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
             saleEventView(
                 ctx: context, imgURL: "https://loremflickr.com/320/240/paris"),
 */
-            /** Best seller product List view with title */
-            SizedBox(height: 16),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Best sellers",
-                    style: context.toPop18SemiBoldFont(Palette.colorBlack),
-                  ),
-                  TextButton(
-                    child: Text(
-                      "See all",
-                      style: context.toPop14RegularFont(Palette.colorBlue),
-                    ),
-                    onPressed: () {
-                      controller.goToProductList(
-                          index: 0,
-                          type:
-                              6); //6 for BEST SELLER PRODUCT/ Actually direct value shouldn't assigned in widget.
-                    },
-                  ),
-                ],
+                      /** Best seller product List view with title */
+                      SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Best sellers",
+                              style: context
+                                  .toPop18SemiBoldFont(Palette.colorBlack),
+                            ),
+                            TextButton(
+                              child: Text(
+                                "See all",
+                                style: context
+                                    .toPop14RegularFont(Palette.colorBlue),
+                              ),
+                              onPressed: () {
+                                controller.goToProductList(
+                                    index: 0,
+                                    type:
+                                        6); //6 for BEST SELLER PRODUCT/ Actually direct value shouldn't assigned in widget.
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      _popularProductList(
+                          listData: state.bestSeller, ctx: context),
+                      //Best seller product list
+                      SizedBox(height: 100),
+                    ]),
               ),
-            ),
-            SizedBox(height: 8),
-            _popularProductList(listData: state.bestSeller, ctx: context),
-            //Best seller product list
-            SizedBox(height: 100),
-          ]),
-        ),
       )),
     );
   }
@@ -258,7 +333,7 @@ class ShopScreen extends GetView<ShopController> {
         child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
-            itemCount: listData.length,
+            itemCount: listData?.length ?? 0,
             itemBuilder: (BuildContext context, int index) =>
                 popularProductView(ctx: context, product: listData[index])),
       );
@@ -268,7 +343,7 @@ class ShopScreen extends GetView<ShopController> {
         child: ListView.builder(
           padding: EdgeInsets.symmetric(horizontal: 16),
           scrollDirection: Axis.horizontal,
-          itemCount: controller.state.categories.length ?? 0,
+          itemCount: controller?.state?.categories?.length ?? 0,
           itemBuilder: _categoriesView,
         ),
       );
@@ -296,78 +371,86 @@ class ShopScreen extends GetView<ShopController> {
         ),
       );
 
-  Widget _carouselView({BuildContext ctx}) => CarouselSlider(
-        items: controller.state.carouselImages
-            .map((item) => Container(
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      child: Stack(
-                        children: <Widget>[
-                          Image.network(
-                            item.imageUrl + item.id.toString(),
-                            fit: BoxFit.cover,
-                            width: 1000.0,
-                          ),
-                          Positioned(
-                            bottom: 0.0,
-                            left: 0.0,
-                            right: 0.0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Color.fromARGB(200, 0, 0, 0),
-                                    Color.fromARGB(0, 0, 0, 0)
-                                  ],
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
+  Widget _carouselView({BuildContext ctx}) => controller
+              ?.state?.carouselImages ==
+          null
+      ? Container()
+      : CarouselSlider(
+          items: controller?.state?.carouselImages
+              ?.map((item) => Container(
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        child: Stack(
+                          children: <Widget>[
+                            Image.network(
+                              item.imageUrl + item.id.toString(),
+                              fit: BoxFit.cover,
+                              width: 1000.0,
+                            ),
+                            Positioned(
+                              bottom: 0.0,
+                              left: 0.0,
+                              right: 0.0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(200, 0, 0, 0),
+                                      Color.fromARGB(0, 0, 0, 0)
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                  ),
                                 ),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 20.0),
-                              child: Text(
-                                item.title ?? "",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 20.0),
+                                child: Text(
+                                  item.title ?? "",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )),
-                ))
-            .toList(),
-        carouselController: _controller,
-        options: CarouselOptions(
-            autoPlay: true,
-            enlargeCenterPage: true,
-            aspectRatio: 2.0,
-            onPageChanged: (index, reason) {
-              controller.changeTabIndex(index);
-            }),
-      );
+                          ],
+                        )),
+                  ))
+              ?.toList(),
+          carouselController: _controller,
+          options: CarouselOptions(
+              autoPlay: true,
+              enlargeCenterPage: true,
+              aspectRatio: 2.0,
+              onPageChanged: (index, reason) {
+                controller.changeTabIndex(index);
+              }),
+        );
 
-  Widget _pageIndicator({BuildContext ctx}) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:
-            controller?.state?.carouselImages?.asMap()?.entries?.map((entry) {
-          return GestureDetector(
-            onTap: () => _controller.animateToPage(entry.key),
-            child: Container(
-              width: 4.0,
-              height: 4.0,
-              margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: (Theme.of(ctx).brightness == Brightness.dark
-                          ? Palette.colorWhite
-                          : Palette.colorBlack)
-                      .withOpacity(
-                          controller.getTabIndex() == entry.key ? 0.9 : 0.4)),
-            ),
-          );
-        })?.toList(),
-      );
+  Widget _pageIndicator({BuildContext ctx}) => controller
+              ?.state?.carouselImages ==
+          null
+      ? Container()
+      : Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:
+              controller?.state?.carouselImages?.asMap()?.entries?.map((entry) {
+            return GestureDetector(
+              onTap: () => _controller.animateToPage(entry.key),
+              child: Container(
+                width: 4.0,
+                height: 4.0,
+                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (Theme.of(ctx).brightness == Brightness.dark
+                            ? Palette.colorWhite
+                            : Palette.colorBlack)
+                        .withOpacity(
+                            controller.getTabIndex() == entry.key ? 0.9 : 0.4)),
+              ),
+            );
+          })?.toList(),
+        );
 }
