@@ -16,7 +16,7 @@ class ProductListController extends SuperController<List<DataProduct>> {
   void getProductListByType(int type) {
     if (type > 0) {
       homeRepository.getProductByType(type).then((value) {
-        state?.clear();
+        state.clear();
         state.addAll(value);
       }).onError((error, stackTrace) {
         state.clear();
@@ -35,26 +35,6 @@ class ProductListController extends SuperController<List<DataProduct>> {
         state.addAll(List.empty());
       });
     }
-  }
-
-  String getProductListTitle({int type = 0, int category = 0}) {
-    var name = "";
-    if (type > 0) {
-      homeRepository.getProductTypeName(type).then((value) {
-        name = value;
-      }).onError((error, stackTrace) {
-        name = error.toString();
-      });
-    } else if (category > 0) {
-      homeRepository.getProductCategoryName(category).then((value) {
-        name = value;
-      }).onError((error, stackTrace) {
-        name = error.toString();
-      });
-    } else {
-      name = "Undefined name";
-    }
-    return name;
   }
 
   void goToProductDetail({int index}) {
