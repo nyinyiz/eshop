@@ -4,14 +4,14 @@
       {
         "id": 1,
         "image_url": "https://picsum.photos/200/300?random=",
-        "title": "New items with Free shipping",
-        "type": 1
+        "title": "Wardrobe Must haves",
+        "type": 2
       },
       {
         "id": 2,
         "image_url": "https://picsum.photos/200/300?random=",
-        "title": "BLACK FRIDAY",
-        "type": 2
+        "title": "Buy 2 Get 1 Of Them 50% OFF",
+        "type": 3
       },
       {
         "id": 3,
@@ -22,8 +22,14 @@
       {
         "id": 4,
         "image_url": "https://picsum.photos/200/300?random=",
-        "title": "SUMMER SALE",
-        "type": 3
+        "title": "PASTEL COLOR TRENDS",
+        "type": 7
+      },
+      {
+        "id": 5,
+        "image_url": "https://picsum.photos/200/300?random=",
+        "title": "New Arrivals 1000+ Styles Added Daily",
+        "type": 2
       }
     ],
     "categories": [

@@ -22,15 +22,16 @@ class ShopController extends SuperController<HomeData> {
     append(() => homeRepository.getHomeData);
   }
 
-  //GetX prevent accidental push to screen twice. Use "preventDuplicates:false" to avoid this behaviour
+  ///GetX prevent accidental push to screen twice.
+  ///Use "preventDuplicates:false" to avoid this behaviour <= this is happening on 5.0 beta version just fixed by stable version updated.
   void goToProductList({int index, int type, String title}) {
-    Get.toNamed('/home/shop/productlist?type=$type&categoryId=$index&title=$title');
+    Get.toNamed(
+        '/home/shop/productlist?type=$type&categoryId=$index&title=$title');
   }
 
   void goToProductDetail({int index}) {
     Get.toNamed('/home/shop/productdetail?id=$index');
   }
-
 
   @override
   void onReady() {

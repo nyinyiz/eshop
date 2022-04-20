@@ -335,12 +335,12 @@ class ShopScreen extends GetView<ShopController> {
             padding: EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             itemCount: listData?.length ?? 0,
-            itemBuilder: (BuildContext context, int index) =>
-                InkWell(
-                  onTap: () {
-                    controller.goToProductDetail(index: listData[index].id);
-                  },
-                child: popularProductView(ctx: context, product: listData[index]))),
+            itemBuilder: (BuildContext context, int index) => InkWell(
+                onTap: () {
+                  controller.goToProductDetail(index: listData[index].id);
+                },
+                child: popularProductView(
+                    ctx: context, product: listData[index]))),
       );
 
   Widget _buildCategories({BuildContext ctx}) => SizedBox(
@@ -387,45 +387,51 @@ class ShopScreen extends GetView<ShopController> {
       ? Container()
       : CarouselSlider(
           items: controller?.state?.carouselImages
-              ?.map((item) => Container(
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.network(
-                              item.imageUrl + item.id.toString(),
-                              fit: BoxFit.cover,
-                              width: 1000.0,
-                            ),
-                            Positioned(
-                              bottom: 0.0,
-                              left: 0.0,
-                              right: 0.0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromARGB(200, 0, 0, 0),
-                                      Color.fromARGB(0, 0, 0, 0)
-                                    ],
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
+              ?.map((item) => GestureDetector(
+                    onTap: () {
+                      controller.goToProductList(
+                          index: 0, type: item.type, title: item.title);
+                    },
+                    child: Container(
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          child: Stack(
+                            children: <Widget>[
+                              Image.network(
+                                item.imageUrl + item.id.toString(),
+                                fit: BoxFit.cover,
+                                width: 1000.0,
+                              ),
+                              Positioned(
+                                bottom: 0.0,
+                                left: 0.0,
+                                right: 0.0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color.fromARGB(200, 0, 0, 0),
+                                        Color.fromARGB(0, 0, 0, 0)
+                                      ],
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                    ),
                                   ),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 20.0),
-                                child: Text(
-                                  item.title ?? "",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 20.0),
+                                  child: Text(
+                                    item.title ?? "",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )),
+                            ],
+                          )),
+                    ),
                   ))
               ?.toList(),
           carouselController: _controller,

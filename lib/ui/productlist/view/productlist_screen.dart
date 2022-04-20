@@ -90,12 +90,14 @@ class ProductListScreen extends GetView<ProductListController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          title + " [${state?.length ?? 0}]" ?? "",
-                          style:
-                              context.toPop18SemiBoldFont(Palette.colorBlack),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+                        Expanded(
+                          child: Text(
+                            title + " [${state?.length ?? 0}]" ?? "",
+                            style:
+                                context.toPop18SemiBoldFont(Palette.colorBlack),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ),
                         IconButton(
                           icon: Icon(Icons.filter_list_outlined),
