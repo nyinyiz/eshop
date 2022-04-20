@@ -67,7 +67,7 @@ Widget saleEventView({BuildContext ctx, EventSaleList eventSaleList}) =>
       child: Card(
         semanticContainer: true,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(1.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 4,
         clipBehavior: Clip.antiAliasWithSaveLayer,

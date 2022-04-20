@@ -111,7 +111,7 @@ class ShopScreen extends GetView<ShopController> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 4.0, horizontal: 16.0),
                         child: Text(
-                          "Categories",
+                          "Category",
                           style:
                               context.toPop18SemiBoldFont(Palette.colorBlack),
                         ),
@@ -128,7 +128,7 @@ class ShopScreen extends GetView<ShopController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Popular Product",
+                              "Popular Products",
                               style: context
                                   .toPop18SemiBoldFont(Palette.colorBlack),
                             ),
@@ -143,7 +143,7 @@ class ShopScreen extends GetView<ShopController> {
                                     index: 0,
                                     type: 1,
                                     title:
-                                        "Popular Product"); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
+                                        "Popular Products"); //1 for POPULAR PRODUCT/ Actually direct value shouldn't assigned in widget.
                               },
                             ),
                           ],
@@ -165,7 +165,7 @@ class ShopScreen extends GetView<ShopController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Flash sale",
+                              "Flash sales",
                               style: context
                                   .toPop18SemiBoldFont(Palette.colorBlack),
                             ),
@@ -180,7 +180,7 @@ class ShopScreen extends GetView<ShopController> {
                                     index: 0,
                                     type: 3,
                                     title:
-                                        "Flash sale"); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
+                                        "Flash sales"); //3 for FLASH SALE PRODUCT/ Actually direct value shouldn't assigned in widget.
                               },
                             ),
                           ],
@@ -253,72 +253,77 @@ class ShopScreen extends GetView<ShopController> {
 
   _getDuration(int durationSecond) => Duration(seconds: durationSecond);
 
-  Widget _flashSaleCard({BuildContext ctx, FlashSale flashSale}) =>
-      flashSale == null
-          ? Container()
-          : Card(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              semanticContainer: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0),
-              ),
-              elevation: 16,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.network(
-                    flashSale.image ??
-                        "https://loremflickr.com/320/240?random=${Random().nextInt(10)}",
-                    fit: BoxFit.cover,
-                    height: 200,
-                    width: MediaQuery.of(ctx).size.width,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: FlutterShine(
-                      light: Light(intensity: 1),
-                      builder: (BuildContext context, ShineShadow shineShadow) {
-                        return Column(
-                          children: [
-                            Text(
-                              flashSale.eventTitle ?? "Flash sale",
-                              style: ctx.toPop32RegularFont(Palette.colorWhite),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: SlideCountdownClock(
-                                duration: _getDuration(
-                                    int.parse(flashSale.eventDuration)),
-                                slideDirection: SlideDirection.Up,
-                                separator: "-",
-                                textStyle: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                separatorTextStyle: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                ),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Palette.colorBlue,
-                                    shape: BoxShape.circle),
-                                onDone: () {
-                                  Get.snackbar("Hi", "Clock 1 finish");
-                                },
+  Widget _flashSaleCard({BuildContext ctx, FlashSale flashSale}) => flashSale ==
+          null
+      ? Container()
+      : GestureDetector(
+          onTap: () {
+            controller.goToProductList(index: 0, type: 3, title: "Flash sales");
+          },
+          child: Card(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            semanticContainer: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+            elevation: 1,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.network(
+                  flashSale.image ??
+                      "https://loremflickr.com/320/240?random=${Random().nextInt(10)}",
+                  fit: BoxFit.cover,
+                  height: 200,
+                  width: MediaQuery.of(ctx).size.width,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: FlutterShine(
+                    light: Light(intensity: 1),
+                    builder: (BuildContext context, ShineShadow shineShadow) {
+                      return Column(
+                        children: [
+                          Text(
+                            flashSale.eventTitle ?? "Flash sale",
+                            style: ctx.toPop32RegularFont(Palette.colorWhite),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: SlideCountdownClock(
+                              duration: _getDuration(
+                                  int.parse(flashSale.eventDuration)),
+                              slideDirection: SlideDirection.Up,
+                              separator: "-",
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
+                              separatorTextStyle: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Palette.colorBlue,
+                                  shape: BoxShape.circle),
+                              onDone: () {
+                                Get.snackbar("Hi", "Clock 1 finish");
+                              },
                             ),
-                          ],
-                        );
-                      },
-                    ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                ],
-              ),
-            );
+                ),
+              ],
+            ),
+          ),
+        );
 
   /* Widget _saleEventViewList({BuildContext ctx}) => SizedBox(
     height: 300,
@@ -370,7 +375,7 @@ class ShopScreen extends GetView<ShopController> {
                 title: controller.state.categories[index].name);
           },
           icon: Icon(
-            Icons.computer,
+            Icons.grid_view,
             size: 24.0,
             color: Palette.colorBlack,
           ),

@@ -444,25 +444,25 @@
       "event_sale_list": [
         {
           "id": 1,
-          "title": "NEW PRODUCT",
+          "title": "New Arrival over 100 styles added",
           "image": "https://picsum.photos/200/300?random=9",
           "type": 2
         },
         {
           "id": 2,
-          "title": "NEW ARRIVAL SPECIAL OFFER FOR APRIL",
-          "image": "https://picsum.photos/200/300?random=8",
-          "type": 2
+          "title": "Level up your look with our products",
+          "image": "https://loremflickr.com/320/240/fashion/all",
+          "type": 5
         },
         {
           "id": 3,
-          "title": "Item One",
-          "image": "https://picsum.photos/200/300?random=11",
-          "type": 3
+          "title": "Let's go to the Beach...",
+          "image": "https://loremflickr.com/320/240/beach/all",
+          "type": 6
         },
         {
           "id": 4,
-          "title": "Event Sale Item One",
+          "title": "Up To 70% OFF",
           "image": "https://loremflickr.com/320/240/headphone/all",
           "type": 3
         }
