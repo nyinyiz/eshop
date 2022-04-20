@@ -11,15 +11,12 @@ export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
 
 part 'fonts.dart';
-
 part 'palette.dart';
-
 part 'screen_size_reducer.dart';
 
 const String ADDRESS_KEY = "ADDRESSKEY";
 const String CART_KEY = "CARTKEY";
 const String ORDERED_KEY = "ORDEREDKEY";
-
 
 String getBaht() => "฿";
 

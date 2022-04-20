@@ -44,9 +44,7 @@ class ProfileScreen extends GetView<ProfileController> {
             ),
             ListTile(
               enabled: true,
-              onTap: () => {
-                controller.goToOrdersList()
-              },
+              onTap: () => {controller.goToOrdersList()},
               leading: Container(
                 child: Icon(
                   Icons.list_alt_outlined,
@@ -84,7 +82,6 @@ class ProfileScreen extends GetView<ProfileController> {
                 ),
               ),
             ),
-
             ListTile(
               enabled: true,
               onTap: () => {},

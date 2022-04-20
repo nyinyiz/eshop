@@ -16,7 +16,6 @@ class NotificationTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-
       leading: Container(
         child: Icon(
           Icons.card_travel_outlined,

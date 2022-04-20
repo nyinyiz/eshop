@@ -40,7 +40,8 @@ class ProductDetailController extends SuperController<List<DataProduct>> {
 
   String getDiscountPrice(String id) {
     final index = int.tryParse(id);
-    DataProduct product = state.where((element) => element.id == index).first ?? state.first;
+    DataProduct product =
+        state.where((element) => element.id == index).first ?? state.first;
 
     if (product.discountPercent.isBlank || product.discountPercent.isEqual(0)) {
       return product.price;

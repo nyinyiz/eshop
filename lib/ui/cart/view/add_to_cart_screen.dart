@@ -123,9 +123,7 @@ class AddToCartScreen extends GetView<AddToCartController> {
                                 ),
                                 fillColor: Colors.white10,
                                 suffixIcon: TextButton.icon(
-                                  onPressed: () {
-                                    
-                                  },
+                                  onPressed: () {},
                                   style: TextButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(

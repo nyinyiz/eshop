@@ -31,6 +31,4 @@ abstract class HomeRepository {
   Future<String> getProductTypeName(int typeId);
 
   Future<String> getProductCategoryName(int categoryId);
-
-
 }

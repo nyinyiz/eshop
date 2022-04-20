@@ -62,7 +62,6 @@ class AddressController extends SuperController<List<DataProduct>> {
     list.add(model);
 
     saveList(ADDRESS_KEY, list);
-
   }
 
   void clearAllCart() {
@@ -99,8 +98,6 @@ class AddressController extends SuperController<List<DataProduct>> {
     list.add(model);
 
     saveList(ORDERED_KEY, list);
-
-
   }
 
   void goToOrdersList() {
@@ -112,9 +109,7 @@ class AddressController extends SuperController<List<DataProduct>> {
     return state.where((element) => element.id == index)?.first ?? state.first;
   }
 
-
   String getEstimateDeliveryDate() {
-
     var today = new DateTime.now();
     var tenDaysFromNow = today.add(new Duration(days: 10));
     var fiftyDaysFromNow = today.add(new Duration(days: 15));
@@ -123,9 +118,7 @@ class AddressController extends SuperController<List<DataProduct>> {
     var fiftyDays = DateFormat("dd MMM yyyy").format(fiftyDaysFromNow);
 
     return tenDays + " - " + fiftyDays;
-
   }
-
 
   double getOrderSubTotal() {
     final data = getCartList();

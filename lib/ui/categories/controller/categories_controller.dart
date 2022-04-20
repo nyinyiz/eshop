@@ -14,7 +14,8 @@ class CategoriesController extends SuperController<HomeData> {
   }
 
   void goToProductList({int index, int type, String title}) {
-    Get.toNamed('/home/category/productlist?type=$type&categoryId=$index&title=${title}');
+    Get.toNamed(
+        '/home/category/productlist?type=$type&categoryId=$index&title=${title}');
   }
 
   @override

@@ -48,7 +48,8 @@ class NotificationScreen extends GetView<NotificationController> {
                             ),
                             SizedBox(height: 16),
                             Text(
-                              controller.state[index].description ?? "This is notification description",
+                              controller.state[index].description ??
+                                  "This is notification description",
                               style:
                                   context.toPop10RegularFont(Palette.colorGrey),
                             ),

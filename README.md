@@ -53,8 +53,8 @@ A simple flutter exercise project that present e-commerce UI and data integratio
 - Product detail page:
   - Product's photo gallery view.
   - Product's discount % and discount prices.
-  - Auto calculate for discount product. 
-  - Product's related informations and available quantity with out of stock alert.
+  - Auto calculation for discount product. 
+  - Product's related information and available quantity with out of stock alert.
   - User can post order with specific quantity.
   - Another related product list view on detail page.
 

@@ -328,13 +328,9 @@ class AddressScreen extends GetView<AddressController> {
   }
 
   void submitOrder(AddressModel addressModel) {
-
-    if(controller.getCartList() == null || controller.getCartList().isEmpty) {
-
+    if (controller.getCartList() == null || controller.getCartList().isEmpty) {
       Get.snackbar("Sorry", "You dun't have any order yet.");
-
-    }else {
-
+    } else {
       var today = new DateTime.now();
 
       var todayDate = DateFormat("dd MMM yyyy").format(today);
@@ -365,7 +361,6 @@ class AddressScreen extends GetView<AddressController> {
       controller.clearAllCart();
       controller.goToOrdersList();
     }
-
   }
 
   void _deleteConfirmDialog(BuildContext ctx) {
@@ -416,9 +411,7 @@ class AddressScreen extends GetView<AddressController> {
                         null,
                         color: Colors.black,
                       ),
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                     ),
                     Text(
                       "Order detail",

@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:eshop/common/common.dart';
-import 'package:eshop/domain/models/cart_model.dart';
 import 'package:eshop/domain/models/ordered_model.dart';
 import 'package:eshop/domain/models/product_model.dart';
 import 'package:eshop/domain/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl/intl.dart';
 
 class PlacedOrderDetailController extends SuperController<List<DataProduct>> {
   PlacedOrderDetailController({this.homeRepository});
@@ -39,7 +37,6 @@ class PlacedOrderDetailController extends SuperController<List<DataProduct>> {
     final index = int.tryParse(id);
     return state.where((element) => element.id == index)?.first ?? state.first;
   }
-
 
   @override
   void onReady() {
