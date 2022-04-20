@@ -199,17 +199,22 @@ class ShopScreen extends GetView<ShopController> {
                           shrinkWrap: true,
                           itemCount:
                               state?.eventSale?.eventSaleList?.length ?? 0,
-                          itemBuilder: (context, index) => saleEventView(
-                                ctx: context,
-                                eventSaleList:
-                                    state?.eventSale?.eventSaleList[index],
+                          itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  controller.goToProductList(
+                                      index: 0,
+                                      type: state?.eventSale
+                                          ?.eventSaleList[index].type,
+                                      title: state?.eventSale
+                                          ?.eventSaleList[index].title);
+                                },
+                                child: saleEventView(
+                                  ctx: context,
+                                  eventSaleList:
+                                      state?.eventSale?.eventSaleList[index],
+                                ),
                               )),
-                      /*
-            saleEventView(
-                ctx: context, imgURL: "https://loremflickr.com/320/240/adidas"),
-            saleEventView(
-                ctx: context, imgURL: "https://loremflickr.com/320/240/paris"),
-*/
+
                       /** Best seller product List view with title */
                       SizedBox(height: 16),
                       Padding(

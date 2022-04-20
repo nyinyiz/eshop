@@ -278,14 +278,24 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                                   " ฿${controller.getDiscountPrice(productId)}",
                               style: context
                                   .toPop32RegularFont(Palette.colorBlack)),
-                          TextSpan(
-                              text:
-                                  "  ฿${controller.getProductDetail(productId).price}",
-                              style: context
-                                  .toPop14RegularFont(
-                                      Palette.colorDeepOrangeAccent)
-                                  .copyWith(
-                                      decoration: TextDecoration.lineThrough)),
+                          (controller
+                                          .getProductDetail(productId)
+                                          ?.discountPercent ==
+                                      0 ||
+                                  controller
+                                          .getProductDetail(productId)
+                                          ?.discountPercent ==
+                                      null)
+                              ? TextSpan()
+                              : TextSpan(
+                                  text:
+                                      "  ฿${controller.getProductDetail(productId).price}",
+                                  style: context
+                                      .toPop14RegularFont(
+                                          Palette.colorDeepOrangeAccent)
+                                      .copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough)),
                         ],
                       ),
                     ),
