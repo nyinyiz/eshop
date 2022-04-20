@@ -104,93 +104,98 @@ class PlacedOrdersScreen extends GetView<PlacedOrdersController> {
           ),
           elevation: 1,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Order #" + controller.state[index].id ?? "#",
-                    style: context.toPop10RegularFont(Palette.colorGrey)),
-                SizedBox(
-                  height: 8,
-                ),
-                Text("Placed on " + controller.state[index].placedTime ?? "",
-                    style: context.toPop12RegularFont(Palette.colorBlack)),
-                Divider(),
-                Wrap(children: [
-                  Text("Order status : ",
-                      style: context.toPop12RegularFont(Palette.colorBlack)),
+          child: InkWell(
+            onTap: () {
+              controller.goToPlacedOrdersDetail(controller.state[index]?.id);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Order #" + controller.state[index].id ?? "#",
+                      style: context.toPop10RegularFont(Palette.colorGrey)),
                   SizedBox(
-                    width: 16,
+                    height: 8,
                   ),
-                  Text("Processing",
-                      style: context
-                          .toPop12RegularFont(Palette.colorGreen)
-                          .copyWith(fontWeight: FontWeight.bold)),
-                ]),
-                SizedBox(
-                  height: 8,
-                ),
-                Wrap(children: [
-                  Text("Estimated delivery date : ",
+                  Text("Placed on " + controller.state[index].placedTime ?? "",
                       style: context.toPop12RegularFont(Palette.colorBlack)),
+                  Divider(),
+                  Wrap(children: [
+                    Text("Order status : ",
+                        style: context.toPop12RegularFont(Palette.colorBlack)),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text("Processing",
+                        style: context
+                            .toPop12RegularFont(Palette.colorGreen)
+                            .copyWith(fontWeight: FontWeight.bold)),
+                  ]),
                   SizedBox(
-                    width: 16,
+                    height: 8,
                   ),
-                  Text(controller.state[index].estimateDeliveryDate ?? "",
-                      style: context
-                          .toPop12RegularFont(Palette.colorBlack)
-                          .copyWith(fontWeight: FontWeight.bold)),
-                ]),
-                SizedBox(
-                  height: 8,
-                ),
-                Wrap(children: [
-                  Text("Total product : ",
-                      style: context.toPop12RegularFont(Palette.colorBlack)),
+                  Wrap(children: [
+                    Text("Estimated delivery date : ",
+                        style: context.toPop12RegularFont(Palette.colorBlack)),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text(controller.state[index].estimateDeliveryDate ?? "",
+                        style: context
+                            .toPop12RegularFont(Palette.colorBlack)
+                            .copyWith(fontWeight: FontWeight.bold)),
+                  ]),
                   SizedBox(
-                    width: 16,
+                    height: 8,
                   ),
-                  Text(
-                      controller.state[index].cartModel.length.toString() +
-                              " items" ??
-                          "0 items",
-                      style: context
-                          .toPop12RegularFont(Palette.colorBlack)
-                          .copyWith(fontWeight: FontWeight.bold)),
-                ]),
-                SizedBox(
-                  height: 8,
-                ),
-                Wrap(children: [
-                  Text("ShippingFee : ",
-                      style: context.toPop12RegularFont(Palette.colorBlack)),
+                  Wrap(children: [
+                    Text("Total product : ",
+                        style: context.toPop12RegularFont(Palette.colorBlack)),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                        controller.state[index].cartModel.length.toString() +
+                                " items" ??
+                            "0 items",
+                        style: context
+                            .toPop12RegularFont(Palette.colorBlack)
+                            .copyWith(fontWeight: FontWeight.bold)),
+                  ]),
                   SizedBox(
-                    width: 16,
+                    height: 8,
                   ),
-                  Text("Free",
-                      style: context
-                          .toPop12RegularFont(Palette.colorBlack)
-                          .copyWith(fontWeight: FontWeight.bold)),
-                ]),
-                SizedBox(
-                  height: 8,
-                ),
-                Wrap(children: [
-                  Text("Total amount (include of VAT) : ",
-                      style: context.toPop12RegularFont(Palette.colorBlack)),
+                  Wrap(children: [
+                    Text("ShippingFee : ",
+                        style: context.toPop12RegularFont(Palette.colorBlack)),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text("Free",
+                        style: context
+                            .toPop12RegularFont(Palette.colorBlack)
+                            .copyWith(fontWeight: FontWeight.bold)),
+                  ]),
                   SizedBox(
-                    width: 16,
+                    height: 8,
                   ),
-                  Text(
-                      getBaht() + controller.state[index].totalPrice ??
-                          "${getBaht()}0",
-                      style: context
-                          .toPop12RegularFont(Palette.colorBlack)
-                          .copyWith(fontWeight: FontWeight.bold)),
-                ]),
-              ],
+                  Wrap(children: [
+                    Text("Total amount (include of VAT) : ",
+                        style: context.toPop12RegularFont(Palette.colorBlack)),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                        getBaht() + controller.state[index].totalPrice ??
+                            "${getBaht()}0",
+                        style: context
+                            .toPop12RegularFont(Palette.colorBlack)
+                            .copyWith(fontWeight: FontWeight.bold)),
+                  ]),
+                ],
+              ),
             ),
           ),
         ),

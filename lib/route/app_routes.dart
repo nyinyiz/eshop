@@ -13,4 +13,5 @@ abstract class Routes {
   static const ADDRESSES = "/addresses";
   static const ORDERRETURN = "/orderreturn";
   static const PLACEDORDERS = "/placedorders";
+  static const PLACEDORDERSDETAIL = "/placeorderdetail";
 }

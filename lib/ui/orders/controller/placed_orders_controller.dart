@@ -29,6 +29,10 @@ class PlacedOrdersController extends SuperController<List<OrderedItem>> {
     append(() => homeRepository.getOrderedList);
   }
 
+  void goToPlacedOrdersDetail(String orderId) {
+    Get.toNamed('/home/profile/placedorders/placeorderdetail?id=${orderId}');
+  }
+
   @override
   void onClose() {
     print('onClose called');

@@ -8,6 +8,7 @@ import 'package:eshop/ui/home/controller/home_controller.dart';
 import 'package:eshop/ui/notification/controller/notification_controller.dart';
 import 'package:eshop/ui/orderReturn/controller/order_return_controller.dart';
 import 'package:eshop/ui/orders/controller/placed_orders_controller.dart';
+import 'package:eshop/ui/placedOrderDetail/controller/placed_order_detail_controller.dart';
 import 'package:eshop/ui/productDetail/controller/product_detail_controller.dart';
 import 'package:eshop/ui/productlist/controller/productlist_controller.dart';
 import 'package:eshop/ui/profile/controller/profile_controller.dart';
@@ -32,5 +33,6 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => AddressController(homeRepository: Get.find()));
     Get.lazyPut(() => OrderReturnController(homeRepository: Get.find()));
     Get.lazyPut(() => PlacedOrdersController(homeRepository: Get.find()));
+    Get.lazyPut(() => PlacedOrderDetailController(homeRepository: Get.find()));
   }
 }

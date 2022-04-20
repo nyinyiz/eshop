@@ -6,6 +6,7 @@ import 'package:eshop/ui/home/view/home_screen.dart';
 import 'package:eshop/ui/notification/view/notification_screen.dart';
 import 'package:eshop/ui/orderReturn/view/order_return_screen.dart';
 import 'package:eshop/ui/orders/view/placed_orders_screen.dart';
+import 'package:eshop/ui/placedOrderDetail/view/placed_order_detail_screen.dart';
 import 'package:eshop/ui/productDetail/view/product_detail_screen.dart';
 import 'package:eshop/ui/productlist/view/productlist_screen.dart';
 import 'package:eshop/ui/profile/view/profile_screen.dart';
@@ -83,7 +84,13 @@ class AppPages {
               GetPage(
                   name: Routes.PLACEDORDERS,
                   page: () => PlacedOrdersScreen(),
-                  binding: HomeBinding())
+                  binding: HomeBinding(),
+                  children: [
+                    GetPage(
+                        name: Routes.PLACEDORDERSDETAIL,
+                        page: () => PlacedOrderDetailScreen(),
+                        binding: HomeBinding())
+                  ])
             ]),
         GetPage(
             name: Routes.CART,

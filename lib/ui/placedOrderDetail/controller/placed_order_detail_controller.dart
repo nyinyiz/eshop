@@ -1,17 +1,45 @@
-import 'package:eshop/domain/models/ordered_model.dart';
-import 'package:eshop/domain/repository/home_repository.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'dart:convert';
 
-class PlacedOrderDetailController extends SuperController<List<OrderedItem>> {
+import 'package:eshop/common/common.dart';
+import 'package:eshop/domain/models/cart_model.dart';
+import 'package:eshop/domain/models/ordered_model.dart';
+import 'package:eshop/domain/models/product_model.dart';
+import 'package:eshop/domain/repository/home_repository.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
+
+class PlacedOrderDetailController extends SuperController<List<DataProduct>> {
   PlacedOrderDetailController({this.homeRepository});
 
   final HomeRepository homeRepository;
 
+  final box = GetStorage();
+
   @override
   void onInit() {
     super.onInit();
-    append(() => homeRepository.getOrderedList);
+    append(() => homeRepository.getAllProductList);
   }
+
+  List<OrderedItem> getOrderedList() {
+    if (readList(ORDERED_KEY) != null) {
+      final data = jsonDecode(readList(ORDERED_KEY)) as List<dynamic>;
+      return data.map((e) => OrderedItem.fromJson(e)).toList();
+    } else {
+      return List.empty();
+    }
+  }
+
+  OrderedItem getOrderDetail(String orderId) {
+    return getOrderedList().where((element) => element.id == orderId)?.first;
+  }
+
+  DataProduct getProductDetail(String id) {
+    final index = int.tryParse(id);
+    return state.where((element) => element.id == index)?.first ?? state.first;
+  }
+
 
   @override
   void onReady() {
