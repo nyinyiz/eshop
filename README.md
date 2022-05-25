@@ -9,6 +9,16 @@ A simple flutter exercise project that present e-commerce UI and data integratio
 </p>
 
 
+## 📸 Preview
+
+<p align="center">
+
+https://user-images.githubusercontent.com/24582355/170189539-9871db0a-bd10-45bd-a117-2f7d30e00e91.mp4
+
+</p>
+
+
+
 
 ## Requirements
 - Any Operating System (ie. MacOS X, Linux, Windows)
